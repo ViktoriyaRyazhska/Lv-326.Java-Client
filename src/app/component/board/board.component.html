@@ -26,6 +26,11 @@
 
 
         </div>
+        <div class="list-tickets" *ngFor="let ticket of list.ticketForBoardResponseDtos">
+          <div class="ticket">
+            <p align="center">{{ticket.name}}</p>
+          </div>
+        </div>
       </div>
     </div>
 

@@ -1,3 +1,5 @@
+import {Ticket} from './Ticket';
+
 export class List {
   id: number;
   name: string;
@@ -5,6 +7,8 @@ export class List {
   updateTime: string;
   sequenceNumber: number;
   boardId: number;
+
+  ticketForBoardResponseDtos: Ticket[];
 
   // dont ask why
   isEditListNameInProgress = false;

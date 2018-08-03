@@ -23,17 +23,18 @@ export class BoardComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getInitBoard();
+    if ( +this.route.snapshot.paramMap.get('id')) {
+      this.getRouteBoard();
+    }
   }
 
-  getInitBoard() {
+  getRouteBoard() {
     const id = +this.route.snapshot.paramMap.get('id');
     this.getBoard(id);
   }
 
   getBoard(id: number) {
     this.boardService.getBoard(id).subscribe(board => {
-      console.log(board);
       this.currentBoard = board;
     });
   }
@@ -53,7 +54,8 @@ export class BoardComponent implements OnInit {
       updateTime: null,
       sequenceNumber: null,
       boardId: null,
-      isEditListNameInProgress: false
+      isEditListNameInProgress: false,
+      ticketForBoardResponseDtos: []
     };
   }
 
@@ -68,7 +70,7 @@ export class BoardComponent implements OnInit {
   deleteList(list: List) {
     const number = this.currentBoard.tableListDtoList.indexOf(list);
     this.boardService.deleteList(list.id).subscribe();
-    this.currentBoard.tableListDtoList.splice(number);
+    this.currentBoard.tableListDtoList.splice(number, 1);
   }
 
   editList(list: List, newName: string) {
