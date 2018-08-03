@@ -1,0 +1,84 @@
+.list-wrapper {
+  width: 272px;
+  margin: 0 4px;
+  height: 100%;
+  box-sizing: border-box;
+  display: inline-block;
+  vertical-align: top;
+  white-space: nowrap;
+}
+
+* {
+  font-size: 20px;
+}
+
+.board {
+  user-select: none;
+  white-space: nowrap;
+  margin-bottom: 8px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-bottom: 8px;
+  position: absolute;
+  top: 100px;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.addListButton {
+  background: #e2e4e6;
+  border-radius: 3px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  max-height: 100%;
+  position: relative;
+  white-space: normal;
+}
+
+.newListTextfield {
+  margin: 3px;
+}
+
+.addListButtons {
+  float: left;
+  width: 50px;
+  margin: 3px;
+
+}
+
+.back {
+  width: 60px;
+}
+
+.list {
+  background: #e2e4e6;
+  border-radius: 3px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  max-height: 100%;
+  position: relative;
+  white-space: normal;
+}
+
+.options {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 15px;
+}
+
+.options-text {
+  text-decoration: none;
+  color: cadetblue;
+}
+
+.editField{
+  width: 100px;
+}
+
+.editButton{
+  width: 50px;
+}
