@@ -23,7 +23,6 @@ export class BoardService {
 
   getBoard(id: number): Observable<Board> {
     const url = `${this.simpleUrl}${id}`;
-    console.log(url);
     return this.http.get<Board>(url);
   }
 
@@ -34,7 +33,6 @@ export class BoardService {
 
   deleteList(id: number): Observable<List> {
     const url = `/api/lists/${id}`;
-    console.log(url);
     return this.http.delete<List>(url, httpOptions);
   }
 

@@ -73,6 +73,7 @@
 .options-text {
   text-decoration: none;
   color: cadetblue;
+  margin: 3px;
 }
 
 .editField{
@@ -82,3 +83,11 @@
 .editButton{
   width: 50px;
 }
+
+.ticket {
+  border-radius: 3px;
+  background-color: white;
+  width: 250px;
+  margin: 10px;
+}
+
