@@ -1,0 +1,48 @@
+<input type="text" #textField><button (click)="getBoard(textField.value)">OK</button>
+
+<div *ngIf="currentBoard">
+  <p align="center">{{currentBoard.name | uppercase}}</p>
+
+  <div class="board">
+
+    <div *ngFor="let list of currentBoard.tableListDtoList" class="list-wrapper">
+      <div class="list">
+        <div class="list-header">
+          <div *ngIf="!list.isEditListNameInProgress">
+            <p align="center">{{list.name}}</p>
+            <div class="options">
+              <a (click)="setEditableListName(list)" class="options-text">Edit</a>
+              <a (click)="deleteList(list)" class="options-text">Delete</a>
+            </div>
+          </div>
+
+          <div *ngIf="list.isEditListNameInProgress">
+            <p>
+              <input #editValue type="text" value="{{list.name}}" class="editField">
+              <button (click)="editList(list, editValue.value)" class="editButton">Set</button>
+              <button (click)="setEditableListName(list)" class="back">Back</button>
+            </p>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="!isAddListButtonClicked" class="list-wrapper">
+      <a (click)="changeButtonClick()"><div class="addList addListButton"><p align="center">Add List</p></div></a>
+    </div>
+
+    <div *ngIf="isAddListButtonClicked" class="list-wrapper">
+      <div class="createList addListButton">
+        <input type="text" #enteredName class="newListTextfield">
+        <div class="buttons">
+          <button (click)="addList(enteredName.value)" class="addListButtons">Add</button>
+          <button class="back addListButtons" (click)="changeButtonClick()">Back</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
