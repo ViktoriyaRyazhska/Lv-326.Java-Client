@@ -1,7 +1,16 @@
-<input type="text" #textField><button (click)="getBoard(textField.value)">OK</button>
-
 <div *ngIf="currentBoard">
-  <p align="center">{{currentBoard.name | uppercase}}</p>
+
+  <div *ngIf="!isEditBoardClicked">
+    <p align="center"><span class="boardName">{{currentBoard.name}}</span>
+      <a (click)="editBoardClick()" class="editBoardButton">Edit</a></p>
+  </div>
+  <div *ngIf="isEditBoardClicked">
+    <p align="center">
+      <input #nameField type="text" value="{{currentBoard.name}}">
+      <button (click)="editBoard(nameField.value)" class="editButton">Set</button>
+      <button (click)="editBoardClick()" class="back">Back</button>
+    </p>
+  </div>
 
   <div class="board">
 
@@ -26,16 +35,35 @@
 
 
         </div>
-        <div class="list-tickets" *ngFor="let ticket of list.ticketForBoardResponseDtos">
-          <div class="ticket">
-            <p align="center">{{ticket.name}}</p>
+        <div class="ticket-list-wrapper">
+          <div class="list-tickets" *ngFor="let ticket of list.ticketForBoardResponseDtos">
+            <div class="ticket">
+              <p align="center">{{ticket.name}}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="list-footer">
+          <div *ngIf="!list.isAddNewTicketClicked">
+            <p align="center">
+              <a (click)="clickAddNewTicket(list)">Add new ticket</a>
+            </p>
+          </div>
+          <div *ngIf="list.isAddNewTicketClicked">
+             <p align="center">
+               <input type="text" #createTicketField class="createTicketField">
+               <button (click)="addNewTicket(createTicketField.value, list)">Add</button>
+               <button (click)="clickAddNewTicket(list)">Back</button>
+             </p>
           </div>
         </div>
       </div>
     </div>
 
     <div *ngIf="!isAddListButtonClicked" class="list-wrapper">
-      <a (click)="changeButtonClick()"><div class="addList addListButton"><p align="center">Add List</p></div></a>
+      <a (click)="changeButtonClick()">
+        <div class="addList addListButton"><p align="center">Add List</p></div>
+      </a>
     </div>
 
     <div *ngIf="isAddListButtonClicked" class="list-wrapper">

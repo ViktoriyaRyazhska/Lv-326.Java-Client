@@ -3,6 +3,7 @@ import {BoardService} from '../../service/board/board.service';
 import {Board} from '../../entity/Board';
 import {List} from '../../entity/List';
 import {ActivatedRoute} from '@angular/router';
+import {Ticket} from '../../entity/Ticket';
 
 
 @Component({
@@ -16,14 +17,18 @@ export class BoardComponent implements OnInit {
 
   addedList: List;
 
+  addedTicket: Ticket;
+
   isAddListButtonClicked = false;
+
+  isEditBoardClicked = false;
 
   constructor(private boardService: BoardService,
               private route: ActivatedRoute) {
   }
 
   ngOnInit() {
-    if ( +this.route.snapshot.paramMap.get('id')) {
+    if (+this.route.snapshot.paramMap.get('id')) {
       this.getRouteBoard();
     }
   }
@@ -55,6 +60,7 @@ export class BoardComponent implements OnInit {
       sequenceNumber: null,
       boardId: null,
       isEditListNameInProgress: false,
+      isAddNewTicketClicked: false,
       ticketForBoardResponseDtos: []
     };
   }
@@ -68,9 +74,11 @@ export class BoardComponent implements OnInit {
   }
 
   deleteList(list: List) {
-    const number = this.currentBoard.tableListDtoList.indexOf(list);
-    this.boardService.deleteList(list.id).subscribe();
-    this.currentBoard.tableListDtoList.splice(number, 1);
+    if (confirm(`Delete list ${list.name}`)) {
+      const number = this.currentBoard.tableListDtoList.indexOf(list);
+      this.boardService.deleteList(list.id).subscribe();
+      this.currentBoard.tableListDtoList.splice(number, 1);
+    }
   }
 
   editList(list: List, newName: string) {
@@ -82,10 +90,48 @@ export class BoardComponent implements OnInit {
 
   setEditableListName(list: List) {
     const id = this.currentBoard.tableListDtoList.indexOf(list);
-    console.log(id);
-    console.log(this.currentBoard.tableListDtoList[id]);
     this.currentBoard.tableListDtoList[id].isEditListNameInProgress
-      = (this.currentBoard.tableListDtoList[id].isEditListNameInProgress) ? false : true;
+      = (!this.currentBoard.tableListDtoList[id].isEditListNameInProgress);
+  }
+
+  editBoard(newName: string) {
+    this.currentBoard.name = newName;
+    this.boardService.editBoard(newName, this.currentBoard).subscribe();
+    this.editBoardClick();
+  }
+
+  editBoardClick() {
+    this.isEditBoardClicked = (!this.isEditBoardClicked);
+  }
+
+  addNewTicket(ticketName: string, list: List) {
+    this.configureTicket(ticketName, list);
+    const id = this.currentBoard.tableListDtoList.indexOf(list);
+    this.boardService.addTicket(this.addedTicket)
+      .subscribe(ticket => this.currentBoard.tableListDtoList[id].ticketForBoardResponseDtos.push(ticket));
+    this.clickAddNewTicket(list);
+    location.reload();
+  }
+
+  clickAddNewTicket(list: List) {
+    const id = this.currentBoard.tableListDtoList.indexOf(list);
+    this.currentBoard.tableListDtoList[id].isAddNewTicketClicked
+      = (!this.currentBoard.tableListDtoList[id].isAddNewTicketClicked);
+  }
+
+  configureTicket(ticketName: string, list: List) {
+    this.addedTicket = {
+      id: null,
+      createTime: null,
+      updateTime: null,
+      name: ticketName,
+      priority: null,
+      ticketIssueType: null,
+      assignedTo: null,
+      expirationDate: null,
+      tableListId: list.id,
+      boardId: this.currentBoard.id
+    };
   }
 
 }

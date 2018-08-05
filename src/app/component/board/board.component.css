@@ -74,10 +74,11 @@
   text-decoration: none;
   color: cadetblue;
   margin: 3px;
+  cursor: pointer;
 }
 
 .editField{
-  width: 100px;
+  width: 220px;
 }
 
 .editButton{
@@ -91,3 +92,39 @@
   margin: 10px;
 }
 
+.editBoardButton {
+  text-decoration: none;
+  color: cadetblue;
+  margin: 3px;
+  cursor: pointer;
+}
+
+.boardName {
+  font-size: 30px;
+  padding: 10px;
+}
+
+.ticket-list-wrapper {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 0 4px;
+  z-index: 1;
+  min-height: 0;
+}
+
+.list-tickets {
+  background-color: #fff;
+  border-radius: 3px;
+  box-shadow: 0 1px 0 #ccc;
+  cursor: pointer;
+  display: block;
+  margin-bottom: 8px;
+  max-width: 300px;
+  min-height: 20px;
+  position: relative;
+  text-decoration: none;
+  z-index: 0;
+  overflow: hidden;
+  word-wrap: break-word;
+}

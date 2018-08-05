@@ -7,4 +7,6 @@ export class Ticket {
   ticketIssueType: string;
   assignedTo: string;
   expirationDate: string;
+  tableListId: number;
+  boardId: number;
 }
