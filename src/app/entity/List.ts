@@ -12,6 +12,7 @@ export class List {
 
   // dont ask why
   isEditListNameInProgress = false;
+  isAddNewTicketClicked = false;
 
   constructor() {
   }
