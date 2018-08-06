@@ -66,11 +66,7 @@ export class BoardComponent implements OnInit {
   }
 
   changeButtonClick() {
-    if (this.isAddListButtonClicked) {
-      this.isAddListButtonClicked = false;
-    } else {
-      this.isAddListButtonClicked = true;
-    }
+    this.isAddListButtonClicked = !this.isAddListButtonClicked;
   }
 
   deleteList(list: List) {
@@ -110,7 +106,6 @@ export class BoardComponent implements OnInit {
     this.boardService.addTicket(this.addedTicket)
       .subscribe(ticket => this.currentBoard.tableListDtoList[id].ticketForBoardResponseDtos.push(ticket));
     this.clickAddNewTicket(list);
-    location.reload();
   }
 
   clickAddNewTicket(list: List) {
