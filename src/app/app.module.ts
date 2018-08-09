@@ -12,8 +12,7 @@ import {E} from '@angular/core/src/render3';
 
 const routes: Routes = [
   { path: 'board/:id', component: BoardComponent},
-  { path: 'enterToken', component: EnterTokenComponent},
-  { path: '', redirectTo: 'enterToken'},
+  { path: 'enterToken', component: EnterTokenComponent}
 ];
 
 @NgModule({
