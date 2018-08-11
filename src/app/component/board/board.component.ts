@@ -47,7 +47,7 @@ export class BoardComponent implements OnInit {
   addList(listName: string) {
     this.configureList(listName);
     this.boardService.addList(this.currentBoard.id, this.addedList)
-      .subscribe(list => this.currentBoard.tableListDtoList.push(list));
+      .subscribe(list => this.currentBoard.tableLists.push(list));
     this.isAddListButtonClicked = false;
   }
 
@@ -61,7 +61,7 @@ export class BoardComponent implements OnInit {
       boardId: null,
       isEditListNameInProgress: false,
       isAddNewTicketClicked: false,
-      ticketForBoardResponseDtos: []
+      ticketsForBoardResponse: []
     };
   }
 
@@ -71,23 +71,23 @@ export class BoardComponent implements OnInit {
 
   deleteList(list: List) {
     if (confirm(`Delete list ${list.name}`)) {
-      const number = this.currentBoard.tableListDtoList.indexOf(list);
+      const number = this.currentBoard.tableLists.indexOf(list);
       this.boardService.deleteList(list.id).subscribe();
-      this.currentBoard.tableListDtoList.splice(number, 1);
+      this.currentBoard.tableLists.splice(number, 1);
     }
   }
 
   editList(list: List, newName: string) {
     list.name = newName;
     this.boardService.editList(list).subscribe(updatedList =>
-      this.currentBoard.tableListDtoList[this.currentBoard.tableListDtoList.indexOf(list)] = updatedList);
+      this.currentBoard.tableLists[this.currentBoard.tableLists.indexOf(list)] = updatedList);
     this.setEditableListName(list);
   }
 
   setEditableListName(list: List) {
-    const id = this.currentBoard.tableListDtoList.indexOf(list);
-    this.currentBoard.tableListDtoList[id].isEditListNameInProgress
-      = (!this.currentBoard.tableListDtoList[id].isEditListNameInProgress);
+    const id = this.currentBoard.tableLists.indexOf(list);
+    this.currentBoard.tableLists[id].isEditListNameInProgress
+      = (!this.currentBoard.tableLists[id].isEditListNameInProgress);
   }
 
   editBoard(newName: string) {
@@ -102,16 +102,16 @@ export class BoardComponent implements OnInit {
 
   addNewTicket(ticketName: string, list: List) {
     this.configureTicket(ticketName, list);
-    const id = this.currentBoard.tableListDtoList.indexOf(list);
+    const id = this.currentBoard.tableLists.indexOf(list);
     this.boardService.addTicket(this.addedTicket)
-      .subscribe(ticket => this.currentBoard.tableListDtoList[id].ticketForBoardResponseDtos.push(ticket));
+      .subscribe(ticket => this.currentBoard.tableLists[id].ticketsForBoardResponse.push(ticket));
     this.clickAddNewTicket(list);
   }
 
   clickAddNewTicket(list: List) {
-    const id = this.currentBoard.tableListDtoList.indexOf(list);
-    this.currentBoard.tableListDtoList[id].isAddNewTicketClicked
-      = (!this.currentBoard.tableListDtoList[id].isAddNewTicketClicked);
+    const id = this.currentBoard.tableLists.indexOf(list);
+    this.currentBoard.tableLists[id].isAddNewTicketClicked
+      = (!this.currentBoard.tableLists[id].isAddNewTicketClicked);
   }
 
   configureTicket(ticketName: string, list: List) {
@@ -125,7 +125,9 @@ export class BoardComponent implements OnInit {
       assignedTo: null,
       expirationDate: null,
       tableListId: list.id,
-      boardId: this.currentBoard.id
+      boardId: this.currentBoard.id,
+      createdById: null,
+      sprintId: null
     };
   }
 

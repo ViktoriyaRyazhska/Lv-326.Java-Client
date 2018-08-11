@@ -9,4 +9,6 @@ export class Ticket {
   expirationDate: string;
   tableListId: number;
   boardId: number;
+  createdById: number;
+  sprintId: number;
 }

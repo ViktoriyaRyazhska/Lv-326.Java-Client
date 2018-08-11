@@ -8,7 +8,7 @@ export class List {
   sequenceNumber: number;
   boardId: number;
 
-  ticketForBoardResponseDtos: Ticket[];
+  ticketsForBoardResponse: Ticket[];
 
   // dont ask why
   isEditListNameInProgress = false;
