@@ -14,7 +14,7 @@
 
   <div class="board">
 
-    <div *ngFor="let list of currentBoard.tableLists" class="list-wrapper">
+    <div *ngFor="let list of currentBoard.tableLists" class="list-wrapper" id="list{{list.id}}">
       <div class="list">
         <div class="list-header">
           <div *ngIf="!list.isEditListNameInProgress">
@@ -35,11 +35,9 @@
 
 
         </div>
-        <div class="ticket-list-wrapper">
-          <div class="list-tickets" *ngFor="let ticket of list.ticketsForBoardResponse">
-            <div class="ticket">
-              <p align="center">{{ticket.name}}</p>
-            </div>
+        <div class="ticket-list-wrapper" dragula="TICKETS">
+          <div class="list-tickets" *ngFor="let ticket of list.ticketsForBoardResponse" id="{{ticket.id}}">
+            <span class="ticket-name">{{ticket.name}}</span>
           </div>
         </div>
 

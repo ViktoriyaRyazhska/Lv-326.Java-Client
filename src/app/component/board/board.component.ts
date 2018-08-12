@@ -4,6 +4,8 @@ import {Board} from '../../entity/Board';
 import {List} from '../../entity/List';
 import {ActivatedRoute} from '@angular/router';
 import {Ticket} from '../../entity/Ticket';
+import {DragulaService} from 'ng2-dragula';
+import {Subscription} from 'rxjs';
 
 
 @Component({
@@ -23,8 +25,24 @@ export class BoardComponent implements OnInit {
 
   isEditBoardClicked = false;
 
+  subs = new Subscription();
+
   constructor(private boardService: BoardService,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private dragulaService: DragulaService) {
+    dragulaService.createGroup('TICKETS', {
+      revertOnSpill: true
+    });
+    this.subs.add(dragulaService.drop('TICKETS')
+      .subscribe(({el, source, target}) => {
+        const listId = target.parentElement.parentElement.getAttribute('id');
+        // do not delete me, I wait drag and drop logic on server
+        console.log('ticketId - ' + el.getAttribute('id'));
+        console.log('listId - ' + listId.substring(4, listId.length));
+        console.log('sequence number - ' + [].slice.call(el.parentElement.children).indexOf(el));
+        console.log('boardId - ' + this.currentBoard.id);
+      })
+    );
   }
 
   ngOnInit() {

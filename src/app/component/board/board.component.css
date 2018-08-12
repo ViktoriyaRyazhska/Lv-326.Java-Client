@@ -128,3 +128,7 @@
   overflow: hidden;
   word-wrap: break-word;
 }
+
+.ticket-name {
+  text-align: center;
+}
