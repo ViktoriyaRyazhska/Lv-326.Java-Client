@@ -45,6 +45,14 @@ export class BoardComponent implements OnInit {
     );
   }
 
+  openHistorySidenav() {
+    document.getElementById('sidenav-history').style.width = '25%';
+  }
+
+  closeNav() {
+    document.getElementById('sidenav-history').style.width = '0';
+  }
+
   ngOnInit() {
     if (+this.route.snapshot.paramMap.get('id')) {
       this.getRouteBoard();

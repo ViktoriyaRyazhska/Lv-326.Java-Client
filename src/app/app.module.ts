@@ -8,7 +8,6 @@ import { AppRoutingModule } from './module/routing/app-routing.module';
 import {RouterModule, Routes} from '@angular/router';
 import { ListComponent } from './component/list/list.component';
 import { EnterTokenComponent } from './component/enter-token/enter-token.component';
-import {E} from '@angular/core/src/render3';
 import {DragulaModule, DragulaService} from 'ng2-dragula';
 
 const routes: Routes = [
