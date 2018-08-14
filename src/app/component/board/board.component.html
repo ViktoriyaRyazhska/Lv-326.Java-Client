@@ -13,7 +13,7 @@
   </div>
 
   <div class="board">
-
+      <app-ticket [ticketDto]="ticketDto"></app-ticket>
     <div *ngFor="let list of currentBoard.tableLists" class="list-wrapper">
       <div class="list">
         <div class="list-header">
@@ -36,7 +36,8 @@
 
         </div>
         <div class="ticket-list-wrapper">
-          <div class="list-tickets" *ngFor="let ticket of list.ticketsForBoardResponse">
+          <div class="list-tickets" *ngFor="let ticket of list.ticketsForBoardResponse"
+               (click)="getTicket(ticket.id)">
             <div class="ticket">
               <p align="center">{{ticket.name}}</p>
             </div>
@@ -50,11 +51,11 @@
             </p>
           </div>
           <div *ngIf="list.isAddNewTicketClicked">
-             <p align="center">
-               <input type="text" #createTicketField class="createTicketField">
-               <button (click)="addNewTicket(createTicketField.value, list)">Add</button>
-               <button (click)="clickAddNewTicket(list)">Back</button>
-             </p>
+            <p align="center">
+              <input type="text" #createTicketField class="createTicketField">
+              <button (click)="addNewTicket(createTicketField.value, list)">Add</button>
+              <button (click)="clickAddNewTicket(list)">Back</button>
+            </p>
           </div>
         </div>
       </div>
@@ -75,7 +76,6 @@
         </div>
       </div>
     </div>
-
   </div>
-
 </div>
+

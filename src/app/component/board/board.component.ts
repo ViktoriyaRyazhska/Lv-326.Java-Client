@@ -4,6 +4,9 @@ import {Board} from '../../entity/Board';
 import {List} from '../../entity/List';
 import {ActivatedRoute} from '@angular/router';
 import {Ticket} from '../../entity/Ticket';
+import {TicketService} from '../../service/ticket/ticket.service';
+import {TicketDto} from '../../entity/TicketDto';
+import {TicketComponent} from '../ticket/ticket.component';
 
 
 @Component({
@@ -19,12 +22,14 @@ export class BoardComponent implements OnInit {
 
   addedTicket: Ticket;
 
+  ticketDto: TicketDto;
+
   isAddListButtonClicked = false;
 
   isEditBoardClicked = false;
 
   constructor(private boardService: BoardService,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute, private ticketService: TicketService, private bla: TicketService) {
   }
 
   ngOnInit() {
@@ -36,6 +41,13 @@ export class BoardComponent implements OnInit {
   getRouteBoard() {
     const id = +this.route.snapshot.paramMap.get('id');
     this.getBoard(id);
+  }
+
+  getTicket(ticketId: number) {
+    this.ticketService.openForm();
+    this.ticketService.getTicket(ticketId).subscribe(ticket => {
+      this.ticketDto = ticket;
+    });
   }
 
   getBoard(id: number) {
