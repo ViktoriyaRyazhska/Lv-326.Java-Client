@@ -128,3 +128,46 @@
   overflow: hidden;
   word-wrap: break-word;
 }
+
+.ticket-name {
+  text-align: center;
+}
+
+#sidenav-history {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 100000;
+  top: 0;
+  right: 0;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+  background-color: #edeff0;
+}
+
+.closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+  text-decoration: none;
+  color: black;
+}
+
+.open-history-button {
+  float: right;
+}
+
+.log {
+  margin: 10px;
+  background-color: white;
+  border-radius: 5px;
+}
+
+.logs-wrapper {
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding-bottom: 60px;
+}

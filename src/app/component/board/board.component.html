@@ -1,8 +1,23 @@
+<div id="sidenav-history">
+  <a href="javascript:void(0)" class="closebtn" (click)="closeNav()">&times;</a>
+  <p align="center">History</p>
+  <hr>
+  <div class="logs-wrapper">
+    <div *ngFor="let log of currentBoard.logs" class="log">
+      <span style="float: left">{{log.username}}</span><span style="float: right">{{log.createTime}}</span><br>
+      <p>{{log.message}}</p>
+      <hr>
+    </div>
+  </div>
+</div>
+
 <div *ngIf="currentBoard">
 
   <div *ngIf="!isEditBoardClicked">
     <p align="center"><span class="boardName">{{currentBoard.name}}</span>
-      <a (click)="editBoardClick()" class="editBoardButton">Edit</a></p>
+      <a (click)="editBoardClick()" class="editBoardButton">Edit</a>
+      <span style="font-size:30px;cursor:pointer" class="open-history-button"
+            (click)="openHistorySidenav()">&#9731; open history</span></p>
   </div>
   <div *ngIf="isEditBoardClicked">
     <p align="center">
@@ -13,8 +28,8 @@
   </div>
 
   <div class="board">
-      <app-ticket [ticketDto]="ticketDto"></app-ticket>
-    <div *ngFor="let list of currentBoard.tableLists" class="list-wrapper">
+    <app-ticket [ticketDto]="ticketDto"></app-ticket>
+    <div *ngFor="let list of currentBoard.tableLists" class="list-wrapper" id="list{{list.id}}">
       <div class="list">
         <div class="list-header">
           <div *ngIf="!list.isEditListNameInProgress">
@@ -35,11 +50,11 @@
 
 
         </div>
-        <div class="ticket-list-wrapper">
-          <div class="list-tickets" *ngFor="let ticket of list.ticketsForBoardResponse"
-               (click)="getTicket(ticket.id)">
+        <div class="ticket-list-wrapper" dragula="TICKETS">
+          <div class="list-tickets" *ngFor="let ticket of list.ticketsForBoardResponse" id="{{ticket.id}}"
+            (click)="getTicket(ticket.id)">
             <div class="ticket">
-              <p align="center">{{ticket.name}}</p>
+              <span class="ticket-name">{{ticket.name}}</span>
             </div>
           </div>
         </div>

@@ -4,9 +4,10 @@ import {Board} from '../../entity/Board';
 import {List} from '../../entity/List';
 import {ActivatedRoute} from '@angular/router';
 import {Ticket} from '../../entity/Ticket';
+import {DragulaService} from 'ng2-dragula';
+import {Subscription} from 'rxjs';
 import {TicketService} from '../../service/ticket/ticket.service';
 import {TicketDto} from '../../entity/TicketDto';
-import {TicketComponent} from '../ticket/ticket.component';
 
 
 @Component({
@@ -28,8 +29,33 @@ export class BoardComponent implements OnInit {
 
   isEditBoardClicked = false;
 
+  subs = new Subscription();
+
   constructor(private boardService: BoardService,
-              private route: ActivatedRoute, private ticketService: TicketService, private bla: TicketService) {
+              private route: ActivatedRoute,
+              private dragulaService: DragulaService,
+              private ticketService: TicketService) {
+    dragulaService.createGroup('TICKETS', {
+      revertOnSpill: true
+    });
+    this.subs.add(dragulaService.drop('TICKETS')
+      .subscribe(({el, source, target}) => {
+        const listId = target.parentElement.parentElement.getAttribute('id');
+        // do not delete me, I wait drag and drop logic on server
+        console.log('ticketId - ' + el.getAttribute('id'));
+        console.log('listId - ' + listId.substring(4, listId.length));
+        console.log('sequence number - ' + [].slice.call(el.parentElement.children).indexOf(el));
+        console.log('boardId - ' + this.currentBoard.id);
+      })
+    );
+  }
+
+  openHistorySidenav() {
+    document.getElementById('sidenav-history').style.width = '25%';
+  }
+
+  closeNav() {
+    document.getElementById('sidenav-history').style.width = '0';
   }
 
   ngOnInit() {

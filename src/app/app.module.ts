@@ -8,7 +8,7 @@ import { AppRoutingModule } from './module/routing/app-routing.module';
 import {RouterModule, Routes} from '@angular/router';
 import { ListComponent } from './component/list/list.component';
 import { EnterTokenComponent } from './component/enter-token/enter-token.component';
-import {E} from '@angular/core/src/render3';
+import {DragulaModule, DragulaService} from 'ng2-dragula';
 import { TicketComponent } from './component/ticket/ticket.component';
 
 const routes: Routes = [
@@ -28,9 +28,10 @@ const routes: Routes = [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
+    DragulaModule,
     RouterModule.forRoot(routes)
   ],
-  providers: [],
+  providers: [DragulaService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
