@@ -6,6 +6,8 @@ import {ActivatedRoute} from '@angular/router';
 import {Ticket} from '../../entity/Ticket';
 import {DragulaService} from 'ng2-dragula';
 import {Subscription} from 'rxjs';
+import {TicketService} from '../../service/ticket/ticket.service';
+import {TicketDto} from '../../entity/TicketDto';
 
 
 @Component({
@@ -21,6 +23,8 @@ export class BoardComponent implements OnInit {
 
   addedTicket: Ticket;
 
+  ticketDto: TicketDto;
+
   isAddListButtonClicked = false;
 
   isEditBoardClicked = false;
@@ -29,7 +33,8 @@ export class BoardComponent implements OnInit {
 
   constructor(private boardService: BoardService,
               private route: ActivatedRoute,
-              private dragulaService: DragulaService) {
+              private dragulaService: DragulaService,
+              private ticketService: TicketService) {
     dragulaService.createGroup('TICKETS', {
       revertOnSpill: true
     });
@@ -62,6 +67,13 @@ export class BoardComponent implements OnInit {
   getRouteBoard() {
     const id = +this.route.snapshot.paramMap.get('id');
     this.getBoard(id);
+  }
+
+  getTicket(ticketId: number) {
+    this.ticketService.openForm();
+    this.ticketService.getTicket(ticketId).subscribe(ticket => {
+      this.ticketDto = ticket;
+    });
   }
 
   getBoard(id: number) {

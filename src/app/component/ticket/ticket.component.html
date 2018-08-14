@@ -1,0 +1,588 @@
+<!--<div>-->
+<!--<button (click)="closeForm()">Close Modal</button>-->
+
+<div id="myForm" (click)="closeForm()">
+  <div class="ticketWindow">
+
+
+      <div class="window" style="display: block;">
+        <a class="focus-dummy" href="#"></a>
+        <div class="window-wrapper js-tab-parent"><a class="icon-lg icon-close dialog-close-button js-close-window"
+                                                     href="#"></a>
+          <div class="card-detail-window u-clearfix">
+            <div class="window-cover hide js-card-cover-box js-open-card-cover-in-viewer">
+              <div class="window-cover-stickers js-display-stickers"></div>
+            </div>
+            <div class="window-archive-banner hide js-archive-banner"><span
+              class="icon-lg icon-archive window-archive-banner-icon"></span>
+              <p class="window-archive-banner-text">Архивная карточка.</p></div>
+            <div class="window-archive-banner hide js-archived-list-banner"><span
+              class="icon-lg icon-archive window-archive-banner-icon"></span>
+              <p class="window-archive-banner-text">Карточка в архивном списке.</p></div>
+            <div class="window-header mod-card-detail-icons-smaller"><span
+              class="window-header-icon icon-lg icon-card"></span>
+              <div class="window-title"><h2 class="card-detail-title-assist js-title-helper" dir="auto">Осилити
+                Angular</h2><textarea class="mod-card-back-title js-card-detail-title-input" dir="auto"
+                                      style="overflow: hidden; overflow-wrap: break-word; height: 26px;"></textarea>
+              </div>
+              <div class="window-header-inline-content quiet js-current-list"><p class="u-inline-block u-bottom">в
+                списке <a class="js-open-move-from-header" href="#">In Failing</a></p></div>
+              <div class="window-header-inline-content js-subscribed-indicator-header"><span
+                class="icon-sm icon-subscribe"></span></div>
+            </div>
+            <div class="window-main-col mod-card-detail-icons-smaller">
+              <div class="card-detail-data u-gutter">
+                <div class="card-detail-item u-clearfix js-card-detail-members"><h3
+                  class="card-detail-item-header mod-no-top-margin">Участники</h3>
+                  <div class="js-card-detail-members-list">
+                    <div class="member js-member-on-card-menu" data-idmem="5b50a2bf665a4db533ffdcd8"><img
+                      class="member-avatar"
+                      src="https://trello-avatars.s3.amazonaws.com/99f22c03a354740db56343524fb0696f/30.png"
+                      srcset="https://trello-avatars.s3.amazonaws.com/99f22c03a354740db56343524fb0696f/30.png 1x, https://trello-avatars.s3.amazonaws.com/99f22c03a354740db56343524fb0696f/50.png 2x"
+                      alt="Igor Vrublevsky (ckpe4)" title="Igor Vrublevsky (ckpe4)" width="30" height="30"><span
+                      class="member-gold-badge" title="Участник с Trello Gold."></span></div>
+                    <div class="member js-member-on-card-menu" data-idmem="5aabc5a442a83674c15b87e8"><span
+                      class="member-initials" title="Mariia (mariia212)">M</span><span class="member-gold-badge"
+                                                                                       title="Участник с Trello Gold."></span>
+                    </div>
+                    <div class="member js-member-on-card-menu" data-idmem="5a8539fca862376aa0788394"><span
+                      class="member-initials" title="Roman (roman79240785)">R</span><span class="member-gold-badge"
+                                                                                          title="Участник с Trello Gold."></span>
+                    </div>
+                    <div class="member js-member-on-card-menu" data-idmem="5b6711e5be8c3a33b0118bb4"><span
+                      class="member-initials" title="Vitalii Bedeshko (vitaliibedeshko1)">VB</span><span
+                      class="member-gold-badge" title="Участник с Trello Gold."></span></div>
+                    <div class="member js-member-on-card-menu" data-idmem="5b50a30940de0a32d6689aae"><img
+                      class="member-avatar"
+                      src="https://trello-avatars.s3.amazonaws.com/533c4a53f8d7679753c0e477c6821f6c/30.png"
+                      srcset="https://trello-avatars.s3.amazonaws.com/533c4a53f8d7679753c0e477c6821f6c/30.png 1x, https://trello-avatars.s3.amazonaws.com/533c4a53f8d7679753c0e477c6821f6c/50.png 2x"
+                      alt="Володимир Овчаренко (user87014130)" title="Володимир Овчаренко (user87014130)" width="30"
+                      height="30"><span class="member-gold-badge" title="Участник с Trello Gold."></span></div>
+                    <div class="member js-member-on-card-menu" data-idmem="58d1336c1e8bc8b94087974b"><span
+                      class="member-initials" title="Христина Крет (user38161706)">ХК</span><span
+                      class="member-gold-badge" title="Участник с Trello Gold."></span></div>
+                    <a class="card-detail-item-add-button dark-hover js-details-edit-members"><span
+                      class="icon-sm icon-add"></span></a></div>
+                </div>
+                <div class="card-detail-item card-detail-item-labels u-clearfix hide js-card-detail-labels"><h3
+                  class="card-detail-item-header">Метки</h3>
+                  <div class="u-clearfix js-card-detail-labels-list js-edit-label"><a
+                    class="card-detail-item-add-button dark-hover js-details-edit-labels"><span
+                    class="icon-sm icon-add"></span></a></div>
+                </div>
+                <div class="card-detail-item hide js-card-detail-due-date"><h3 class="card-detail-item-header">Срок</h3>
+                  <span class="card-detail-badge card-detail-due-date-badge js-card-detail-due-date-badge"><span
+                    class="card-detail-badge-due-date-complete-box js-card-detail-due-date-badge-complete"><span
+                    class="icon-sm icon-check card-detail-badge-due-date-complete-icon"></span></span> <span
+                    class="js-date-text card-detail-due-date-text"></span></span></div>
+                <div class="card-detail-item hide js-card-detail-votes"><h3 class="card-detail-item-header">Голоса</h3>
+                  <a class="card-detail-badge is-clickable js-card-detail-votes-badge js-show-votes" href="#"></a></div>
+                <div class="card-detail-item hide js-card-detail-age"><h3 class="card-detail-item-header">Последнее
+                  обновление</h3>
+                  <div class="card-detail-badge date mod-last-updated js-card-detail-age-badge"></div>
+                </div>
+                <div class="js-custom-field-detail-badges custom-field-detail-badges">
+                  <div></div>
+                </div>
+                <div class="plugin-detail-badges js-plugin-badges">
+                  <div></div>
+                </div>
+                <div class="u-clearfix"></div>
+              </div>
+              <div class="window-module">
+                <div class="window-module-title window-module-title-no-divider"><span
+                  class="icon-description icon-lg window-module-title-icon"></span>
+                  <h3 class="u-inline-block">Описание</h3><a
+                    class="card-detail-item-header-edit hide-on-edit js-show-with-desc js-edit-desc hide" href="#">Изменить</a>
+                </div>
+                <div class="u-gutter js-hide-on-minimize-desc">
+                  <div class="editable" attr="desc">
+                    <div class="description-content js-desc-content">
+                      <div class="description-content-fade-button"><span class="description-content-fade-button-text">Показать полное описание.</span>
+                      </div>
+                      <div class="current markeddown hide-on-edit js-card-desc js-show-with-desc hide" dir="auto"></div>
+                      <p class="u-bottom js-hide-on-edit js-hide-with-desc"><a
+                        class="card-detail-fake-text-area hide-on-edit js-edit-desc js-hide-with-draft" href="#">Добавить
+                        более подробное описание…</a></p>
+                      <div class="card-detail-edit edit"><a class="helper js-format-help" href="#">Помощь по
+                        форматированию</a><textarea class="field js-description-draft"
+                                                    placeholder="Добавить более подробное описание…"></textarea></div>
+                      <p class="edits-warning quiet">В этом поле есть несохранённые изменения. <a class="js-view-edits"
+                                                                                                  href="#">Посмотреть
+                        изменения</a> - <a class="js-discard-edits" href="#">Отменить</a></p>
+                      <p class="edits-error error">Изменения не сохранены.</p></div>
+                  </div>
+                </div>
+              </div>
+              <div class="js-plugin-card-back-sections"></div>
+              <div class="js-plugin-sections"></div>
+              <div class="window-module js-trello-attachments-section trello-attachments-section u-clearfix hide">
+                <div class="window-module-title window-module-title-no-divider"><span
+                  class="window-module-title-icon icon-lg icon-board"></span>
+                  <h3 class="u-inline-block">Вложения Trello</h3></div>
+                <div class="u-gutter">
+                  <div class="u-clearfix js-trello-attachments-list"></div>
+                  <p class="js-show-fewer-trello-attachments hide"><a
+                    class="quiet-button js-view-some-trello-attachments" href="#">Показать меньше вложений Trello.</a>
+                  </p>
+                  <p class="js-show-more-trello-attachments hide"><a class="quiet-button js-view-all-trello-attachments"
+                                                                     href="#"></a></p>
+                  <p><a class="quiet-button js-attach-trello-attachment" href="#">Добавить вложение Trello…</a></p>
+                </div>
+              </div>
+              <div class="window-module js-attachments-section u-clearfix mod-card-detail-icons-smaller hide">
+                <div class="window-module-title window-module-title-no-divider"><span
+                  class="window-module-title-icon icon-lg icon-attachment"></span>
+                  <h3 class="u-inline-block">Вложения</h3></div>
+                <div class="u-gutter">
+                  <div class="u-clearfix js-attachment-list ui-sortable"></div>
+                  <p class="js-show-fewer-attachments hide"><a class="quiet-button js-view-some-attachments" href="#">Показать
+                    меньше вложений.</a></p>
+                  <p class="js-show-more-attachments hide"><a class="quiet-button js-view-all-attachments" href="#">Посмотреть
+                    все вложения (скрыто -4)</a></p>
+                  <p class="js-show-with-attachments hide"><a class="quiet-button js-attach" href="#">Добавить
+                    вложение…</a></p></div>
+              </div>
+              <div class="checklist-list window-module js-checklist-list js-no-higher-edits ui-sortable" style=""></div>
+              <div class="window-module add-comment-section">
+                <div class="window-module-title window-module-title-no-divider"><span
+                  class="window-module-title-icon icon-lg icon-comment"></span>
+                  <h3>Добавление комментария</h3><span class="editing-members js-editing-members hide"></span></div>
+                <div class="new-comment js-new-comment mod-card-back">
+                  <div class="member member-no-menu"><span class="member-initials"
+                                                           title="Vitalii Bedeshko (vitaliibedeshko1)">VB</span><span
+                    class="member-gold-badge" title="Участник с Trello Gold."></span></div>
+                  <form>
+                    <div class="comment-frame">
+                      <div class="comment-box"><textarea class="comment-box-input js-new-comment-input"
+                                                         placeholder="Напишите комментарий…" tabindex="1" dir="auto"
+                                                         style="overflow: hidden; overflow-wrap: break-word; height: 79px;"></textarea>
+                        <div class="comment-box-options"><a class="comment-box-options-item js-comment-add-attachment"
+                                                            href="#" title="Добавить вложение…"><span
+                          class="icon-sm icon-attachment"></span></a><a
+                          class="comment-box-options-item js-comment-mention-member" href="#"
+                          title="Упомянуть участника…"><span class="icon-sm icon-mention"></span></a><a
+                          class="comment-box-options-item js-comment-add-emoji" href="#" title="Добавить эмодзи…"><span
+                          class="icon-sm icon-emoji"></span></a><a class="comment-box-options-item js-comment-add-card"
+                                                                   href="#" title="Добавить карточку…"><span
+                          class="icon-sm icon-card"></span></a></div>
+                      </div>
+                    </div>
+                    <div class="comment-controls u-clearfix"><input
+                      class="primary confirm mod-no-top-bottom-margin js-add-comment" disabled="" tabindex="3"
+                      value="Сохранить" type="submit"><span
+                      class="comment-subscribe is-clickable is-subscribed js-comment-subscribe"><span
+                      class="comment-subscribe-box"><span
+                      class="icon-sm icon-check comment-subscribe-icon"></span></span><div
+                      class="comment-subscribe-description">Подписаться на карточку</div></span></div>
+                  </form>
+                  <div class="comment-too-long-warning"><p>Комментарий слишком длинный! Прикрепите его как текстовое
+                    вложение или сократите.</p><input class="primary js-attach-comment" value="Добавить как вложение"
+                                                      tabindex="4" type="submit"><input class="js-truncate-comment"
+                                                                                        value="Сократить" tabindex="5"
+                                                                                        type="submit"></div>
+                </div>
+              </div>
+              <div class="window-module mod-card-detail-icons-smaller">
+                <div class="window-module-title window-module-title-no-divider"><span
+                  class="window-module-title-icon icon-lg icon-activity"></span>
+                  <h3>Действия</h3>
+                  <div class="window-module-title-options"><a class="quiet hide js-show-details" href="#">Показать
+                    подробности</a><a class="quiet js-hide-details" href="#">Скрыть подробности</a></div>
+                </div>
+                <div class="js-list-actions mod-card-back">
+                  <div class="phenom mod-attachment-type">
+                    <div class="phenom-creator">
+                      <div class="member js-show-mem-menu" idmember="5b50a30940de0a32d6689aae"><img
+                        class="member-avatar"
+                        src="https://trello-avatars.s3.amazonaws.com/533c4a53f8d7679753c0e477c6821f6c/30.png"
+                        srcset="https://trello-avatars.s3.amazonaws.com/533c4a53f8d7679753c0e477c6821f6c/30.png 1x, https://trello-avatars.s3.amazonaws.com/533c4a53f8d7679753c0e477c6821f6c/50.png 2x"
+                        alt="Володимир Овчаренко (user87014130)" title="Володимир Овчаренко (user87014130)" width="30"
+                        height="30"><span class="member-gold-badge" title="Участник с Trello Gold."></span></div>
+                    </div>
+                    <div class="phenom-desc"><span class="inline-member js-show-mem-menu"
+                                                   idmember="5b50a30940de0a32d6689aae"><span class="u-font-weight-bold">Володимир Овчаренко</span></span>
+                      переместил(а) эту карточку из списка In Progress в список In Failing
+                    </div>
+                    <div class="phenom-meta quiet"><a class="date js-hide-on-sending js-highlight-link"
+                                                      dt="2018-08-13T10:50:14.408Z"
+                                                      href="/c/NPJbvlKH/88-%D0%BE%D1%81%D0%B8%D0%BB%D0%B8%D1%82%D0%B8-angular#action-5b71626609b2a41954219e8e"
+                                                      title="13 августа 2018 г., 13:50">9 часов назад</a><span
+                      class="js-spinner hide"><span class="spinner spinner--inline mod-left small"></span> Отправка…&nbsp;</span><span
+                      class="js-hide-on-sending middle"><span class="edits-warning quiet">В этом поле есть несохранённые изменения.</span></span>
+                    </div>
+                  </div>
+                  <div class="phenom mod-attachment-type">
+                    <div class="phenom-creator">
+                      <div class="member js-show-mem-menu" idmember="5b50a2bf665a4db533ffdcd8"><img
+                        class="member-avatar"
+                        src="https://trello-avatars.s3.amazonaws.com/99f22c03a354740db56343524fb0696f/30.png"
+                        srcset="https://trello-avatars.s3.amazonaws.com/99f22c03a354740db56343524fb0696f/30.png 1x, https://trello-avatars.s3.amazonaws.com/99f22c03a354740db56343524fb0696f/50.png 2x"
+                        alt="Igor Vrublevsky (ckpe4)" title="Igor Vrublevsky (ckpe4)" width="30" height="30"><span
+                        class="member-gold-badge" title="Участник с Trello Gold."></span></div>
+                    </div>
+                    <div class="phenom-desc"><span class="inline-member js-show-mem-menu"
+                                                   idmember="5b50a2bf665a4db533ffdcd8"><span class="u-font-weight-bold">Igor Vrublevsky</span></span>
+                      переместил(а) эту карточку из списка In Failing в список In Progress
+                    </div>
+                    <div class="phenom-meta quiet"><a class="date js-hide-on-sending js-highlight-link"
+                                                      dt="2018-08-13T10:50:09.343Z"
+                                                      href="/c/NPJbvlKH/88-%D0%BE%D1%81%D0%B8%D0%BB%D0%B8%D1%82%D0%B8-angular#action-5b716261f779c63e02d558b6"
+                                                      title="13 августа 2018 г., 13:50">9 часов назад</a><span
+                      class="js-spinner hide"><span class="spinner spinner--inline mod-left small"></span> Отправка…&nbsp;</span><span
+                      class="js-hide-on-sending middle"><span class="edits-warning quiet">В этом поле есть несохранённые изменения.</span></span>
+                    </div>
+                  </div>
+                  <div class="phenom mod-comment-type">
+                    <div class="phenom-creator">
+                      <div class="member js-show-mem-menu" idmember="5b6711e5be8c3a33b0118bb4"><span
+                        class="member-initials" title="Vitalii Bedeshko (vitaliibedeshko1)">VB</span><span
+                        class="member-gold-badge" title="Участник с Trello Gold."></span></div>
+                    </div>
+                    <div class="phenom-desc"><span class="inline-member js-show-mem-menu"
+                                                   idmember="5b6711e5be8c3a33b0118bb4"><span class="u-font-weight-bold">Vitalii Bedeshko</span></span>
+                      <span class="inline-spacer"> </span><span class="phenom-date quiet"><a
+                        class="date js-hide-on-sending js-highlight-link" dt="2018-08-13T08:25:20.131Z"
+                        href="/c/NPJbvlKH/88-%D0%BE%D1%81%D0%B8%D0%BB%D0%B8%D1%82%D0%B8-angular#comment-5b71407044ea733d67a3bb1e"
+                        title="13 августа 2018 г., 11:25">11 часов назад</a></span>
+                      <div class="comment-container">
+                        <div class="action-comment can-edit markeddown js-comment" dir="auto">
+                          <div class="current-comment js-friendly-links js-open-card"><p>тест</p>
+                          </div>
+                          <div class="comment-box"><textarea class="comment-box-input js-text"
+                                                             tabindex="1">тест</textarea>
+                            <div class="comment-box-options"><a
+                              class="comment-box-options-item js-comment-add-attachment" href="#"
+                              title="Добавить вложение…"><span class="icon-sm icon-attachment"></span></a><a
+                              class="comment-box-options-item js-comment-mention-member" href="#"
+                              title="Упомянуть участника…"><span class="icon-sm icon-mention"></span></a><a
+                              class="comment-box-options-item js-comment-add-emoji" href="#"
+                              title="Добавить эмодзи…"><span class="icon-sm icon-emoji"></span></a><a
+                              class="comment-box-options-item js-comment-add-card" href="#"
+                              title="Добавить карточку…"><span class="icon-sm icon-card"></span></a></div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="hide embedly js-embedly"></div>
+                    </div>
+                    <div class="phenom-reactions">
+                      <div class="js-reaction-piles reaction-piles-container">
+                        <div class="reaction-piles reaction-piles-empty"><span
+                          class="inline-add-reaction meta-add-reaction quiet"><span class="reactions-add"></span><span>&nbsp;</span>-<span>&nbsp;</span></span>
+                        </div>
+                      </div>
+                      <div class="phenom-meta quiet"><span class="js-spinner hide"><span
+                        class="spinner spinner--inline mod-left small"></span> Отправка…&nbsp;</span><span
+                        class="js-hide-on-sending middle"><a class="js-edit-action" href="#">Изменить</a> - <a
+                        class="js-confirm-delete-action" href="#">Удалить</a><span class="edits-warning quiet"> - В этом поле есть несохранённые изменения.</span></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="phenom mod-attachment-type">
+                    <div class="phenom-creator">
+                      <div class="member js-show-mem-menu" idmember="5b6711e5be8c3a33b0118bb4"><span
+                        class="member-initials" title="Vitalii Bedeshko (vitaliibedeshko1)">VB</span><span
+                        class="member-gold-badge" title="Участник с Trello Gold."></span></div>
+                    </div>
+                    <div class="phenom-desc"><span class="inline-member js-show-mem-menu"
+                                                   idmember="5b6711e5be8c3a33b0118bb4"><span class="u-font-weight-bold">Vitalii Bedeshko</span></span>
+                      переместил(а) эту карточку из списка In Progress в список Failed
+                    </div>
+                    <div class="phenom-meta quiet"><a class="date js-hide-on-sending js-highlight-link"
+                                                      dt="2018-08-10T11:31:51.480Z"
+                                                      href="/c/NPJbvlKH/88-%D0%BE%D1%81%D0%B8%D0%BB%D0%B8%D1%82%D0%B8-angular#action-5b6d77a799cc8b69cc284efa"
+                                                      title="10 августа 2018 г., 14:31">В прошлую пятницу в
+                      14:31</a><span class="js-spinner hide"><span
+                      class="spinner spinner--inline mod-left small"></span> Отправка…&nbsp;</span><span
+                      class="js-hide-on-sending middle"><span class="edits-warning quiet">В этом поле есть несохранённые изменения.</span></span>
+                    </div>
+                  </div>
+                  <div class="phenom mod-attachment-type">
+                    <div class="phenom-creator">
+                      <div class="member js-show-mem-menu" idmember="5b50a2bf665a4db533ffdcd8"><img
+                        class="member-avatar"
+                        src="https://trello-avatars.s3.amazonaws.com/99f22c03a354740db56343524fb0696f/30.png"
+                        srcset="https://trello-avatars.s3.amazonaws.com/99f22c03a354740db56343524fb0696f/30.png 1x, https://trello-avatars.s3.amazonaws.com/99f22c03a354740db56343524fb0696f/50.png 2x"
+                        alt="Igor Vrublevsky (ckpe4)" title="Igor Vrublevsky (ckpe4)" width="30" height="30"><span
+                        class="member-gold-badge" title="Участник с Trello Gold."></span></div>
+                    </div>
+                    <div class="phenom-desc"><span class="inline-member js-show-mem-menu"
+                                                   idmember="5b50a2bf665a4db533ffdcd8"><span class="u-font-weight-bold">Igor Vrublevsky</span></span>
+                      добавил(а) участника <span class="inline-member js-show-mem-menu"
+                                                 idmember="5aabc5a442a83674c15b87e8"><span class="u-font-weight-bold">Mariia</span></span>
+                      к этой карточке
+                    </div>
+                    <div class="phenom-meta quiet"><a class="date js-hide-on-sending js-highlight-link"
+                                                      dt="2018-08-10T10:00:09.524Z"
+                                                      href="/c/NPJbvlKH/88-%D0%BE%D1%81%D0%B8%D0%BB%D0%B8%D1%82%D0%B8-angular#action-5b6d6229f8d2a685b5c37942"
+                                                      title="10 августа 2018 г., 13:00">В прошлую пятницу в
+                      13:00</a><span class="js-spinner hide"><span
+                      class="spinner spinner--inline mod-left small"></span> Отправка…&nbsp;</span><span
+                      class="js-hide-on-sending middle"><span class="edits-warning quiet">В этом поле есть несохранённые изменения.</span></span>
+                    </div>
+                  </div>
+                  <div class="phenom mod-attachment-type">
+                    <div class="phenom-creator">
+                      <div class="member js-show-mem-menu" idmember="5b50a2bf665a4db533ffdcd8"><img
+                        class="member-avatar"
+                        src="https://trello-avatars.s3.amazonaws.com/99f22c03a354740db56343524fb0696f/30.png"
+                        srcset="https://trello-avatars.s3.amazonaws.com/99f22c03a354740db56343524fb0696f/30.png 1x, https://trello-avatars.s3.amazonaws.com/99f22c03a354740db56343524fb0696f/50.png 2x"
+                        alt="Igor Vrublevsky (ckpe4)" title="Igor Vrublevsky (ckpe4)" width="30" height="30"><span
+                        class="member-gold-badge" title="Участник с Trello Gold."></span></div>
+                    </div>
+                    <div class="phenom-desc"><span class="inline-member js-show-mem-menu"
+                                                   idmember="5b50a2bf665a4db533ffdcd8"><span class="u-font-weight-bold">Igor Vrublevsky</span></span>
+                      добавил(а) участника <span class="inline-member js-show-mem-menu"
+                                                 idmember="58d1336c1e8bc8b94087974b"><span class="u-font-weight-bold">Христина Крет</span></span>
+                      к этой карточке
+                    </div>
+                    <div class="phenom-meta quiet"><a class="date js-hide-on-sending js-highlight-link"
+                                                      dt="2018-08-10T10:00:08.848Z"
+                                                      href="/c/NPJbvlKH/88-%D0%BE%D1%81%D0%B8%D0%BB%D0%B8%D1%82%D0%B8-angular#action-5b6d62280daa9e4e94c5a38a"
+                                                      title="10 августа 2018 г., 13:00">В прошлую пятницу в
+                      13:00</a><span class="js-spinner hide"><span
+                      class="spinner spinner--inline mod-left small"></span> Отправка…&nbsp;</span><span
+                      class="js-hide-on-sending middle"><span class="edits-warning quiet">В этом поле есть несохранённые изменения.</span></span>
+                    </div>
+                  </div>
+                  <div class="phenom mod-attachment-type">
+                    <div class="phenom-creator">
+                      <div class="member js-show-mem-menu" idmember="5b50a2bf665a4db533ffdcd8"><img
+                        class="member-avatar"
+                        src="https://trello-avatars.s3.amazonaws.com/99f22c03a354740db56343524fb0696f/30.png"
+                        srcset="https://trello-avatars.s3.amazonaws.com/99f22c03a354740db56343524fb0696f/30.png 1x, https://trello-avatars.s3.amazonaws.com/99f22c03a354740db56343524fb0696f/50.png 2x"
+                        alt="Igor Vrublevsky (ckpe4)" title="Igor Vrublevsky (ckpe4)" width="30" height="30"><span
+                        class="member-gold-badge" title="Участник с Trello Gold."></span></div>
+                    </div>
+                    <div class="phenom-desc"><span class="inline-member js-show-mem-menu"
+                                                   idmember="5b50a2bf665a4db533ffdcd8"><span class="u-font-weight-bold">Igor Vrublevsky</span></span>
+                      добавил(а) участника <span class="inline-member js-show-mem-menu"
+                                                 idmember="5a8539fca862376aa0788394"><span class="u-font-weight-bold">Roman</span></span>
+                      к этой карточке
+                    </div>
+                    <div class="phenom-meta quiet"><a class="date js-hide-on-sending js-highlight-link"
+                                                      dt="2018-08-10T10:00:07.217Z"
+                                                      href="/c/NPJbvlKH/88-%D0%BE%D1%81%D0%B8%D0%BB%D0%B8%D1%82%D0%B8-angular#action-5b6d6227abfefa8d680cbd99"
+                                                      title="10 августа 2018 г., 13:00">В прошлую пятницу в
+                      13:00</a><span class="js-spinner hide"><span
+                      class="spinner spinner--inline mod-left small"></span> Отправка…&nbsp;</span><span
+                      class="js-hide-on-sending middle"><span class="edits-warning quiet">В этом поле есть несохранённые изменения.</span></span>
+                    </div>
+                  </div>
+                  <div class="phenom mod-attachment-type">
+                    <div class="phenom-creator">
+                      <div class="member js-show-mem-menu" idmember="5b50a2bf665a4db533ffdcd8"><img
+                        class="member-avatar"
+                        src="https://trello-avatars.s3.amazonaws.com/99f22c03a354740db56343524fb0696f/30.png"
+                        srcset="https://trello-avatars.s3.amazonaws.com/99f22c03a354740db56343524fb0696f/30.png 1x, https://trello-avatars.s3.amazonaws.com/99f22c03a354740db56343524fb0696f/50.png 2x"
+                        alt="Igor Vrublevsky (ckpe4)" title="Igor Vrublevsky (ckpe4)" width="30" height="30"><span
+                        class="member-gold-badge" title="Участник с Trello Gold."></span></div>
+                    </div>
+                    <div class="phenom-desc"><span class="inline-member js-show-mem-menu"
+                                                   idmember="5b50a2bf665a4db533ffdcd8"><span class="u-font-weight-bold">Igor Vrublevsky</span></span>
+                      добавил(а) участника <span class="inline-member js-show-mem-menu"
+                                                 idmember="5b50a30940de0a32d6689aae"><span class="u-font-weight-bold">Володимир Овчаренко</span></span>
+                      к этой карточке
+                    </div>
+                    <div class="phenom-meta quiet"><a class="date js-hide-on-sending js-highlight-link"
+                                                      dt="2018-08-10T10:00:06.282Z"
+                                                      href="/c/NPJbvlKH/88-%D0%BE%D1%81%D0%B8%D0%BB%D0%B8%D1%82%D0%B8-angular#action-5b6d62269550fd829712b54a"
+                                                      title="10 августа 2018 г., 13:00">В прошлую пятницу в
+                      13:00</a><span class="js-spinner hide"><span
+                      class="spinner spinner--inline mod-left small"></span> Отправка…&nbsp;</span><span
+                      class="js-hide-on-sending middle"><span class="edits-warning quiet">В этом поле есть несохранённые изменения.</span></span>
+                    </div>
+                  </div>
+                  <div class="phenom mod-attachment-type">
+                    <div class="phenom-creator">
+                      <div class="member js-show-mem-menu" idmember="5b50a2bf665a4db533ffdcd8"><img
+                        class="member-avatar"
+                        src="https://trello-avatars.s3.amazonaws.com/99f22c03a354740db56343524fb0696f/30.png"
+                        srcset="https://trello-avatars.s3.amazonaws.com/99f22c03a354740db56343524fb0696f/30.png 1x, https://trello-avatars.s3.amazonaws.com/99f22c03a354740db56343524fb0696f/50.png 2x"
+                        alt="Igor Vrublevsky (ckpe4)" title="Igor Vrublevsky (ckpe4)" width="30" height="30"><span
+                        class="member-gold-badge" title="Участник с Trello Gold."></span></div>
+                    </div>
+                    <div class="phenom-desc"><span class="inline-member js-show-mem-menu"
+                                                   idmember="5b50a2bf665a4db533ffdcd8"><span class="u-font-weight-bold">Igor Vrublevsky</span></span>
+                      присоединился(-лась) к этой карточке
+                    </div>
+                    <div class="phenom-meta quiet"><a class="date js-hide-on-sending js-highlight-link"
+                                                      dt="2018-08-10T10:00:05.230Z"
+                                                      href="/c/NPJbvlKH/88-%D0%BE%D1%81%D0%B8%D0%BB%D0%B8%D1%82%D0%B8-angular#action-5b6d6225e6e03773361096d3"
+                                                      title="10 августа 2018 г., 13:00">В прошлую пятницу в
+                      13:00</a><span class="js-spinner hide"><span
+                      class="spinner spinner--inline mod-left small"></span> Отправка…&nbsp;</span><span
+                      class="js-hide-on-sending middle"><span class="edits-warning quiet">В этом поле есть несохранённые изменения.</span></span>
+                    </div>
+                  </div>
+                  <div class="phenom mod-attachment-type">
+                    <div class="phenom-creator">
+                      <div class="member js-show-mem-menu" idmember="5b50a2bf665a4db533ffdcd8"><img
+                        class="member-avatar"
+                        src="https://trello-avatars.s3.amazonaws.com/99f22c03a354740db56343524fb0696f/30.png"
+                        srcset="https://trello-avatars.s3.amazonaws.com/99f22c03a354740db56343524fb0696f/30.png 1x, https://trello-avatars.s3.amazonaws.com/99f22c03a354740db56343524fb0696f/50.png 2x"
+                        alt="Igor Vrublevsky (ckpe4)" title="Igor Vrublevsky (ckpe4)" width="30" height="30"><span
+                        class="member-gold-badge" title="Участник с Trello Gold."></span></div>
+                    </div>
+                    <div class="phenom-desc"><span class="inline-member js-show-mem-menu"
+                                                   idmember="5b50a2bf665a4db533ffdcd8"><span class="u-font-weight-bold">Igor Vrublevsky</span></span>
+                      добавил(а) участника <span class="inline-member js-show-mem-menu"
+                                                 idmember="5b6711e5be8c3a33b0118bb4"><span class="u-font-weight-bold">Vitalii Bedeshko</span></span>
+                      к этой карточке
+                    </div>
+                    <div class="phenom-meta quiet"><a class="date js-hide-on-sending js-highlight-link"
+                                                      dt="2018-08-10T10:00:03.792Z"
+                                                      href="/c/NPJbvlKH/88-%D0%BE%D1%81%D0%B8%D0%BB%D0%B8%D1%82%D0%B8-angular#action-5b6d62237c1fed7403d80c50"
+                                                      title="10 августа 2018 г., 13:00">В прошлую пятницу в
+                      13:00</a><span class="js-spinner hide"><span
+                      class="spinner spinner--inline mod-left small"></span> Отправка…&nbsp;</span><span
+                      class="js-hide-on-sending middle"><span class="edits-warning quiet">В этом поле есть несохранённые изменения.</span></span>
+                    </div>
+                  </div>
+                  <div class="phenom mod-attachment-type">
+                    <div class="phenom-creator">
+                      <div class="member js-show-mem-menu" idmember="5b50a2bf665a4db533ffdcd8"><img
+                        class="member-avatar"
+                        src="https://trello-avatars.s3.amazonaws.com/99f22c03a354740db56343524fb0696f/30.png"
+                        srcset="https://trello-avatars.s3.amazonaws.com/99f22c03a354740db56343524fb0696f/30.png 1x, https://trello-avatars.s3.amazonaws.com/99f22c03a354740db56343524fb0696f/50.png 2x"
+                        alt="Igor Vrublevsky (ckpe4)" title="Igor Vrublevsky (ckpe4)" width="30" height="30"><span
+                        class="member-gold-badge" title="Участник с Trello Gold."></span></div>
+                    </div>
+                    <div class="phenom-desc"><span class="inline-member js-show-mem-menu"
+                                                   idmember="5b50a2bf665a4db533ffdcd8"><span class="u-font-weight-bold">Igor Vrublevsky</span></span>
+                      добавил(а) эту карточку в список In Progress
+                    </div>
+                    <div class="phenom-meta quiet"><a class="date js-hide-on-sending js-highlight-link"
+                                                      dt="2018-08-10T09:59:58.869Z"
+                                                      href="/c/NPJbvlKH/88-%D0%BE%D1%81%D0%B8%D0%BB%D0%B8%D1%82%D0%B8-angular#action-5b6d621ed8ed2354422dc264"
+                                                      title="10 августа 2018 г., 12:59">В прошлую пятницу в
+                      12:59</a><span class="js-spinner hide"><span
+                      class="spinner spinner--inline mod-left small"></span> Отправка…&nbsp;</span><span
+                      class="js-hide-on-sending middle"><span class="edits-warning quiet">В этом поле есть несохранённые изменения.</span></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="spinner loading js-loading-card-actions" style="display: none;"></div>
+                <p class="u-bottom"><a class="show-more hide js-show-all-actions" href="#">Показать все действия…</a>
+                </p></div>
+            </div>
+            <div class="window-sidebar" style="position: relative;">
+              <div class="window-module u-clearfix"><h3 class="mod-no-top-margin">Добавить на карточку</h3>
+                <div class="u-clearfix card-detail-section-mini-buttons"><a
+                  class="button-link card-detail-section-mini-button js-change-card-members" href="#" title="Участники"><span
+                  class="icon-sm icon-member"></span><span class="card-detail-section-mini-button-text">Участники</span></a><a
+                  class="button-link card-detail-section-mini-button js-edit-labels" href="#" title="Метки"><span
+                  class="icon-sm icon-label"></span><span
+                  class="card-detail-section-mini-button-text">Метки</span></a><a
+                  class="button-link card-detail-section-mini-button js-add-checklist-menu" href="#"
+                  title="Чек-лист"><span class="icon-sm icon-checklist"></span><span
+                  class="card-detail-section-mini-button-text">Чек-лист</span></a><a
+                  class="button-link card-detail-section-mini-button js-add-due-date" href="#" title="Срок"><span
+                  class="icon-sm icon-clock"></span><span class="card-detail-section-mini-button-text">Срок</span></a><a
+                  class="button-link card-detail-section-mini-button js-attach" href="#" title="Вложение"><span
+                  class="icon-sm icon-attachment"></span><span
+                  class="card-detail-section-mini-button-text">Вложение</span></a></div>
+              </div>
+              <div class="js-plugin-buttons">
+                <div class="window-module u-clearfix hide"><h3 class="">Улучшения</h3>
+                  <div class="u-clearfix js-button-list card-detail-section-mini-buttons"></div>
+                </div>
+              </div>
+              <div class="window-module other-actions u-clearfix"><h3 class="mod-no-top-margin">Действия</h3>
+                <div class="u-clearfix card-detail-section-mini-buttons"><a
+                  class="button-link card-detail-section-mini-button js-move-card" href="#" title="Перемещение"><span
+                  class="icon-sm icon-move"></span><span class="card-detail-section-mini-button-text">Перемещение</span></a><a
+                  class="button-link card-detail-section-mini-button js-copy-card" href="#" title="Копирование"><span
+                  class="icon-sm icon-card"></span><span class="card-detail-section-mini-button-text">Копирование</span></a><span
+                  class="js-subscribe-sidebar-button hide"></span><a
+                  class="button-link toggle-button is-on js-unsubscribe"
+                  title="Подпишитесь на эту карточку, чтобы получать уведомления об изменениях." href="#"><span
+                  class="icon-sm icon-subscribe"></span>&nbsp;Подписаться<span class="on"><span
+                  class="icon-sm icon-check light"></span></span></a><span class="js-vote-sidebar-button hide"></span>
+                  <hr>
+                  <a class="button-link card-detail-section-mini-button js-archive-card" href="#"
+                     title="Архивация"><span class="icon-sm icon-archive"></span><span
+                    class="card-detail-section-mini-button-text">Архивация</span></a><a
+                    class="button-link card-detail-section-mini-button js-unarchive-card hide" href="#" title="Вернуть"><span
+                    class="icon-sm icon-refresh"></span><span
+                    class="card-detail-section-mini-button-text">Вернуть</span></a><a
+                    class="button-link card-detail-section-mini-button js-delete-card hide negate" href="#"
+                    title="Удалить"><span class="icon-sm icon-remove"></span><span
+                    class="card-detail-section-mini-button-text">Удалить</span></a></div>
+              </div>
+              <div class="window-module u-clearfix"><p class="quiet u-bottom"><a class="quiet-button js-more-menu"
+                                                                                 href="#">Поделиться и прочее…</a></p>
+              </div>
+            </div>
+            <p class="dropzone">Перетяните файлы, чтобы загрузить.</p>
+            <p class="dropzone-limited attachments-per-card">На этой карточке слишком много вложений.</p>
+            <p class="dropzone-limited attachments-per-board">На этой доске слишком много вложений.</p></div>
+        </div>
+      </div>
+    </div>
+
+
+    <!--<div class="window-sidebar" style="position: relative;">-->
+    <!--<div class="window-module u-clearfix"><h3 class="mod-no-top-margin">Добавить на карточку</h3>-->
+    <!--<div class="u-clearfix card-detail-section-mini-buttons"><a-->
+    <!--class="button-link card-detail-section-mini-button js-change-card-members" href="#" title="Участники"><span-->
+    <!--class="icon-sm icon-member"></span><span class="card-detail-section-mini-button-text">Участники</span></a><a-->
+    <!--class="button-link card-detail-section-mini-button js-edit-labels" href="#" title="Метки"><span-->
+    <!--class="icon-sm icon-label"></span><span class="card-detail-section-mini-button-text">Метки</span></a><a-->
+    <!--class="button-link card-detail-section-mini-button js-add-checklist-menu" href="#" title="Чек-лист"><span-->
+    <!--class="icon-sm icon-checklist"></span><span class="card-detail-section-mini-button-text">Чек-лист</span></a><a-->
+    <!--class="button-link card-detail-section-mini-button js-add-due-date" href="#" title="Срок"><span-->
+    <!--class="icon-sm icon-clock"></span><span class="card-detail-section-mini-button-text">Срок</span></a><a-->
+    <!--class="button-link card-detail-section-mini-button js-attach" href="#" title="Вложение"><span-->
+    <!--class="icon-sm icon-attachment"></span><span class="card-detail-section-mini-button-text">Вложение</span></a>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--<div class="js-plugin-buttons">-->
+    <!--<div class="window-module u-clearfix hide"><h3 class="">Улучшения</h3>-->
+    <!--<div class="u-clearfix js-button-list card-detail-section-mini-buttons"></div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--<div class="window-module other-actions u-clearfix"><h3 class="mod-no-top-margin">Действия</h3>-->
+    <!--<div class="u-clearfix card-detail-section-mini-buttons"><a-->
+    <!--class="button-link card-detail-section-mini-button js-move-card" href="#" title="Перемещение"><span-->
+    <!--class="icon-sm icon-move"></span><span class="card-detail-section-mini-button-text">Перемещение</span></a><a-->
+    <!--class="button-link card-detail-section-mini-button js-copy-card" href="#" title="Копирование"><span-->
+    <!--class="icon-sm icon-card"></span><span-->
+    <!--class="card-detail-section-mini-button-text">Копирование</span></a><span-->
+    <!--class="js-subscribe-sidebar-button hide"></span><a class="button-link toggle-button is-on js-unsubscribe"-->
+    <!--title="Подпишитесь на эту карточку, чтобы получать уведомления об изменениях."-->
+    <!--href="#"><span class="icon-sm icon-subscribe"></span>&nbsp;Подписаться<span-->
+    <!--class="on"><span class="icon-sm icon-check light"></span></span></a><span-->
+    <!--class="js-vote-sidebar-button hide"></span>-->
+    <!--<hr>-->
+    <!--<a class="button-link card-detail-section-mini-button js-archive-card" href="#" title="Архивация"><span-->
+    <!--class="icon-sm icon-archive"></span><span-->
+    <!--class="card-detail-section-mini-button-text">Архивация</span></a><a-->
+    <!--class="button-link card-detail-section-mini-button js-unarchive-card hide" href="#" title="Вернуть"><span-->
+    <!--class="icon-sm icon-refresh"></span><span class="card-detail-section-mini-button-text">Вернуть</span></a><a-->
+    <!--class="button-link card-detail-section-mini-button js-delete-card hide negate" href="#"-->
+    <!--title="Удалить"><span class="icon-sm icon-remove"></span><span class="card-detail-section-mini-button-text">Удалить</span></a>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--<div class="window-module u-clearfix"><p class="quiet u-bottom"><a class="quiet-button js-more-menu" href="#">Поделиться-->
+    <!--и прочее…</a></p></div>-->
+    <!--</div>-->
+
+
+    <!--<h6 dir="auto">{{ticketDto.name}}</h6>-->
+    <!--<h6 dir="auto">{{ticketDto.description}}</h6>-->
+    <!--<h6 dir="auto">{{ticketDto.ticketPriority}}</h6>-->
+    <!--<div class="comments">-->
+    <!--<div *ngFor="let comment of ticketDto.comments">-->
+    <!--{{comment.message}}-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--<div class="sideButtons">-->
+
+    <!--</div>-->
+
+  </div>
+
+
+<!--</div>-->
+

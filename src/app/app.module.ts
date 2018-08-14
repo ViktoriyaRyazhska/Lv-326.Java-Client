@@ -9,6 +9,7 @@ import {RouterModule, Routes} from '@angular/router';
 import { ListComponent } from './component/list/list.component';
 import { EnterTokenComponent } from './component/enter-token/enter-token.component';
 import {DragulaModule, DragulaService} from 'ng2-dragula';
+import { TicketComponent } from './component/ticket/ticket.component';
 
 const routes: Routes = [
   { path: 'board/:id', component: BoardComponent},
@@ -20,7 +21,8 @@ const routes: Routes = [
     AppComponent,
     BoardComponent,
     ListComponent,
-    EnterTokenComponent
+    EnterTokenComponent,
+    TicketComponent
   ],
   imports: [
     BrowserModule,
