@@ -22,9 +22,6 @@ export class TicketComponent implements OnInit {
   ngOnInit() {
   }
 
-  closeForm() {
-    this.ticketService.closeForm();
-  }
 }
 
 // addComment(listName: string) {

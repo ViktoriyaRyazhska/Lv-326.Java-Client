@@ -73,7 +73,7 @@ export class BoardComponent implements OnInit {
   }
 
   getTicket(ticketId: number) {
-    this.ticketService.openForm();
+    // this.ticketService.openForm();
     this.ticketService.getTicket(ticketId).subscribe(ticket => {
       this.ticketDto = ticket;
     });
