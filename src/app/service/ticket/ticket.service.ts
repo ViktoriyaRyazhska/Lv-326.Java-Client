@@ -30,6 +30,7 @@ export class TicketService {
   }
 
   closeForm() {
-    document.getElementById('myForm').style.display = 'none';
+    // document.getElementById('myForm').style.display = 'none';
+    // document.getElementsByClassName('fullWrapper').style.display = 'none';
   }
 }
