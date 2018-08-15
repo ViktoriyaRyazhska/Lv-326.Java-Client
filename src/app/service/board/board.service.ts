@@ -4,6 +4,8 @@ import {Board} from '../../entity/Board';
 import {Observable} from 'rxjs';
 import {List} from '../../entity/List';
 import {Ticket} from '../../entity/Ticket';
+import {HistoryLog} from '../../entity/HistoryLog';
+import {Log} from '@angular/core/testing/src/logger';
 
 
 @Injectable({
@@ -51,4 +53,15 @@ export class BoardService {
     const url = `/api/tickets`;
     return this.http.post<Ticket>(url, ticket, this.createHttpOptions());
   }
+
+  createLog(historyLog: HistoryLog): Observable<HistoryLog> {
+    const url = '/api/log';
+    return this.http.post<HistoryLog>(url, historyLog, this.createHttpOptions());
+  }
+
+  getMoreLogs(lastLogId: number, boardId: number): Observable<HistoryLog[]> {
+    const url = `/api/log/${boardId}/${lastLogId}`;
+    return this.http.get<HistoryLog[]>(url, this.createHttpOptions());
+  }
 }
+

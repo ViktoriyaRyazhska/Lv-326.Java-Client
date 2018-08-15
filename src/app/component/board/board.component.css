@@ -171,3 +171,17 @@
   overflow-y: auto;
   padding-bottom: 60px;
 }
+
+.show-more-logs {
+  margin-left: 100px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  text-align: center;
+  width: 200px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.show-more-logs:hover {
+  background-color: #8c8c8c;
+}
