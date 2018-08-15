@@ -1,5 +1,6 @@
 <div id="sidenav-history">
   <a href="javascript:void(0)" class="closebtn" (click)="closeNav()">&times;</a>
+  
   <p align="center">History</p>
   <hr>
   <div class="logs-wrapper">
@@ -7,6 +8,9 @@
       <span style="float: left">{{log.username}}</span><span style="float: right">{{log.createTime}}</span><br>
       <p>{{log.message}}</p>
       <hr>
+    </div>
+    <div class="show-more-logs">
+      <a (click)="addNewLogs()">Show more logs</a>
     </div>
   </div>
 </div>
@@ -17,7 +21,7 @@
     <p align="center"><span class="boardName">{{currentBoard.name}}</span>
       <a (click)="editBoardClick()" class="editBoardButton">Edit</a>
       <span style="font-size:30px;cursor:pointer" class="open-history-button"
-            (click)="openHistorySidenav()">&#9731; open history</span></p>
+            (click)="openHistorySidenav()">&#9776; open history</span></p>
   </div>
   <div *ngIf="isEditBoardClicked">
     <p align="center">

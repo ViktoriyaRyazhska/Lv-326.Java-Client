@@ -8,6 +8,7 @@ import {DragulaService} from 'ng2-dragula';
 import {Subscription} from 'rxjs';
 import {TicketService} from '../../service/ticket/ticket.service';
 import {TicketDto} from '../../entity/TicketDto';
+import {HistoryLog} from '../../entity/HistoryLog';
 
 
 @Component({
@@ -22,6 +23,8 @@ export class BoardComponent implements OnInit {
   addedList: List;
 
   addedTicket: Ticket;
+
+  addedLog: HistoryLog;
 
   ticketDto: TicketDto;
 
@@ -87,6 +90,7 @@ export class BoardComponent implements OnInit {
     this.boardService.addList(this.currentBoard.id, this.addedList)
       .subscribe(list => this.currentBoard.tableLists.push(list));
     this.isAddListButtonClicked = false;
+    this.createUpperLog('created list with name ' + listName);
   }
 
   configureList(listName: string) {
@@ -112,6 +116,7 @@ export class BoardComponent implements OnInit {
       const number = this.currentBoard.tableLists.indexOf(list);
       this.boardService.deleteList(list.id).subscribe();
       this.currentBoard.tableLists.splice(number, 1);
+      this.createUpperLog('deleted list with name ' + list.name);
     }
   }
 
@@ -120,6 +125,7 @@ export class BoardComponent implements OnInit {
     this.boardService.editList(list).subscribe(updatedList =>
       this.currentBoard.tableLists[this.currentBoard.tableLists.indexOf(list)] = updatedList);
     this.setEditableListName(list);
+    this.createUpperLog('changed list name to ' + newName);
   }
 
   setEditableListName(list: List) {
@@ -132,6 +138,7 @@ export class BoardComponent implements OnInit {
     this.currentBoard.name = newName;
     this.boardService.editBoard(newName, this.currentBoard).subscribe();
     this.editBoardClick();
+    this.createUpperLog('changed board name to ' + newName);
   }
 
   editBoardClick() {
@@ -144,6 +151,7 @@ export class BoardComponent implements OnInit {
     this.boardService.addTicket(this.addedTicket)
       .subscribe(ticket => this.currentBoard.tableLists[id].ticketsForBoardResponse.push(ticket));
     this.clickAddNewTicket(list);
+    this.createUpperLog('created ticket ' + ticketName);
   }
 
   clickAddNewTicket(list: List) {
@@ -167,6 +175,32 @@ export class BoardComponent implements OnInit {
       createdById: null,
       sprintId: null
     };
+  }
+
+  createUpperLog(message: string) {
+    this.configureLog(message);
+    this.boardService.createLog(this.addedLog).subscribe(log => this.currentBoard.logs.unshift(log));
+  }
+
+  configureLog(message: string) {
+    this.addedLog = {
+      id: null,
+      createTime: null,
+      boardId: this.currentBoard.id,
+      message: message,
+      userId: null,
+      username: null
+    };
+  }
+
+  addNewLogs() {
+    const logLastId = this.currentBoard.logs[this.currentBoard.logs.length - 1].id;
+    this.boardService.getMoreLogs(logLastId, this.currentBoard.id).subscribe(logs => {
+      // console.log(logs);
+      for (const newLog of logs) {
+        this.currentBoard.logs.push(newLog);
+      }
+    });
   }
 
 }
