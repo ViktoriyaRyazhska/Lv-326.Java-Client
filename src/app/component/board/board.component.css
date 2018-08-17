@@ -15,16 +15,21 @@
 .board {
   user-select: none;
   white-space: nowrap;
-  margin-bottom: 8px;
+  /*margin-bottom: 8px;*/
   overflow-x: auto;
   overflow-y: hidden;
   padding-bottom: 8px;
   position: absolute;
-  top: 100px;
+  width: 100%;
+  padding-top: 50px;
+  top: 45px;
   right: 0;
   bottom: 0;
   left: 0;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
+
 
 
 .addListButton {
@@ -233,5 +238,9 @@
 
 #error-message-local-image {
   color: red;
+}
+
+.upper-board {
+  background-color: #e2e4e6;
 }
 

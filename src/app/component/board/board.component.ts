@@ -9,6 +9,7 @@ import {Subscription} from 'rxjs';
 import {TicketService} from '../../service/ticket/ticket.service';
 import {TicketDto} from '../../entity/TicketDto';
 import {HistoryLog} from '../../entity/HistoryLog';
+import * as url from 'url';
 
 
 @Component({
@@ -36,7 +37,9 @@ export class BoardComponent implements OnInit {
 
   subs = new Subscription();
 
-  fileString: string;
+  image: any;
+
+  confirmedImage: any;
 
   constructor(private boardService: BoardService,
               private route: ActivatedRoute,
@@ -91,6 +94,7 @@ export class BoardComponent implements OnInit {
   getBoard(id: number) {
     this.boardService.getBoard(id).subscribe(board => {
       this.currentBoard = board;
+      this.confirmedImage = (board.image) ? board.image : '';
     });
   }
 
@@ -215,11 +219,19 @@ export class BoardComponent implements OnInit {
     this.isChangeBackgroundButtonClicked = (!this.isChangeBackgroundButtonClicked);
   }
 
-  changeBackgroundImageByLocalImage(file: File) {
-    if (this.checkFileValidity(file)) {
-      const myReader: FileReader = new FileReader();
-      myReader.onload = this._handleReaderLoaded.bind(this);
+  getImageByLocalImage($event) {
+    if (this.checkFileValidity($event.target.files[0])) {
+      this.readThis($event.target);
     }
+  }
+
+  readThis(inputValue: any): void {
+    const file: File = inputValue.files[0];
+    const myReader: FileReader = new FileReader();
+    myReader.onloadend = (e) => {
+      this.image = myReader.result;
+    };
+    myReader.readAsDataURL(file);
   }
 
   checkFileValidity(file: File): boolean {
@@ -240,8 +252,9 @@ export class BoardComponent implements OnInit {
     return true;
   }
 
-  _handleReaderLoaded(readerEvt) {
-    const binaryString = readerEvt.target.result;
-    this.fileString =  btoa(binaryString);  // Converting binary string data.
+  changeBackgroundImage() {
+    const elems = this.image.toString();
+    this.boardService.saveBackgroundImage(this.currentBoard, elems).subscribe();
+    this.confirmedImage = this.image;
   }
 }
