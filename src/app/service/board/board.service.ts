@@ -63,5 +63,11 @@ export class BoardService {
     const url = `/api/log/${boardId}/${lastLogId}`;
     return this.http.get<HistoryLog[]>(url, this.createHttpOptions());
   }
+
+  saveBackgroundImage(board: Board, base64Image: string) {
+    const url = `/api/boards/image`;
+    board.image = base64Image;
+    return this.http.put(url, board, this.createHttpOptions());
+  }
 }
 

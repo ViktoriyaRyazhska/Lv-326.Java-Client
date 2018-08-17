@@ -7,4 +7,5 @@ export class Board {
   boardType: string;
   tableLists: List[];
   logs: HistoryLog[];
+  image: any;
 }
