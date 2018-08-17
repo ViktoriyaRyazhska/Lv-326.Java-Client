@@ -1,6 +1,8 @@
-<div id="sidenav-history">
+<div id="sidenav-history" *ngIf="!isChangeBackgroundButtonClicked">
   <a href="javascript:void(0)" class="closebtn" (click)="closeNav()">&times;</a>
-  
+  <div class="change-background">
+    <a (click)="changeIsChangeBackgroundButtonClicked()">Change background</a>
+  </div>
   <p align="center">History</p>
   <hr>
   <div class="logs-wrapper">
@@ -12,6 +14,25 @@
     <div class="show-more-logs">
       <a (click)="addNewLogs()">Show more logs</a>
     </div>
+  </div>
+</div>
+
+<div id="sidenav-background-image" *ngIf="isChangeBackgroundButtonClicked">
+  <a href="javascript:void(0)" class="closebtn" (click)="closeBackgroundNav()">&times;</a>
+  <div class="add-url-image" align="center">
+    <div align="center">Add URL image</div>
+    <br>
+    <input type="text" placeholder="Paste URL"><button>Enter</button>
+    <div id="error-message-url-image"></div>
+    <hr>
+  </div>
+  <div class="add-local-image" align="center">
+    <div align="center">Add local image</div>
+    <br>
+    <input #imageLocalFile type="file">
+    <button (click)="changeBackgroundImageByLocalImage(imageLocalFile.files[0])">Enter</button>
+    <div id="error-message-local-image"></div>
+    <hr>
   </div>
 </div>
 
@@ -28,11 +49,13 @@
       <input #nameField type="text" value="{{currentBoard.name}}">
       <button (click)="editBoard(nameField.value)" class="editButton">Set</button>
       <button (click)="editBoardClick()" class="back">Back</button>
+      <span style="font-size:30px;cursor:pointer" class="open-history-button"
+            (click)="openHistorySidenav()">&#9776; open history</span>
     </p>
   </div>
 
   <div class="board">
-    <app-ticket [ticketDto]="ticketDto"></app-ticket>
+    <!--<app-ticket [ticketDto]="ticketDto"></app-ticket>-->
     <div *ngFor="let list of currentBoard.tableLists" class="list-wrapper" id="list{{list.id}}">
       <div class="list">
         <div class="list-header">
@@ -46,7 +69,7 @@
 
           <div *ngIf="list.isEditListNameInProgress">
             <p>
-              <input #editValue type="text" value="{{list.name}}" class="editField">
+              <input #editValue type="text" value="{{list.name}}" class="editField"><br>
               <button (click)="editList(list, editValue.value)" class="editButton">Set</button>
               <button (click)="setEditableListName(list)" class="back">Back</button>
             </p>

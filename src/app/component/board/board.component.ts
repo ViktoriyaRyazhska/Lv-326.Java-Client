@@ -32,7 +32,11 @@ export class BoardComponent implements OnInit {
 
   isEditBoardClicked = false;
 
+  isChangeBackgroundButtonClicked = false;
+
   subs = new Subscription();
+
+  fileString: string;
 
   constructor(private boardService: BoardService,
               private route: ActivatedRoute,
@@ -59,6 +63,11 @@ export class BoardComponent implements OnInit {
 
   closeNav() {
     document.getElementById('sidenav-history').style.width = '0';
+  }
+
+  closeBackgroundNav() {
+    document.getElementById('sidenav-background-image').style.width = '0';
+    this.changeIsChangeBackgroundButtonClicked();
   }
 
   ngOnInit() {
@@ -196,11 +205,43 @@ export class BoardComponent implements OnInit {
   addNewLogs() {
     const logLastId = this.currentBoard.logs[this.currentBoard.logs.length - 1].id;
     this.boardService.getMoreLogs(logLastId, this.currentBoard.id).subscribe(logs => {
-      // console.log(logs);
       for (const newLog of logs) {
         this.currentBoard.logs.push(newLog);
       }
     });
   }
 
+  changeIsChangeBackgroundButtonClicked() {
+    this.isChangeBackgroundButtonClicked = (!this.isChangeBackgroundButtonClicked);
+  }
+
+  changeBackgroundImageByLocalImage(file: File) {
+    if (this.checkFileValidity(file)) {
+      const myReader: FileReader = new FileReader();
+      myReader.onload = this._handleReaderLoaded.bind(this);
+    }
+  }
+
+  checkFileValidity(file: File): boolean {
+    const elements = file.name.split('.');
+    const imageFormat = elements[elements.length - 1];
+    if (imageFormat !== 'jpg') {
+      document.getElementById('error-message-local-image').innerHTML = 'Invalid format';
+      return false;
+    } else {
+      document.getElementById('error-message-local-image').innerHTML = '';
+    }
+    if (file.size > 10_000_000) {
+      document.getElementById('error-message-local-image').innerHTML = 'File is too large';
+      return false;
+    } else {
+      document.getElementById('error-message-local-image').innerHTML = '';
+    }
+    return true;
+  }
+
+  _handleReaderLoaded(readerEvt) {
+    const binaryString = readerEvt.target.result;
+    this.fileString =  btoa(binaryString);  // Converting binary string data.
+  }
 }

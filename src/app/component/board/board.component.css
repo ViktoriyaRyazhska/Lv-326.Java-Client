@@ -26,6 +26,7 @@
   left: 0;
 }
 
+
 .addListButton {
   background: #e2e4e6;
   border-radius: 3px;
@@ -146,6 +147,19 @@
   background-color: #edeff0;
 }
 
+#sidenav-background-image {
+  height: 100%;
+  width: 25%;
+  position: fixed;
+  z-index: 100000;
+  top: 0;
+  right: 0;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+  background-color: #edeff0;
+}
+
 .closebtn {
   position: absolute;
   top: 0;
@@ -183,5 +197,41 @@
 }
 
 .show-more-logs:hover {
+  background-color: darkgrey;
+}
+
+.show-more-logs:active{
   background-color: #8c8c8c;
 }
+
+.change-background {
+  text-align: center;
+  width: 200px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-left: 100px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.change-background:hover {
+  background-color: darkgrey;
+}
+
+.change-background:active {
+  background-color: #8c8c8c;
+}
+
+.sidenav-back-button {
+  position: absolute;
+  top: 0;
+  left: 25px;
+  font-size: 36px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+#error-message-local-image {
+  color: red;
+}
+
