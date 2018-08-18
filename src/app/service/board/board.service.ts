@@ -29,7 +29,7 @@ export class BoardService {
   }
 
   addList(boardId: number, list: List): Observable<List> {
-    const url = `${this.simpleUrl}${boardId}/lists`;
+    const url = `/api/lists/b/${boardId}`;
     return this.http.post<List>(url, list, this.createHttpOptions());
   }
 
@@ -39,7 +39,7 @@ export class BoardService {
   }
 
   editList(list: List): Observable<List> {
-    const url = `/api/boards/${list.boardId}/lists/${list.id}`;
+    const url = `/api/lists/${list.id}/b/${list.boardId}`;
     return this.http.put<List>(url, list, this.createHttpOptions());
   }
 
