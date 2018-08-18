@@ -41,6 +41,8 @@ export class BoardComponent implements OnInit {
 
   confirmedImage: any;
 
+  confirmedImageName: string;
+
   constructor(private boardService: BoardService,
               private route: ActivatedRoute,
               private dragulaService: DragulaService,
@@ -223,6 +225,7 @@ export class BoardComponent implements OnInit {
     if (this.checkFileValidity($event.target.files[0])) {
       this.readThis($event.target);
     }
+    this.confirmedImageName = $event.target.files[0].name;
   }
 
   readThis(inputValue: any): void {
@@ -253,8 +256,8 @@ export class BoardComponent implements OnInit {
   }
 
   changeBackgroundImage() {
-    const elems = this.image.toString();
-    this.boardService.saveBackgroundImage(this.currentBoard, elems).subscribe();
+    const elems = this.image.toString().split('base64,');
+    this.boardService.saveBackgroundImage(this.currentBoard, elems[elems.length - 1], this.confirmedImageName).subscribe();
     this.confirmedImage = this.image;
   }
 }

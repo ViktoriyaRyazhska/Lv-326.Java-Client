@@ -8,4 +8,5 @@ export class Board {
   tableLists: List[];
   logs: HistoryLog[];
   image: any;
+  imageName: string;
 }
