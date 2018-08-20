@@ -66,12 +66,10 @@ export class BoardComponent implements OnInit {
     });
     this.subs.add(dragulaService.drop('LISTS')
       .subscribe(({el, source, target}) => {
-        const listId = target.parentElement.parentElement.getAttribute('id');
-        // do not delete me, I wait drag and drop logic on server
-        console.log('ticketId - ' + target);
-        console.log('ticketId - ' + el);
-        console.log('ticketId - ' + source);
-
+        const listId = el.getAttribute('id');
+        const sequenceNumber = [].slice.call(el.parentElement.children).indexOf(el);
+        const boardId = this.currentBoard.id;
+        this.boardService.updateListOrder(boardId, listId, sequenceNumber);
       })
     );
   }
