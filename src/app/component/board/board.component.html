@@ -1,3 +1,4 @@
+<div id="closeForm" (click)="closeForm()"></div>
 <div id="sidenav-history" *ngIf="!isChangeBackgroundButtonClicked">
   <a href="javascript:void(0)" class="closebtn" (click)="closeNav()">&times;</a>
   <div class="change-background">
@@ -53,8 +54,8 @@
     </div>
 
     <div class="board"  [ngStyle]="{ 'background-image': 'url(' + confirmedImage + ')'}">
-      <!--<app-ticket [ticketDto]="ticketDto"></app-ticket>-->
       <div *ngFor="let list of currentBoard.tableLists" class="list-wrapper" id="list{{list.id}}">
+        <app-ticket [ticketDto]="ticketDto" [currentList]="list"></app-ticket>
         <div class="list">
           <div class="list-header">
             <div *ngIf="!list.isEditListNameInProgress">

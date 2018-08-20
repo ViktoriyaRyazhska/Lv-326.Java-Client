@@ -10,6 +10,8 @@ export class TicketDto {
   ticketPriority: string;
   assignedToId: number;
   createdById: number;
+  assignedToName: string;
+  createdByName: string;
   boardId: number;
   sprintId: number;
   tableListId: number;

@@ -244,3 +244,11 @@
   background-color: #e2e4e6;
 }
 
+#closeForm {
+  display: none;
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
+  z-index: 200;
+  background-color: #8080804d;
+}
