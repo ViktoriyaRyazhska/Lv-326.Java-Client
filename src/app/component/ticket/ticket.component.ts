@@ -37,7 +37,6 @@ export class TicketComponent implements OnInit {
     if (confirm(`Delete ticket ${ticket.name}`)) {
       // const number = this.currentBoard.tableLists.indexOf(list);
       const number = ticket.id;
-      console.log(number);
       this.ticketService.deleteTicket(ticket).subscribe();
       this.currentBoard.tableLists.splice(number, 1);
       // this.createUpperLog('deleted list with name ' + list.name);

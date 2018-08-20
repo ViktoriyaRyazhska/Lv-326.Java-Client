@@ -4,8 +4,6 @@
   justify-content: center;
   height: 100vh;
   width: 99vw;
-  margin-bottom: 20vh;
-  z-index: 50;
 }
 
 /*#closeForm {*/
@@ -17,14 +15,15 @@
 /*background-color: #8080804d;*/
 /*}*/
 
-.window_main_container {
+#window_main_container {
   background-color: #EDEFF0;
   border-radius: 0.3rem;
   width: 50%;
   height: auto;
   display: flex;
+  /*display: none;*/
   position: relative;
-  z-index: 100;
+  z-index: 300;
 }
 
 .cross::before, .cross::after {

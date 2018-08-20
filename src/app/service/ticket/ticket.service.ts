@@ -37,12 +37,14 @@ export class TicketService {
   }
 
   openForm() {
+    // document.getElementById('window_main_container').style.display = 'flex';
     document.getElementById('myForm').style.display = 'flex';
     document.getElementById('closeForm').style.display = 'flex';
   }
 
   closeForm() {
     document.getElementById('myForm').style.display = 'none';
+    // document.getElementById('window_main_container').style.display = 'none';
     document.getElementById('closeForm').style.display = 'none';
   }
 
