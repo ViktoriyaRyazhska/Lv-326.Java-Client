@@ -39,6 +39,8 @@ export class BoardComponent implements OnInit {
 
   image: any;
 
+  urlImage: any;
+
   confirmedImage: any;
 
   confirmedImageName: string;
