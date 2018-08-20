@@ -9,8 +9,8 @@ import {RouterModule, Routes} from '@angular/router';
 import { EnterTokenComponent } from './component/enter-token/enter-token.component';
 import {DragulaModule, DragulaService} from 'ng2-dragula';
 import { TicketComponent } from './component/ticket/ticket.component';
-import { CloudinaryModule } from '@cloudinary/angular-5.x';
-import * as  Cloudinary from 'cloudinary-core';
+// import { CloudinaryModule } from '@cloudinary/angular-5.x';
+// import * as  Cloudinary from 'cloudinary-core';
 
 const routes: Routes = [
   { path: 'board/:id', component: BoardComponent},
@@ -29,7 +29,7 @@ const routes: Routes = [
     HttpClientModule,
     AppRoutingModule,
     DragulaModule,
-    CloudinaryModule.forRoot(Cloudinary, { cloud_name: 'djx1z46bi'}),
+    // CloudinaryModule.forRoot(Cloudinary, { cloud_name: 'djx1z46bi'}),
     RouterModule.forRoot(routes)
   ],
   providers: [DragulaService],
