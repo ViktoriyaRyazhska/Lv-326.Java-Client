@@ -3,6 +3,8 @@ import {Ticket} from '../../entity/Ticket';
 import {TicketService} from '../../service/ticket/ticket.service';
 import {TicketDto} from '../../entity/TicketDto';
 import {List} from '../../entity/List';
+import {Board} from '../../entity/Board';
+import {CommentDto} from '../../entity/CommentDto';
 
 @Component({
   selector: 'app-ticket',
@@ -15,11 +17,35 @@ import {List} from '../../entity/List';
 })
 export class TicketComponent implements OnInit {
   @Input() ticketDto: TicketDto;
+  @Input() currentBoard: Board;
+  @Input() currentList: List;
 
   constructor(private ticketService: TicketService) {
   }
 
   ngOnInit() {
+  }
+
+  deleteComment(comment: CommentDto) {
+    const number = this.ticketDto.comments.indexOf(comment);
+    this.ticketService.deleteComment(comment.id).subscribe();
+    this.ticketDto.comments.splice(number, 1);
+    // this.createUpperLog('deleted list with name ' + list.name);
+  }
+
+  deleteTicket(ticket: TicketDto) {
+    if (confirm(`Delete ticket ${ticket.name}`)) {
+      // const number = this.currentBoard.tableLists.indexOf(list);
+      const number = ticket.id;
+      console.log(number);
+      this.ticketService.deleteTicket(ticket).subscribe();
+      this.currentBoard.tableLists.splice(number, 1);
+      // this.createUpperLog('deleted list with name ' + list.name);
+    }
+  }
+
+  closeForm() {
+    this.ticketService.closeForm();
   }
 
 }

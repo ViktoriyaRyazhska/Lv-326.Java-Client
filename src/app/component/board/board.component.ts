@@ -86,6 +86,10 @@ export class BoardComponent implements OnInit {
     this.getBoard(id);
   }
 
+  closeForm() {
+    this.ticketService.closeForm();
+  }
+
   getTicket(ticketId: number) {
     // this.ticketService.openForm();
     this.ticketService.getTicket(ticketId).subscribe(ticket => {

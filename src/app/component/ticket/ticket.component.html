@@ -1,17 +1,111 @@
-<button mat-button (click)="openDialog()">Open dialog</button>
+<div id="myForm">
+  <div class="window_main_container">
+    <div class="window_top_and_bottom_container">
+      <div class="window_top">
+        <div class="window_top_one">
+          <div class="window_top_one_1">
+            <i class="fa fa-window-maximize" style="font-size: 1.2rem;"></i>
+            {{ticketDto.name}}
+          </div>
+          <div class="Todo_list">
+            In a {{currentList.name}} list
+          </div>
+        </div>
+        <div class="window_top_two">
+          <p>Created by: {{ticketDto.createdByName}}</p>
+          <p>Asigned to: {{ticketDto.assignedToName}}</p>
+        </div>
+        <div class="textarea_description">
+          <div class="textarea_description_1">
+            <div>
+              <i class="fa fa-align-justify" style="font-size: 1.2rem;"></i>
+            </div>
+            <div class="textarea_description_text">
+              <p>Description</p>
+            </div>
+          </div>
+          <div class="textarea_description_2">
+            <textarea placeholder="Додати більш детальний опис..." rows="3" style="font-size: 0.7rem;"></textarea>
+          </div>
+        </div>
 
-<h1 mat-dialog-title>Favorite Animal</h1>
-<div mat-dialog-content>
-  My favorite animal is:
-  <ul>
-    <li>
-      <span *ngIf="data.animal === 'panda'">&#10003;</span> Panda
-    </li>
-    <li>
-      <span *ngIf="data.animal === 'unicorn'">&#10003;</span> Unicorn
-    </li>
-    <li>
-      <span *ngIf="data.animal === 'lion'">&#10003;</span> Lion
-    </li>
-  </ul>
+        <div class="textarea_comment">
+          <div class="textarea_comment_1">
+            <div>
+              <i class="fa fa-comment" style="font-size: 1.2rem;"></i>
+            </div>
+            <div class="textarea_description_text">
+              <p>Comments</p>
+            </div>
+          </div>
+          <div class="textarea_comment_2">
+            <div class="textarea_comment_2_textarea">
+              <textarea placeholder="Put comment here..." rows="3" style="font-size: 0.7rem;"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <button type="submit" value="Зберегти" name="Зберегти">Save comment</button>
+
+      </div>
+      <div class="window_bottom">
+
+        <div *ngFor="let comment of ticketDto.comments" class="window_bottom_2">
+          <div class="window_bottom_2_person_main">
+            <div class="window_bottom_2_person">
+              <p> {{comment.userName}} <span>{{comment.updateTime}}</span></p>
+              <div class="window_bottom_2_comment">
+                <p>{{comment.message}}</p>
+              </div>
+              <div class="window_bottom_2_person_change">
+                <i class="fa fa-trash"></i>
+                <span> Edit </span> <span (click)="deleteComment(comment)"> Delete </span>
+              </div>
+              <div class="fake"></div>
+            </div>
+          </div>
+        </div>
+
+        <!--<div class="window_bottom_2" *ngFor="let comment of ticketDto.comments">-->
+        <!--<div class="window_bottom_2_person_main">-->
+        <!--<div class="window_bottom_2_person">-->
+        <!--<p> Vitalii Bedeshko приєднався(-лась) до цієї картки</p>-->
+        <!--<div class="window_bottom_2_comment_time">-->
+        <!--<p> 14 хвилин тому </p>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<hr>-->
+      </div>
+    </div>
+
+
+    <div class="window_right_bar">
+      <div class="cross" (click)="closeForm()">
+      </div>
+      <div class="right_top_bar">
+        <div class="Add_card">
+          <div class="h5_name">
+            <h5> Actions: </h5>
+          </div>
+          <a href="#">
+            <div class="button1"><i class="fa fa-times-circle"></i>Термін</div>
+          </a>
+          <a href="#">
+            <div class="button1"><i class="fa fa-paperclip"></i>Вкладення</div>
+          </a>
+          <a href="#">
+            <div class="button1"><i class="fa fa-paperclip"></i>Вкладення</div>
+          </a>
+          <a href="#">
+            <div class="button1"><i class="fa fa-paperclip"></i>Show ticket logs</div>
+          </a>
+
+          <div class="button1" (click)="deleteTicket(ticketDto)">Archive ticket</div>
+
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
