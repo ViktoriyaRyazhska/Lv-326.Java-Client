@@ -39,8 +39,6 @@ export class BoardComponent implements OnInit {
 
   image: any;
 
-  urlImage: any;
-
   confirmedImage: any;
 
   confirmedImageName: string;
@@ -50,7 +48,8 @@ export class BoardComponent implements OnInit {
               private dragulaService: DragulaService,
               private ticketService: TicketService) {
     dragulaService.createGroup('TICKETS', {
-      revertOnSpill: true
+      revertOnSpill: true,
+      direction: 'vertical'
     });
     this.subs.add(dragulaService.drop('TICKETS')
       .subscribe(({el, source, target}) => {
@@ -60,6 +59,19 @@ export class BoardComponent implements OnInit {
         console.log('listId - ' + listId.substring(4, listId.length));
         console.log('sequence number - ' + [].slice.call(el.parentElement.children).indexOf(el));
         console.log('boardId - ' + this.currentBoard.id);
+      })
+    );
+    this.dragulaService.createGroup('LISTS', {
+      direction: 'horizontal'
+    });
+    this.subs.add(dragulaService.drop('LISTS')
+      .subscribe(({el, source, target}) => {
+        const listId = target.parentElement.parentElement.getAttribute('id');
+        // do not delete me, I wait drag and drop logic on server
+        console.log('ticketId - ' + target);
+        console.log('ticketId - ' + el);
+        console.log('ticketId - ' + source);
+
       })
     );
   }

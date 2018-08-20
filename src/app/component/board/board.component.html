@@ -52,9 +52,10 @@
       </p>
     </div>
 
-    <div class="board"  [ngStyle]="{ 'background-image': 'url(' + confirmedImage + ')'}">
+    <div class="board"  [ngStyle]="{ 'background-image': 'url(' + confirmedImage + ')'}" dragula="LISTS"
+         [(dragulaModel)]="currentBoard.tableLists">
       <!--<app-ticket [ticketDto]="ticketDto"></app-ticket>-->
-      <div *ngFor="let list of currentBoard.tableLists" class="list-wrapper" id="list{{list.id}}">
+      <div *ngFor="let list of currentBoard.tableLists" class="list-wrapper" id="list{{list.id}}" >
         <div class="list">
           <div class="list-header">
             <div *ngIf="!list.isEditListNameInProgress">
@@ -75,7 +76,7 @@
 
 
           </div>
-          <div class="ticket-list-wrapper" dragula="TICKETS">
+          <div class="ticket-list-wrapper" dragula="TICKETS" [(dragulaModel)]="list.ticketsForBoardResponse">
             <div class="list-tickets" *ngFor="let ticket of list.ticketsForBoardResponse" id="{{ticket.id}}"
                  (click)="getTicket(ticket.id)">
               <div class="ticket">
