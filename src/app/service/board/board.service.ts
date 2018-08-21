@@ -6,6 +6,7 @@ import {List} from '../../entity/List';
 import {Ticket} from '../../entity/Ticket';
 import {HistoryLog} from '../../entity/HistoryLog';
 import {Log} from '@angular/core/testing/src/logger';
+import {OrderTableList} from '../../entity/OrderTableList';
 
 
 @Injectable({
@@ -14,6 +15,8 @@ import {Log} from '@angular/core/testing/src/logger';
 export class BoardService {
 
   private simpleUrl = '/api/boards/';
+
+  private orderTableList: OrderTableList;
 
   constructor(private http: HttpClient) {
   }
@@ -69,6 +72,21 @@ export class BoardService {
     board.image = base64Image;
     board.imageName = imageName;
     return this.http.put(url, board, this.createHttpOptions());
+  }
+
+  updateListOrder(boardId: number, listId: string, sequenceNumber: number) {
+    listId = listId.split('list')[1];
+    this.createOrderTableList(boardId, listId, sequenceNumber);
+    const url = `/api/lists/order`;
+    this.http.put(url, this.orderTableList, this.createHttpOptions()).subscribe();
+  }
+
+  createOrderTableList(boardId: number, listId: string, sequenceNumber: number) {
+    this.orderTableList = {
+      boardId: boardId,
+      listId: listId,
+      sequenceNumber: sequenceNumber
+    };
   }
 }
 
