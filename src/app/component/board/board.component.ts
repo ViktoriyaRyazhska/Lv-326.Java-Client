@@ -9,7 +9,7 @@ import {Subscription} from 'rxjs';
 import {TicketService} from '../../service/ticket/ticket.service';
 import {TicketDto} from '../../entity/TicketDto';
 import {HistoryLog} from '../../entity/HistoryLog';
-import * as url from 'url';
+// import * as url from 'url';
 
 
 @Component({

@@ -47,6 +47,25 @@ export class TicketComponent implements OnInit {
     this.ticketService.closeForm();
   }
 
+  saveDescription(descriptionField: string) {
+    this.ticketDto.description = descriptionField;
+    this.ticketService.editTicket(this.ticketDto).subscribe();
+}
+
+  // editList(list: List, newName: string) {
+  //   list.name = newName;
+  //   this.boardService.editList(list).subscribe(updatedList =>
+  //     this.currentBoard.tableLists[this.currentBoard.tableLists.indexOf(list)] = updatedList);
+  //   this.setEditableListName(list);
+  //   this.createUpperLog('changed list name to ' + newName);
+  // }
+
+  // setEditableListName(list: List) {
+  //   const id = this.currentBoard.tableLists.indexOf(list);
+  //   this.currentBoard.tableLists[id].isEditListNameInProgress
+  //     = (!this.currentBoard.tableLists[id].isEditListNameInProgress);
+  // }
+
 }
 
 // addComment(listName: string) {
