@@ -244,6 +244,10 @@
   background-color: #e2e4e6;
 }
 
+.gu-mirror {
+  display: none;
+}
+
 #closeForm {
   display: none;
   position: absolute;
