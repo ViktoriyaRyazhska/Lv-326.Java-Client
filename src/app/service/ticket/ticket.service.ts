@@ -36,6 +36,11 @@ export class TicketService {
     return this.http.get<TicketDto>(url, this.createHttpOptions());
   }
 
+  editTicket(ticketDto: TicketDto): Observable<TicketDto> {
+      const url = `/api/tickets/`;
+      return this.http.put<TicketDto>(url, ticketDto, this.createHttpOptions());
+  }
+
   openForm() {
     // document.getElementById('window_main_container').style.display = 'flex';
     document.getElementById('myForm').style.display = 'flex';
