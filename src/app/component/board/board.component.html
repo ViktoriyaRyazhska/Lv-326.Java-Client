@@ -1,4 +1,5 @@
 <div id="closeForm" (click)="closeForm()"></div>
+<app-ticket [ticketDto]="ticketDto"></app-ticket>
 <div id="sidenav-history" *ngIf="!isChangeBackgroundButtonClicked">
   <a href="javascript:void(0)" class="closebtn" (click)="closeNav()">&times;</a>
   <div class="change-background">
@@ -56,7 +57,6 @@
     <div class="board"  [ngStyle]="{ 'background-image': 'url(' + confirmedImage + ')'}" dragula="LISTS"
          [(dragulaModel)]="currentBoard.tableLists">
       <div *ngFor="let list of currentBoard.tableLists" class="list-wrapper" id="list{{list.id}}">
-        <app-ticket [ticketDto]="ticketDto" [currentList]="list"></app-ticket>
         <div class="list">
           <div class="list-header">
             <div *ngIf="!list.isEditListNameInProgress">
@@ -79,7 +79,7 @@
           </div>
           <div class="ticket-list-wrapper" dragula="TICKETS" [(dragulaModel)]="list.ticketsForBoardResponse">
             <div class="list-tickets" *ngFor="let ticket of list.ticketsForBoardResponse" id="{{ticket.id}}"
-                 (click)="getTicket(ticket.id)">
+                 (click)="getTicket(ticket.id, list)">
               <div class="ticket">
                 <span class="ticket-name">{{ticket.name}}</span>
               </div>

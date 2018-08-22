@@ -16,12 +16,13 @@
 /*}*/
 
 #window_main_container {
+  margin-top: 4vh;
+  margin-bottom: 4vh;
   background-color: #EDEFF0;
   border-radius: 0.3rem;
   width: 50%;
   height: auto;
   display: flex;
-  /*display: none;*/
   position: relative;
   z-index: 300;
 }
@@ -63,7 +64,7 @@
 
 .window_bottom {
   width: 120%;
-  height: 45%;
+  height: 50%;
   overflow-y: scroll;
   margin-left: 30%;
 }
@@ -463,6 +464,7 @@ h3, h4, h5, h6 {
   color: #8c8c8c;
   text-decoration: underline;
   margin-left: 5px;
+  display: inline;
 }
 
 .u-gutter {
