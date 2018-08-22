@@ -8,13 +8,13 @@
             <h2>{{ticketDto.name}}</h2>
           </div>
           <div class="Todo_list">
-            <h3>In a {{currentList.name}} list </h3>
+            <h3>In a {{listForTicket.name}} list </h3>
           </div>
         </div>
         <div class="window_top_two">
           <p>Created by: {{ticketDto.createdByName}}</p>
           <div *ngIf="ticketDto.assignedToName">
-            <p>Asigned to: {{ticketDto.assignedToName}}</p>
+            <p>Assigned to: {{ticketDto.assignedToName}}</p>
           </div>
         </div>
         <div *ngIf="!ticketDto.description">
@@ -31,11 +31,9 @@
               <textarea placeholder="Add description..." rows="3" style="font-size: 0.7rem;"
                         #descriptionField></textarea>
             </div>
-            <button type="submit" value="saveDescription" name="saveDescription" (click)="saveDescription(descriptionField.value)">Save description</button>
-
-
-            <!--<input type="text" #createTicketField class="createTicketField">-->
-            <!--<button (click)="addNewTicket(saveDescription.value, list)">Add</button>-->
+            <button type="submit" value="saveDescription" name="saveDescription"
+                    (click)="saveDescription(descriptionField.value)">Save description
+            </button>
 
           </div>
         </div>
@@ -43,14 +41,17 @@
           <div class="window-module">
             <div class="window-module-title window-module-title-no-divider"><span
               class="icon-description icon-lg window-module-title-icon"></span>
-              <h3 class="u-inline-block"><b>Description</b></h3><a
-                class="card-detail-item-header-edit hide-on-edit js-show-with-desc js-edit-desc" href="#">Edit</a>
+              <h3 class="u-inline-block"><b>Description</b></h3>
+              <div
+                class="card-detail-item-header-edit hide-on-edit js-show-with-desc js-edit-desc">Edit
+              </div>
             </div>
             <div class="u-gutter js-hide-on-minimize-desc">
               <div class="editable" attr="desc">
                 <div class="description-content js-desc-content">
-                  <div class="current markeddown hide-on-edit js-card-desc js-show-with-desc" dir="auto"><h2>{{ticketDto.description}}</h2>
-                    </div>
+                  <div class="current markeddown hide-on-edit js-card-desc js-show-with-desc" dir="auto"><h2>
+                    {{ticketDto.description}}</h2>
+                  </div>
                 </div>
               </div>
             </div>

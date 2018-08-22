@@ -1,4 +1,5 @@
 <div id="closeForm" (click)="closeForm()"></div>
+<app-ticket [ticketDto]="ticketDto"></app-ticket>
 <div id="sidenav-history" *ngIf="!isChangeBackgroundButtonClicked">
   <a href="javascript:void(0)" class="closebtn" (click)="closeNav()">&times;</a>
   <div class="change-background">
@@ -54,19 +55,16 @@
                 (click)="openHistorySidenav()">&#9776; open history</span>
         </p>
       </div>
-
-      <div class="board"  [ngStyle]="{ 'background-image': 'url(' + confirmedImage + ')'}" dragula="LISTS"
-           [(dragulaModel)]="currentBoard.tableLists">
-        <div *ngFor="let list of currentBoard.tableLists" class="list-wrapper" id="list{{list.id}}">
-          <app-ticket [ticketDto]="ticketDto" [currentList]="list"></app-ticket>
-          <div class="list">
-            <div class="list-header">
-              <div *ngIf="!list.isEditListNameInProgress">
-                <p align="center">{{list.name}}</p>
-                <div class="options">
-                  <a (click)="setEditableListName(list)" class="options-text">Edit</a>
-                  <a (click)="deleteList(list)" class="options-text">Delete</a>
-                </div>
+    <div class="board"  [ngStyle]="{ 'background-image': 'url(' + confirmedImage + ')'}" dragula="LISTS"
+         [(dragulaModel)]="currentBoard.tableLists">
+      <div *ngFor="let list of currentBoard.tableLists" class="list-wrapper" id="list{{list.id}}">
+        <div class="list">
+          <div class="list-header">
+            <div *ngIf="!list.isEditListNameInProgress">
+              <p align="center">{{list.name}}</p>
+              <div class="options">
+                <a (click)="setEditableListName(list)" class="options-text">Edit</a>
+                <a (click)="deleteList(list)" class="options-text">Delete</a>
               </div>
 
               <div *ngIf="list.isEditListNameInProgress">
@@ -76,8 +74,6 @@
                   <button (click)="setEditableListName(list)" class="back">Back</button>
                 </p>
               </div>
-
-
             </div>
             <div class="ticket-list-wrapper" dragula="TICKETS" [(dragulaModel)]="list.ticketsForBoardResponse">
               <div class="list-tickets" *ngFor="let ticket of list.ticketsForBoardResponse" id="{{ticket.id}}"
