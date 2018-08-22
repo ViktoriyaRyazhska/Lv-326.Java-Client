@@ -1,0 +1,91 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-8 offset-4">
+      <div *ngIf="!isAddSprintButtonClicked">
+        <button class="btn btn-outline-info main-button" (click)= "addSprintButtonClick()"> Add Sprint </button>
+        <!--SORTING-->
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" (click)= "noSort()" checked>
+          <label class="form-check-label" for="inlineRadio1">No Sort</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2" (click)= "sortFuncByName()">
+          <label class="form-check-label" for="inlineRadio2">By Name</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3" (click)= "sortFuncByStartDate()">
+          <label class="form-check-label" for="inlineRadio3" >By Start Date</label>
+        </div>
+        <!--SORTING-->
+      </div>
+      <div *ngIf="isAddSprintButtonClicked">
+        <input type="text" class="forsm-control form-control" #sprintName>
+        <button class="btn btn-outline-success btn-space"  (click)="addSprint(sprintName.value, currentBoard.id)">Add</button>
+        <button class="btn btn-outline-dark btn-space" (click)="changeButtonClick()">Back</button>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="col-sm-12 btn border-secondary">
+        <div class="backlog-name"> <b>{{ currentBoard.backlog.label }}</b></div>
+        <div>
+          <div *ngFor="let ticketBacklog of currentBoard.backlog.ticketsForBoardResponse" id="{{ticketBacklog.id}}"
+               (click)="getTicket(ticketBacklog.id)">
+            <span class="p-1 mb-4 bg-light text-dark d-flex align-items-start row-eq-height border border-info text">{{ticketBacklog.name}}</span>
+          </div>
+          <div *ngIf="!isAddNewTicketClicked">
+            <button class="btn btn-outline-success btn-space" (click)="clickAddNewTicket(currentBoard.backlog)">Add new issue</button>
+          </div>
+          <div *ngIf="isAddNewTicketClicked">
+            <input type="text" class="forsm-control form-control" #createTicketField>
+            <button class="btn btn-outline-success btn-space" (click)="addNewTicket(createTicketField.value, currentBoard.backlog)">Add</button>
+            <button class="btn btn-outline-dark btn-space" (click)="clickAddNewTicket(currentBoard.backlog)">Back</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-8">
+      <div class="container btn border-secondary">
+        <div class="row" dragula="SPRINTS" [(dragulaModel)]="currentBoard.sprints">
+          <!--FOR EACH SPRINT-->
+          <div class="col-sm-12" *ngFor="let sprint of currentBoard.sprints" id="{{sprint.id}}"
+                 (click)="getSprint(sprint.id)">
+            <div class="container">
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="row p-1 mb-4 bg-light text-dark foo border border-warning d-flex align-items-start row-eq-height">
+                    <div class="backlog-name"> <b>{{ sprint.label }}</b>
+                      <span *ngIf="!sprint.isEditSprintClicked">
+                        <span class="editButton" (click)="editSprintClick(sprint)">Edit</span>
+                      </span>
+                      <span *ngIf="sprint.isEditSprintClicked">
+                        <a>
+                          <input #nameField type="text" value="{{sprint.label}}">
+                          <button class="btn btn-outline-success btn-space" (click)="editSprint(nameField.value, sprint)">Set</button>
+                          <button class="btn btn-outline-dark btn-space" (click)="editSprintClick(sprint)">Back</button>
+                        </a>
+                      </span>
+                      <span class="deleteButton" (click)="moveToArchiveSprint(sprint)">Delete</span>
+                      <button class="btn btn-outline-success main-button" (click)= "changeButtonClick()" id="bottom-right"> Start Sprint </button>
+                    </div>
+                    <div class="container">
+                      <div class="row">
+                        <div class="col-sm-12">
+                          <div *ngFor="let ticketSprint of sprint.ticketsForBoardResponse" id="{{ticketSprint.id}}"
+                               (click)="getTicket(ticketSprint.id)">
+                            <span class="p-1 mb-4 bg-light text-dark d-flex align-items-start row-eq-height border border-info text">{{ticketSprint.name}}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

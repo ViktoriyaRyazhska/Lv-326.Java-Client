@@ -34,91 +34,113 @@
   </div>
 </div>
 
-<div class="board-wrapper">
-  <div *ngIf="currentBoard">
+<div *ngIf="currentBoard.boardType === 'CUSTOM'">
 
-    <div class="upper-board" *ngIf="!isEditBoardClicked">
-      <p align="center"><span class="boardName">{{currentBoard.name}}</span>
-        <a (click)="editBoardClick()" class="editBoardButton">Edit</a>
-        <span style="font-size:30px;cursor:pointer" class="open-history-button"
-              (click)="openHistorySidenav()">&#9776; open history</span></p>
-    </div>
-    <div class="upper-board" *ngIf="isEditBoardClicked">
-      <p align="center">
-        <input #nameField type="text" value="{{currentBoard.name}}">
-        <button (click)="editBoard(nameField.value)" class="editButton">Set</button>
-        <button (click)="editBoardClick()" class="back">Back</button>
-        <span style="font-size:30px;cursor:pointer" class="open-history-button"
-              (click)="openHistorySidenav()">&#9776; open history</span>
-      </p>
-    </div>
+  <div class="board-wrapper">
+    <div *ngIf="currentBoard">
 
-    <div class="board"  [ngStyle]="{ 'background-image': 'url(' + confirmedImage + ')'}" dragula="LISTS"
-         [(dragulaModel)]="currentBoard.tableLists">
-      <div *ngFor="let list of currentBoard.tableLists" class="list-wrapper" id="list{{list.id}}">
-        <app-ticket [ticketDto]="ticketDto" [currentList]="list"></app-ticket>
-        <div class="list">
-          <div class="list-header">
-            <div *ngIf="!list.isEditListNameInProgress">
-              <p align="center">{{list.name}}</p>
-              <div class="options">
-                <a (click)="setEditableListName(list)" class="options-text">Edit</a>
-                <a (click)="deleteList(list)" class="options-text">Delete</a>
+      <div class="upper-board" *ngIf="!isEditBoardClicked">
+        <p align="center"><span class="boardName">{{currentBoard.name}}</span>
+          <a (click)="editBoardClick()" class="editBoardButton">Edit</a>
+          <span style="font-size:30px;cursor:pointer" class="open-history-button"
+                (click)="openHistorySidenav()">&#9776; open history</span></p>
+      </div>
+      <div class="upper-board" *ngIf="isEditBoardClicked">
+        <p align="center">
+          <input #nameField type="text" value="{{currentBoard.name}}">
+          <button (click)="editBoard(nameField.value)" class="editButton">Set</button>
+          <button (click)="editBoardClick()" class="back">Back</button>
+          <span style="font-size:30px;cursor:pointer" class="open-history-button"
+                (click)="openHistorySidenav()">&#9776; open history</span>
+        </p>
+      </div>
+
+      <div class="board"  [ngStyle]="{ 'background-image': 'url(' + confirmedImage + ')'}" dragula="LISTS"
+           [(dragulaModel)]="currentBoard.tableLists">
+        <div *ngFor="let list of currentBoard.tableLists" class="list-wrapper" id="list{{list.id}}">
+          <app-ticket [ticketDto]="ticketDto" [currentList]="list"></app-ticket>
+          <div class="list">
+            <div class="list-header">
+              <div *ngIf="!list.isEditListNameInProgress">
+                <p align="center">{{list.name}}</p>
+                <div class="options">
+                  <a (click)="setEditableListName(list)" class="options-text">Edit</a>
+                  <a (click)="deleteList(list)" class="options-text">Delete</a>
+                </div>
+              </div>
+
+              <div *ngIf="list.isEditListNameInProgress">
+                <p>
+                  <input #editValue type="text" value="{{list.name}}" class="editField"><br>
+                  <button (click)="editList(list, editValue.value)" class="editButton">Set</button>
+                  <button (click)="setEditableListName(list)" class="back">Back</button>
+                </p>
+              </div>
+
+
+            </div>
+            <div class="ticket-list-wrapper" dragula="TICKETS" [(dragulaModel)]="list.ticketsForBoardResponse">
+              <div class="list-tickets" *ngFor="let ticket of list.ticketsForBoardResponse" id="{{ticket.id}}"
+                   (click)="getTicket(ticket.id)">
+                <div class="ticket">
+                  <span class="ticket-name">{{ticket.name}}</span>
+                </div>
               </div>
             </div>
 
-            <div *ngIf="list.isEditListNameInProgress">
-              <p>
-                <input #editValue type="text" value="{{list.name}}" class="editField"><br>
-                <button (click)="editList(list, editValue.value)" class="editButton">Set</button>
-                <button (click)="setEditableListName(list)" class="back">Back</button>
-              </p>
-            </div>
-
-
-          </div>
-          <div class="ticket-list-wrapper" dragula="TICKETS" [(dragulaModel)]="list.ticketsForBoardResponse">
-            <div class="list-tickets" *ngFor="let ticket of list.ticketsForBoardResponse" id="{{ticket.id}}"
-                 (click)="getTicket(ticket.id)">
-              <div class="ticket">
-                <span class="ticket-name">{{ticket.name}}</span>
+            <div class="list-footer">
+              <div *ngIf="!list.isAddNewTicketClicked">
+                <p align="center">
+                  <a (click)="clickAddNewTicket(list)">Add new ticket</a>
+                </p>
+              </div>
+              <div *ngIf="list.isAddNewTicketClicked">
+                <p align="center">
+                  <input type="text" #createTicketField class="createTicketField">
+                  <button (click)="addNewTicket(createTicketField.value, list)">Add</button>
+                  <button (click)="clickAddNewTicket(list)">Back</button>
+                </p>
               </div>
             </div>
           </div>
+        </div>
 
-          <div class="list-footer">
-            <div *ngIf="!list.isAddNewTicketClicked">
-              <p align="center">
-                <a (click)="clickAddNewTicket(list)">Add new ticket</a>
-              </p>
-            </div>
-            <div *ngIf="list.isAddNewTicketClicked">
-              <p align="center">
-                <input type="text" #createTicketField class="createTicketField">
-                <button (click)="addNewTicket(createTicketField.value, list)">Add</button>
-                <button (click)="clickAddNewTicket(list)">Back</button>
-              </p>
+        <div *ngIf="!isAddListButtonClicked" class="list-wrapper">
+          <a (click)="changeButtonClick()">
+            <div class="addList addListButton"><p align="center">Add List</p></div>
+          </a>
+        </div>
+
+        <div *ngIf="isAddListButtonClicked" class="list-wrapper">
+          <div class="createList addListButton">
+            <input type="text" #enteredName class="newListTextfield">
+            <div class="buttons">
+              <button (click)="addList(enteredName.value)" class="addListButtons">Add</button>
+              <button class="back addListButtons" (click)="changeButtonClick()">Back</button>
             </div>
           </div>
         </div>
       </div>
-
-      <div *ngIf="!isAddListButtonClicked" class="list-wrapper">
-        <a (click)="changeButtonClick()">
-          <div class="addList addListButton"><p align="center">Add List</p></div>
-        </a>
-      </div>
-
-      <div *ngIf="isAddListButtonClicked" class="list-wrapper">
-        <div class="createList addListButton">
-          <input type="text" #enteredName class="newListTextfield">
-          <div class="buttons">
-            <button (click)="addList(enteredName.value)" class="addListButtons">Add</button>
-            <button class="back addListButtons" (click)="changeButtonClick()">Back</button>
-          </div>
-        </div>
-      </div>
     </div>
+  </div>
+</div>
+
+<div *ngIf="currentBoard.boardType === 'SCRUM'">
+  <div *ngIf="!isEditBoardClicked">
+    <p align="center"><span class="boardName">{{currentBoard.name}}</span>
+      <span (click)="editBoardClick()" class="editBoardButton">Edit</span>
+      <span style="font-size:30px;cursor:pointer" class="open-history-button"
+            (click)="openHistorySidenav()">&#9731; open history</span></p>
+  </div>
+  <div *ngIf="isEditBoardClicked">
+    <p align="center">
+      <input #nameField type="text" value="{{currentBoard.name}}">
+      <button (click)="editBoard(nameField.value)" class="editButton">Set</button>
+      <button (click)="editBoardClick()" class="back">Back</button>
+    </p>
+  </div>
+  <div>
+    <app-sprint [currentBoard]="currentBoard"></app-sprint>
   </div>
 </div>
 
