@@ -6,7 +6,7 @@
   </div>
   <p align="center">History</p>
   <hr>
-  <div class="logs-wrapper">
+  <div *ngIf="currentBoard" class="logs-wrapper">
     <div *ngFor="let log of currentBoard.logs" class="log">
       <span style="float: left">{{log.username}}</span><span style="float: right">{{log.createTime}}</span><br>
       <p>{{log.message}}</p>
