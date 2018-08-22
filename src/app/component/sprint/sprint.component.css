@@ -1,0 +1,50 @@
+.editSprintButton {
+  color: darkblue;
+}
+
+.btn-space{
+  margin: 7px 0 7px 7px;
+}
+
+.row-eq-height {
+  display: -webkit-box;
+}
+
+.text{
+  overflow-x: auto;
+
+}
+
+.backlog-name{
+  padding: 30px 5px 30px 5px;
+  text-align: center;
+}
+
+.main-button{
+  margin: 15px 15px 15px 15px;
+}
+
+.foo {
+  display: block;
+}
+
+.editButton {
+  text-decoration: none;
+  color: cadetblue;
+  margin: 3px;
+  cursor: pointer;
+}
+
+.deleteButton {
+  text-decoration: none;
+  color: firebrick;
+  margin: 3px;
+  cursor: pointer;
+}
+
+#bottom-right
+{
+  right: 0;
+  top: 0;
+  position: absolute;
+}

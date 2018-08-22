@@ -1,5 +1,6 @@
 import {List} from './List';
 import {HistoryLog} from './HistoryLog';
+import {Sprint} from './Sprint';
 
 export class Board {
   id: number;
@@ -9,4 +10,8 @@ export class Board {
   logs: HistoryLog[];
   image: any;
   imageName: string;
+
+  sprints: Sprint[];
+  backlog: Sprint;
 }
+
