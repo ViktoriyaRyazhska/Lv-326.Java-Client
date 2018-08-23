@@ -94,7 +94,7 @@
             </div>
             <div *ngIf="list.isAddNewTicketClicked">
               <p align="center">
-                <input type="text" #createTicketField class="createTicketField">
+                <input type="text" #createTicketField class="createTicketField" required>
                 <button (click)="addNewTicket(createTicketField.value, list)">Add</button>
                 <button (click)="clickAddNewTicket(list)">Back</button>
               </p>
