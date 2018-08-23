@@ -29,8 +29,6 @@
 
 .cross::before, .cross::after {
   position: absolute;
-  left: 47.5rem;
-  bottom: 45rem;
   content: ' ';
   height: 1.3rem;
   width: 0.15rem;;
@@ -100,7 +98,7 @@
 
 .Todo_list {
   margin-left: 3rem;
-  font-size: 0.7rem;
+  font-size: 15px;
   color: gray;
 }
 
@@ -163,10 +161,31 @@
   margin-left: 0.5rem;
 }
 
-.textarea_description, .textarea_comment {
+.textarea_comment {
   display: flex;
   flex-flow: column nowrap;
   margin-top: 0.2rem;
+}
+
+#textarea_description {
+  display: flex;
+  /*display: none;*/
+  flex-flow: column nowrap;
+  margin-top: 0.2rem;
+}
+
+#descriptionWindowNew {
+  display: none;
+}
+
+#textarea_description_edit_button {
+  display: none;
+  flex-flow: column nowrap;
+  margin-top: 0.2rem;
+}
+
+#descriptionTextArea {
+  display: flex;
 }
 
 .textarea_description_1, .textarea_comment_1 {
@@ -217,7 +236,6 @@ textarea {
 }
 
 button[type=submit] {
-  width: 6rem;
   background-color: #D6DADC;
   border: none;
   padding: 0.4rem 0.5rem;
@@ -307,7 +325,7 @@ button[type=submit]:hover {
   text-align: center;
   font-size: 0.8rem;
   top: 50%;
-  margin-bottom: -5px;
+  margin-bottom: -10px;
 }
 
 .window_bottom_2_comment p {
@@ -465,8 +483,15 @@ h3, h4, h5, h6 {
   text-decoration: underline;
   margin-left: 5px;
   display: inline;
+  font-size: 15px;
+  cursor: pointer;
 }
 
 .u-gutter {
   margin-left: 40px;
+}
+
+#descriptionWindow {
+  /*display: none;*/
+  display: flex;
 }
