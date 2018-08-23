@@ -9,8 +9,6 @@ import {Subscription} from 'rxjs';
 import {TicketService} from '../../service/ticket/ticket.service';
 import {TicketDto} from '../../entity/TicketDto';
 import {HistoryLog} from '../../entity/HistoryLog';
-import {TicketComponent} from '../ticket/ticket.component';
-// import * as url from 'url';
 
 
 @Component({
@@ -46,6 +44,8 @@ export class BoardComponent implements OnInit {
 
   confirmedImageName: string;
 
+  isTimeWasEdited = false;
+
   constructor(private boardService: BoardService,
               private route: ActivatedRoute,
               private dragulaService: DragulaService,
@@ -79,6 +79,7 @@ export class BoardComponent implements OnInit {
 
   openHistorySidenav() {
     document.getElementById('sidenav-history').style.width = '25%';
+    this.formatHistoryLogsToCurrentTimeZone();
   }
 
   closeNav() {
@@ -214,7 +215,10 @@ export class BoardComponent implements OnInit {
 
   createUpperLog(message: string) {
     this.configureLog(message);
-    this.boardService.createLog(this.addedLog).subscribe(log => this.currentBoard.logs.unshift(log));
+    this.boardService.createLog(this.addedLog).subscribe(log => {
+      this.formatNewLogToTimeZone(log);
+      this.currentBoard.logs.unshift(log);
+    });
   }
 
   configureLog(message: string) {
@@ -279,5 +283,24 @@ export class BoardComponent implements OnInit {
     const elems = this.image.toString().split('base64,');
     this.boardService.saveBackgroundImage(this.currentBoard, elems[elems.length - 1], this.confirmedImageName).subscribe();
     this.confirmedImage = this.image;
+  }
+
+  formatHistoryLogsToCurrentTimeZone() {
+    const timeZone = new Date().getHours() - new Date().getUTCHours();
+    for (const log of this.currentBoard.logs) {
+      const date = new Date(log.createTime);
+      if (!this.isTimeWasEdited) {
+        date.setHours(date.getHours() + timeZone);
+        log.createTime = log.createTime.substring(0, 11) + date.toTimeString().substring(0, 8);
+      }
+    }
+    this.isTimeWasEdited = true;
+  }
+
+  formatNewLogToTimeZone(log: HistoryLog) {
+    const timeZone = new Date().getHours() - new Date().getUTCHours();
+    const date = new Date(log.createTime);
+    date.setHours(date.getHours() + timeZone);
+    log.createTime = log.createTime.substring(0, 11) + date.toTimeString().substring(0, 8);
   }
 }

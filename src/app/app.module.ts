@@ -9,6 +9,7 @@ import {RouterModule, Routes} from '@angular/router';
 import { EnterTokenComponent } from './component/enter-token/enter-token.component';
 import {DragulaModule, DragulaService} from 'ng2-dragula';
 import { TicketComponent } from './component/ticket/ticket.component';
+import {SprintComponent} from './component/sprint/sprint.component';
 // import { CloudinaryModule } from '@cloudinary/angular-5.x';
 // import * as  Cloudinary from 'cloudinary-core';
 
@@ -22,7 +23,8 @@ const routes: Routes = [
     AppComponent,
     BoardComponent,
     EnterTokenComponent,
-    TicketComponent
+    TicketComponent,
+    SprintComponent
   ],
   imports: [
     BrowserModule,
