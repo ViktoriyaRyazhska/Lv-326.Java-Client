@@ -7,18 +7,19 @@
             <i class="fa fa-window-maximize" style="font-size: 1.2rem;"></i>
             <h2>{{ticketDto.name}}</h2>
           </div>
-          <div class="Todo_list">
-            <h3>In a {{listForTicket.name}} list </h3>
+          <!--<div class="Todo_list"><h2>In a {{listForTicket.name}} list</h2>-->
+          <!--</div>-->
+        </div>
+        <div class="window_top_two Todo_list">
+          Created by: {{ticketDto.createdByName}}
+          <div class="Todo_list" *ngIf="ticketDto.assignedToName">
+            Assigned to: {{ticketDto.assignedToName}}
           </div>
         </div>
-        <div class="window_top_two">
-          <p>Created by: {{ticketDto.createdByName}}</p>
-          <div *ngIf="ticketDto.assignedToName">
-            <p>Assigned to: {{ticketDto.assignedToName}}</p>
-          </div>
-        </div>
+
+
         <div *ngIf="!ticketDto.description">
-          <div class="textarea_description">
+          <div id="textarea_description">
             <div class="textarea_description_1">
               <div>
                 <i class="fa fa-align-justify" style="font-size: 1.2rem;"></i>
@@ -30,27 +31,46 @@
             <div class="textarea_description_2">
               <textarea placeholder="Add description..." rows="3" style="font-size: 0.7rem;"
                         #descriptionField></textarea>
+              <button type="submit" value="saveDescription" name="saveDescription"
+                      (click)="saveDescription(descriptionField.value)">Save description</button>
             </div>
-            <button type="submit" value="saveDescription" name="saveDescription"
-                    (click)="saveDescription(descriptionField.value)">Save description
-            </button>
-
           </div>
         </div>
-        <div *ngIf="ticketDto.description">
-          <div class="window-module">
-            <div class="window-module-title window-module-title-no-divider"><span
-              class="icon-description icon-lg window-module-title-icon"></span>
-              <h3 class="u-inline-block"><b>Description</b></h3>
-              <div
-                class="card-detail-item-header-edit hide-on-edit js-show-with-desc js-edit-desc">Edit
-              </div>
+
+        <!--after clicking "edit" description button-->
+        <div id="textarea_description_edit_button">
+          <div class="textarea_description_1">
+            <div>
+              <i class="fa fa-align-justify" style="font-size: 1.2rem;"></i>
             </div>
-            <div class="u-gutter js-hide-on-minimize-desc">
-              <div class="editable" attr="desc">
-                <div class="description-content js-desc-content">
-                  <div class="current markeddown hide-on-edit js-card-desc js-show-with-desc" dir="auto"><h2>
-                    {{ticketDto.description}}</h2>
+            <div class="textarea_description_text">
+              <p>Description</p>
+            </div>
+          </div>
+          <div class="textarea_description_2">
+        <textarea placeholder="Add description..." rows="3" style="font-size: 0.7rem;"
+                  #descriptionField>{{ticketDto.description}}</textarea>
+          </div>
+          <button type="submit" (click)="saveDescription(descriptionField.value)">Save description</button>
+        </div>
+        <!--end of after clicking "edit" description button-->
+
+        <div *ngIf="ticketDto.description">
+          <div id="descriptionWindow">
+            <div class="window-module">
+              <div class="window-module-title window-module-title-no-divider"><span
+                class="icon-description icon-lg window-module-title-icon"></span>
+                <h3 class="u-inline-block"><b>Description</b></h3>
+                <div
+                  class="card-detail-item-header-edit" (click)="editDescriptionButton()">Edit
+                </div>
+              </div>
+              <div class="u-gutter js-hide-on-minimize-desc">
+                <div class="editable" attr="desc">
+                  <div class="description-content js-desc-content">
+                    <div class="current markeddown hide-on-edit js-card-desc js-show-with-desc" dir="auto"><h2>
+                      {{ticketDto.description}}</h2>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -69,23 +89,21 @@
           </div>
           <div class="textarea_comment_2">
             <div class="textarea_comment_2_textarea">
-              <textarea placeholder="Put comment here..." rows="3" style="font-size: 0.7rem;"></textarea>
+              <textarea #commentField placeholder="Put comment here..." rows="3" style="font-size: 0.7rem;"></textarea>
             </div>
           </div>
         </div>
-
-        <button type="submit" value="Зберегти" name="Зберегти">Save comment</button>
-
+        <button type="submit" (click)="saveComment(commentField.value)">Save comment</button>
       </div>
-      <div class="window_bottom">
 
-        <div *ngFor="let comment of ticketDto.comments" class="window_bottom_2">
+
+      <div class="window_bottom">
+        <div *ngFor="let comment of ticketDto.comments.reverse()" class="window_bottom_2">
           <div *ngIf="!(comment.commentStatus === 'DELETED')">
             <div class="window_bottom_2_person_main">
               <div class="window_bottom_2_person">
                 <p> {{comment.userName}} <span>{{comment.updateTime}}</span></p>
-                <div class="window_bottom_2_comment">
-                  <h3>{{comment.message}}</h3>
+                <div class="window_bottom_2_comment">{{comment.message}}
                 </div>
                 <div class="window_bottom_2_person_change">
                   <i class="fa fa-trash"></i>
@@ -121,13 +139,7 @@
             <h5> Actions: </h5>
           </div>
           <a href="#">
-            <div class="button1"><i class="fa fa-times-circle"></i>Термін</div>
-          </a>
-          <a href="#">
-            <div class="button1"><i class="fa fa-paperclip"></i>Вкладення</div>
-          </a>
-          <a href="#">
-            <div class="button1"><i class="fa fa-paperclip"></i>Вкладення</div>
+            <div class="button1"><i class="fa fa-paperclip"></i>Assign</div>
           </a>
           <a href="#">
             <div class="button1"><i class="fa fa-paperclip"></i>Show ticket logs</div>
