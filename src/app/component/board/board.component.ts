@@ -22,6 +22,8 @@ export class BoardComponent implements OnInit {
 
   addedList: List;
 
+  listForTicket: List;
+
   addedTicket: Ticket;
 
   addedLog: HistoryLog;
@@ -104,7 +106,8 @@ export class BoardComponent implements OnInit {
     this.ticketService.closeForm();
   }
 
-  getTicket(ticketId: number) {
+  getTicket(ticketId: number, list: List) {
+    this.listForTicket = list;
     this.ticketService.openForm();
     this.ticketService.getTicket(ticketId).subscribe(ticket => {
       this.ticketDto = ticket;
