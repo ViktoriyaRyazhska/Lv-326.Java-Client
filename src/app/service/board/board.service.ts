@@ -88,5 +88,20 @@ export class BoardService {
       sequenceNumber: sequenceNumber
     };
   }
+
+  getExistingImagesUrls(boardId: number): Observable<string[]> {
+    const url = `/api/boards/images/${boardId}`;
+    return this.http.get<string[]>(url, this.createHttpOptions());
+  }
+
+  setExistingImageOnBackground(imageUrl: string, boardId: number) {
+    const url = `/api/boards/images/${boardId}`;
+    this.http.put(url, imageUrl, this.createHttpOptions()).subscribe();
+  }
+
+  clearBoardBackground(boardId: number) {
+    const url = `/api/boards/images/${boardId}`;
+    this.http.delete(url, this.createHttpOptions()).subscribe();
+  }
 }
 

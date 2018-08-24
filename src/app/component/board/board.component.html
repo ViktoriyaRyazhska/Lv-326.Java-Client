@@ -21,9 +21,22 @@
 
 <div id="sidenav-background-image" *ngIf="isChangeBackgroundButtonClicked">
   <a href="javascript:void(0)" class="closebtn" (click)="closeBackgroundNav()">&times;</a>
-  <div class="existingImages">
-
+  <div align="center">
+    <div class="clear-background">
+      <div (click)="clearBoardBackground(currentBoard.id)">Clear background</div>
+    </div>
   </div>
+  <div align="center">
+    <div (click)="getExistingImagesUrls(currentBoard.id)" class="existingImages">Existing images</div>
+    <div *ngIf="existingImagesUrls" class="existingImages-images">
+      <div *ngFor="let url of existingImagesUrls" class="url-image">
+        <a (click)="setExistingImageOnBackground(url)">
+          <img src="{{url}}" alt="" width="150" height="150" class="cloud-image">
+        </a>
+      </div>
+    </div>
+  </div>
+  <hr>
   <div class="add-local-image" align="center">
     <div align="center">Add local image</div>
     <br>
@@ -99,21 +112,20 @@
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+        <div *ngIf="!isAddListButtonClicked" class="list-wrapper">
+          <a (click)="changeButtonClick()">
+            <div class="addList addListButton"><p align="center">Add List</p></div>
+          </a>
+        </div>
 
-            <div *ngIf="!isAddListButtonClicked" class="list-wrapper">
-              <a (click)="changeButtonClick()">
-                <div class="addList addListButton"><p align="center">Add List</p></div>
-              </a>
-            </div>
-
-            <div *ngIf="isAddListButtonClicked" class="list-wrapper">
-              <div class="createList addListButton">
-                <input type="text" #enteredName class="newListTextfield">
-                <div class="buttons">
-                  <button (click)="addList(enteredName.value)" class="addListButtons">Add</button>
-                  <button class="back addListButtons" (click)="changeButtonClick()">Back</button>
-                </div>
-              </div>
+        <div *ngIf="isAddListButtonClicked" class="list-wrapper">
+          <div class="createList addListButton">
+            <input type="text" #enteredName class="newListTextfield">
+            <div class="buttons">
+              <button (click)="addList(enteredName.value)" class="addListButtons">Add</button>
+              <button class="back addListButtons" (click)="changeButtonClick()">Back</button>
             </div>
           </div>
         </div>
