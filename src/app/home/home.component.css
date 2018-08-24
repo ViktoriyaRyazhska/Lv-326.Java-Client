@@ -1,0 +1,19 @@
+img {
+  height: 100%;
+  align-content: center;
+  padding-bottom: 5%;
+  padding-top: 5%;
+}
+
+h1 {
+  font-family: Monaco, "Lucida Console", monospace;
+  font-size: xx-large;
+  margin: 0 auto 3%;
+  max-width: 900px;
+}
+
+#text{
+  font-family: Monaco, "Lucida Console", monospace;
+  font-size: x-large;
+  justify-content: space-between;
+}

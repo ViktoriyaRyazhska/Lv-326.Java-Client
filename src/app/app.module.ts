@@ -1,22 +1,24 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
 
-import { AppComponent } from './app.component';
-import { BoardComponent } from './component/board/board.component';
+import {AppComponent} from './app.component';
+import {BoardComponent} from './component/board/board.component';
 import {HttpClientModule} from '@angular/common/http';
-import { AppRoutingModule } from './module/routing/app-routing.module';
+import {AppRoutingModule} from './module/routing/app-routing.module';
 import {RouterModule, Routes} from '@angular/router';
-import { EnterTokenComponent } from './component/enter-token/enter-token.component';
+import {EnterTokenComponent} from './component/enter-token/enter-token.component';
 import {DragulaModule, DragulaService} from 'ng2-dragula';
-import { TicketComponent } from './component/ticket/ticket.component';
+import {TicketComponent} from './component/ticket/ticket.component';
 import {SprintComponent} from './component/sprint/sprint.component';
-import { HeaderComponent } from './header/header.component';
+import {HeaderComponent} from './header/header.component';
+import {HomeComponent} from './home/home.component';
 // import { CloudinaryModule } from '@cloudinary/angular-5.x';
 // import * as  Cloudinary from 'cloudinary-core';
 
 const routes: Routes = [
-  { path: 'board/:id', component: BoardComponent},
-  { path: 'enterToken', component: EnterTokenComponent}
+  {path: 'board/:id', component: BoardComponent},
+  {path: 'enterToken', component: EnterTokenComponent},
+  {path: '', component: HomeComponent}
 ];
 
 @NgModule({
@@ -26,7 +28,8 @@ const routes: Routes = [
     EnterTokenComponent,
     TicketComponent,
     SprintComponent,
-    HeaderComponent
+    HeaderComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -39,4 +42,5 @@ const routes: Routes = [
   providers: [DragulaService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
