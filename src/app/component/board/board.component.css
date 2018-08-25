@@ -21,8 +21,8 @@
   padding-bottom: 8px;
   position: absolute;
   width: 100%;
-  padding-top: 50px;
-  top: 45px;
+  padding-top: 20px;
+  top: 90px;
   right: 0;
   bottom: 0;
   left: 0;
@@ -41,6 +41,16 @@
   max-height: 100%;
   position: relative;
   white-space: normal;
+  cursor: pointer;
+  text-align: center;
+}
+
+.addList {
+  color: cadetblue;
+}
+
+.add-list-a {
+  text-decoration: none;
 }
 
 .newListTextfield {
@@ -144,7 +154,7 @@
   width: 0;
   position: fixed;
   z-index: 100000;
-  top: 0;
+  top: 50px;
   right: 0;
   overflow-x: hidden;
   transition: 0.5s;
@@ -219,6 +229,11 @@
   margin-bottom: 20px;
 }
 
+.change-background-a {
+  text-decoration: none;
+  color: cadetblue;
+}
+
 .change-background:hover {
   background-color: darkgrey;
 }
@@ -267,6 +282,7 @@
   width: 200px;
   border-radius: 5px;
   cursor: pointer;
+  color: cadetblue;
 }
 
 .existingImages:hover {
@@ -285,8 +301,18 @@
   width: 200px;
   border-radius: 5px;
   cursor: pointer;
+  color: cadetblue;
 }
 
 .clear-background:hover {
   background-color: darkgrey;
+}
+
+.add-new-ticket {
+  color: cadetblue;
+}
+
+.add-new-ticket:hover {
+  text-decoration: none;
+  cursor: pointer;
 }
