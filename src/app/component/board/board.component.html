@@ -3,7 +3,7 @@
 <div id="sidenav-history" *ngIf="!isChangeBackgroundButtonClicked">
   <a href="javascript:void(0)" class="closebtn" (click)="closeNav()">&times;</a>
   <div class="change-background">
-    <a (click)="changeIsChangeBackgroundButtonClicked()">Change background</a>
+    <a (click)="changeIsChangeBackgroundButtonClicked()" class="change-background-a">Change background</a>
   </div>
   <p align="center">History</p>
   <hr>
@@ -100,7 +100,7 @@
             <div class="list-footer">
               <div *ngIf="!list.isAddNewTicketClicked">
                 <p align="center">
-                  <a (click)="clickAddNewTicket(list)">Add new ticket</a>
+                  <a (click)="clickAddNewTicket(list)" class="add-new-ticket">Add new ticket</a>
                 </p>
               </div>
               <div *ngIf="list.isAddNewTicketClicked">
@@ -114,18 +114,17 @@
           </div>
         </div>
         <div *ngIf="!isAddListButtonClicked" class="list-wrapper">
-          <a (click)="changeButtonClick()">
+          <a (click)="changeButtonClick()" class="add-list-a">
             <div class="addList addListButton"><p align="center">Add List</p></div>
           </a>
         </div>
-      </div>
-
-      <div *ngIf="isAddListButtonClicked" class="list-wrapper">
-        <div class="createList addListButton">
-          <input type="text" #enteredName class="newListTextfield">
-          <div class="buttons">
-            <button (click)="addList(enteredName.value)" class="addListButtons">Add</button>
-            <button class="back addListButtons" (click)="changeButtonClick()">Back</button>
+        <div *ngIf="isAddListButtonClicked" class="list-wrapper">
+          <div class="createList addListButton">
+            <input type="text" #enteredName class="newListTextfield">
+            <div class="buttons">
+              <button (click)="addList(enteredName.value)" class="addListButtons">Add</button>
+              <button class="back addListButtons" (click)="changeButtonClick()">Back</button>
+            </div>
           </div>
         </div>
       </div>
