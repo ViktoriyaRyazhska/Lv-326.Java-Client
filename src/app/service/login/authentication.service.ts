@@ -13,8 +13,7 @@ export class AuthenticationService {
 
     return this.http.post<any>(`http://localhost:8080/api/auth/signin`, { usernameOrEmail: usernameOrEmail, password: password }, headers)
       .subscribe( token => {
-        const header = {'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token.accessToken};
-        localStorage.setItem('appHeaders', JSON.stringify(header));
+        localStorage.setItem('jwtToken', token.accessToken);
         return token;
       } );
   }
