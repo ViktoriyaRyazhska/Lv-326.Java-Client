@@ -316,3 +316,7 @@
   text-decoration: none;
   cursor: pointer;
 }
+
+.gu-transit {
+  opacity: 0.8;
+}

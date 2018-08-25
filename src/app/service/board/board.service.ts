@@ -7,6 +7,7 @@ import {Ticket} from '../../entity/Ticket';
 import {HistoryLog} from '../../entity/HistoryLog';
 import {Log} from '@angular/core/testing/src/logger';
 import {OrderTableList} from '../../entity/OrderTableList';
+import {OrderTicket} from '../../entity/OrderTicket';
 
 
 @Injectable({
@@ -102,6 +103,11 @@ export class BoardService {
   clearBoardBackground(boardId: number) {
     const url = `/api/boards/images/${boardId}`;
     this.http.delete(url, this.createHttpOptions()).subscribe();
+  }
+
+  updateTicketOrdering(orderTicket: OrderTicket) {
+    const url = '/api/tickets/order';
+    this.http.put(url, orderTicket, this.createHttpOptions()).subscribe();
   }
 }
 
