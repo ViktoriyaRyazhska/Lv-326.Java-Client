@@ -135,10 +135,12 @@ export class BoardComponent implements OnInit {
 
   addList(listName: string) {
     this.configureList(listName);
-    this.boardService.addList(this.currentBoard.id, this.addedList)
-      .subscribe(list => this.currentBoard.tableLists.push(list));
+    if (listName !== '') {
+      this.boardService.addList(this.currentBoard.id, this.addedList)
+        .subscribe(list => this.currentBoard.tableLists.push(list));
+      this.createUpperLog('created list with name ' + listName);
+    }
     this.isAddListButtonClicked = false;
-    this.createUpperLog('created list with name ' + listName);
   }
 
   configureList(listName: string) {
@@ -195,11 +197,13 @@ export class BoardComponent implements OnInit {
 
   addNewTicket(ticketName: string, list: List) {
     this.configureTicket(ticketName, list);
-    const id = this.currentBoard.tableLists.indexOf(list);
-    this.boardService.addTicket(this.addedTicket)
-      .subscribe(ticket => this.currentBoard.tableLists[id].ticketsForBoardResponse.push(ticket));
+    if (ticketName !== '') {
+      const id = this.currentBoard.tableLists.indexOf(list);
+      this.boardService.addTicket(this.addedTicket)
+        .subscribe(ticket => this.currentBoard.tableLists[id].ticketsForBoardResponse.push(ticket));
+      this.createUpperLog('created ticket ' + ticketName);
+    }
     this.clickAddNewTicket(list);
-    this.createUpperLog('created ticket ' + ticketName);
   }
 
   clickAddNewTicket(list: List) {

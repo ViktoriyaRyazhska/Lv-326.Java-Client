@@ -10,7 +10,6 @@ export class List {
 
   ticketsForBoardResponse: Ticket[];
 
-  // dont ask why
   isEditListNameInProgress = false;
   isAddNewTicketClicked = false;
 
