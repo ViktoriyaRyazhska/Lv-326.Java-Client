@@ -29,7 +29,23 @@
   background-size: 100% 100%;
 }
 
+.log-text {
+  word-wrap: break-word;
+  margin: 5px;
+}
 
+.log-username {
+  float: left;
+}
+
+.log-createTime {
+  float: right;
+}
+
+.list-name {
+  margin-left: 10px;
+  margin-top: 5px;
+}
 
 .addListButton {
   background: #e2e4e6;
