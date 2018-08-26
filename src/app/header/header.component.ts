@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-header',
@@ -6,10 +6,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
+  loggedIn = localStorage.getItem("jwtToken");
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
+
+  }
+
+  ngDoCheck() {
+    this.loggedIn = localStorage.getItem("jwtToken");
   }
 
 }

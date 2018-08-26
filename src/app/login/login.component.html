@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
-    <form (ngSubmit)="onSignin(f)" #f="ngForm">
+    <form (ngSubmit)="signInGeneral(f)" #f="ngForm">
       <div class="form-group">
         <label for="usernameOrEmail">usernameOrEmail</label>
         <input id="usernameOrEmail" name="usernameOrEmail" ngModel class="form-control">
@@ -14,8 +14,9 @@
           ngModel
           class="form-control">
       </div>
-      <button class="btn btn-primary" type="submit" [disabled]="!f.valid" [routerLink]="['/']">Sign In</button>
-      <button class="btn btn-primary" (click)="signinWithGoogle()">Sign in with Google</button>
+      <button class="btn btn-primary" type="submit" [disabled]="!f.valid" [routerLink]="['/'] ">Sign In</button>
+
     </form>
   </div>
+  <button class="btn btn-primary" (click)="signinWithGoogle()" [routerLink]="['/']">Sign in with Google</button>
 </div>
