@@ -37,4 +37,9 @@ export class AuthenticationService {
         console.log("Fail to social login with Google");
       });
   }
+
+  logOut(): void {
+    localStorage.removeItem('accesToken');
+    localStorage.clear();
+  }
 }
