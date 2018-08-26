@@ -102,7 +102,7 @@ export class BoardService {
 
   updateTicketOrdering(orderTicket: OrderTicket) {
     const url = '/api/tickets/order';
-    this.http.put(url, orderTicket, this.createHttpOptions()).subscribe();
+    this.http.put(url, orderTicket).subscribe();
   }
 }
 
