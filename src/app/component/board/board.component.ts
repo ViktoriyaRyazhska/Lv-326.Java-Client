@@ -9,6 +9,7 @@ import {Subscription} from 'rxjs';
 import {TicketService} from '../../service/ticket/ticket.service';
 import {TicketDto} from '../../entity/TicketDto';
 import {HistoryLog} from '../../entity/HistoryLog';
+import {OrderTicket} from '../../entity/OrderTicket';
 
 
 @Component({
@@ -48,6 +49,8 @@ export class BoardComponent implements OnInit {
 
   existingImagesUrls: string[];
 
+  orderTicket: OrderTicket;
+
   constructor(private boardService: BoardService,
               private route: ActivatedRoute,
               private dragulaService: DragulaService,
@@ -60,10 +63,9 @@ export class BoardComponent implements OnInit {
       .subscribe(({el, source, target}) => {
         const listId = target.parentElement.parentElement.getAttribute('id');
         // do not delete me, I wait drag and drop logic on server
-        console.log('ticketId - ' + el.getAttribute('id'));
-        console.log('listId - ' + listId.substring(4, listId.length));
-        console.log('sequence number - ' + [].slice.call(el.parentElement.children).indexOf(el));
-        console.log('boardId - ' + this.currentBoard.id);
+        this.configureOrderTicket(Number(el.getAttribute('id')), Number(listId.substring(4, listId.length)),
+          [].slice.call(el.parentElement.children).indexOf(el));
+        this.boardService.updateTicketOrdering(this.orderTicket);
       })
     );
     this.dragulaService.createGroup('LISTS', {
@@ -77,6 +79,14 @@ export class BoardComponent implements OnInit {
         this.boardService.updateListOrder(boardId, listId, sequenceNumber);
       })
     );
+  }
+
+  configureOrderTicket(ticketId: number, listId: number, sequenceNumber: number) {
+    this.orderTicket = {
+      sequenceNumber: sequenceNumber,
+      tableListId: listId,
+      ticketId: ticketId
+    };
   }
 
   openHistorySidenav() {

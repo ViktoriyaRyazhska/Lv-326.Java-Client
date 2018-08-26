@@ -27,7 +27,8 @@
   bottom: 0;
   left: 0;
   background-repeat: no-repeat;
-  background-size: cover;
+  /*background-size: cover;*/
+  background-size: 100% 100%;
 }
 
 
@@ -315,4 +316,8 @@
 .add-new-ticket:hover {
   text-decoration: none;
   cursor: pointer;
+}
+
+.gu-transit {
+  opacity: 0.8;
 }
