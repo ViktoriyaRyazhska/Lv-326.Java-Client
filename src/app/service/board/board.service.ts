@@ -1,11 +1,10 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {Board} from '../../entity/Board';
 import {Observable} from 'rxjs';
 import {List} from '../../entity/List';
 import {Ticket} from '../../entity/Ticket';
 import {HistoryLog} from '../../entity/HistoryLog';
-import {Log} from '@angular/core/testing/src/logger';
 import {OrderTableList} from '../../entity/OrderTableList';
 import {OrderTicket} from '../../entity/OrderTicket';
 
@@ -50,7 +49,10 @@ export class BoardService {
 
   addTicket(ticket: Ticket): Observable<Ticket> {
     const url = `/api/tickets`;
-    return this.http.post<Ticket>(url, ticket);
+    const boardId = ticket.boardId;
+    const name = ticket.name;
+    const tableListId = ticket.tableListId;
+    return this.http.post<Ticket>(url, {boardId, name, tableListId});
   }
 
   createLog(historyLog: HistoryLog): Observable<HistoryLog> {

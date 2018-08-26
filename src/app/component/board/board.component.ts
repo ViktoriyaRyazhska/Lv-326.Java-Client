@@ -61,11 +61,14 @@ export class BoardComponent implements OnInit {
     });
     this.subs.add(dragulaService.drop('TICKETS')
       .subscribe(({el, source, target}) => {
-        const listId = target.parentElement.parentElement.getAttribute('id');
-        // do not delete me, I wait drag and drop logic on server
-        this.configureOrderTicket(Number(el.getAttribute('id')), Number(listId.substring(4, listId.length)),
-          [].slice.call(el.parentElement.children).indexOf(el));
-        this.boardService.updateTicketOrdering(this.orderTicket);
+        // const listId = target.parentElement.parentElement.getAttribute('id');
+        // this.configureOrderTicket(Number(el.getAttribute('id')), Number(listId.substring(4, listId.length)),
+        //   [].slice.call(el.parentElement.children).indexOf(el));
+        // this.boardService.updateTicketOrdering(this.orderTicket);
+        const targetTicket = el.children[0].children[0].innerHTML;
+        const sourceList = source.parentElement.children[0].children[0].children[0].innerHTML;
+        const targetList = target.parentElement.children[0].children[0].children[0].innerHTML;
+        this.createUpperLog('Moved ticket ' + targetTicket + ' from list ' + sourceList + ' to list ' + targetList);
       })
     );
     this.dragulaService.createGroup('LISTS', {
@@ -135,10 +138,12 @@ export class BoardComponent implements OnInit {
 
   addList(listName: string) {
     this.configureList(listName);
-    this.boardService.addList(this.currentBoard.id, this.addedList)
-      .subscribe(list => this.currentBoard.tableLists.push(list));
+    if (listName !== '') {
+      this.boardService.addList(this.currentBoard.id, this.addedList)
+        .subscribe(list => this.currentBoard.tableLists.push(list));
+      this.createUpperLog('created list with name ' + listName);
+    }
     this.isAddListButtonClicked = false;
-    this.createUpperLog('created list with name ' + listName);
   }
 
   configureList(listName: string) {
@@ -195,11 +200,13 @@ export class BoardComponent implements OnInit {
 
   addNewTicket(ticketName: string, list: List) {
     this.configureTicket(ticketName, list);
-    const id = this.currentBoard.tableLists.indexOf(list);
-    this.boardService.addTicket(this.addedTicket)
-      .subscribe(ticket => this.currentBoard.tableLists[id].ticketsForBoardResponse.push(ticket));
+    if (ticketName !== '') {
+      const id = this.currentBoard.tableLists.indexOf(list);
+      this.boardService.addTicket(this.addedTicket)
+        .subscribe(ticket => this.currentBoard.tableLists[id].ticketsForBoardResponse.push(ticket));
+      this.createUpperLog('created ticket ' + ticketName);
+    }
     this.clickAddNewTicket(list);
-    this.createUpperLog('created ticket ' + ticketName);
   }
 
   clickAddNewTicket(list: List) {

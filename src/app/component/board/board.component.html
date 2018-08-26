@@ -9,8 +9,8 @@
   <hr>
   <div *ngIf="currentBoard" class="logs-wrapper">
     <div *ngFor="let log of currentBoard.logs" class="log">
-      <span style="float: left">{{log.username}}</span><span style="float: right">{{log.createTime}}</span><br>
-      <p>{{log.message}}</p>
+      <span class="log-username">{{log.username}}</span><span class="log-createTime">{{log.createTime}}</span><br>
+      <p class="log-text">{{log.message}}</p>
       <hr>
     </div>
     <div class="show-more-logs">
@@ -74,7 +74,7 @@
           <div class="list">
             <div class="list-header">
               <div *ngIf="!list.isEditListNameInProgress">
-                <p align="center">{{list.name}}</p>
+                <p class="list-name">{{list.name}}</p>
                 <div class="options">
                   <a (click)="setEditableListName(list)" class="options-text">Edit</a>
                   <a (click)="deleteList(list)" class="options-text">Delete</a>
