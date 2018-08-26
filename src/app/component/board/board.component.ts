@@ -46,6 +46,8 @@ export class BoardComponent implements OnInit {
 
   isTimeWasEdited = false;
 
+  existingImagesUrls: string[];
+
   constructor(private boardService: BoardService,
               private route: ActivatedRoute,
               private dragulaService: DragulaService,
@@ -303,5 +305,23 @@ export class BoardComponent implements OnInit {
     const date = new Date(log.createTime);
     date.setHours(date.getHours() + timeZone);
     log.createTime = log.createTime.substring(0, 11) + date.toTimeString().substring(0, 8);
+  }
+
+  getExistingImagesUrls(boardId: number) {
+    if (!this.existingImagesUrls) {
+      this.boardService.getExistingImagesUrls(boardId).subscribe(urls => this.existingImagesUrls = urls);
+    } else {
+      this.existingImagesUrls = undefined;
+    }
+  }
+
+  setExistingImageOnBackground(imageUrl: string) {
+    this.boardService.setExistingImageOnBackground(imageUrl, this.currentBoard.id);
+    this.confirmedImage = imageUrl;
+  }
+
+  clearBoardBackground(boardId: number) {
+    this.boardService.clearBoardBackground(boardId);
+    this.confirmedImage = '#fff';
   }
 }
