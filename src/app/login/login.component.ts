@@ -12,8 +12,7 @@ export class LoginComponent implements OnInit {
 
   constructor(private authService: AuthenticationService,
               private socialAuthService: AuthService,
-              private authenticationService: AuthenticationService
-  ) {
+              private authenticationService: AuthenticationService) {
   }
 
   public signinWithGoogle() {
@@ -34,7 +33,9 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
-  public signInGeneral(form: NgForm) {
+  signInGeneral(form: NgForm) {
+    console.log('general sign in');
+
     const usernameOrEmail = form.value.usernameOrEmail;
     const password = form.value.password;
     this.authService.login(usernameOrEmail, password);
