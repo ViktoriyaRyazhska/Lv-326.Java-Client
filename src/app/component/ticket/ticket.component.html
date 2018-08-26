@@ -6,6 +6,9 @@
           <div class="window_top_one_1">
             <i class="fa fa-window-maximize" style="font-size: 1.2rem;"></i>
             <h2>{{ticketDto.name}}</h2>
+            <div
+              class="card-detail-item-header-edit" (click)="editTicketName()">Edit
+            </div>
           </div>
           <!--<div class="Todo_list"><h2>In a {{listForTicket.name}} list</h2>-->
           <!--</div>-->
@@ -16,7 +19,6 @@
             Assigned to: {{ticketDto.assignedToName}}
           </div>
         </div>
-
 
         <div *ngIf="!ticketDto.description">
           <div id="textarea_description">
@@ -32,7 +34,8 @@
               <textarea placeholder="Add description..." rows="3" style="font-size: 0.7rem;"
                         #descriptionField></textarea>
               <button type="submit" value="saveDescription" name="saveDescription"
-                      (click)="saveDescription(descriptionField.value)">Save description</button>
+                      (click)="saveDescription(descriptionField.value)">Save description
+              </button>
             </div>
           </div>
         </div>
@@ -96,10 +99,31 @@
         <button type="submit" (click)="saveComment(commentField.value)">Save comment</button>
       </div>
 
-
       <div class="window_bottom">
-        <div *ngFor="let comment of ticketDto.comments.reverse()" class="window_bottom_2">
+        <div *ngFor="let comment of ticketDto.comments.reverse()" class="window_bottom_2" id="comment{{comment.id}}" #commentPopup>
           <div *ngIf="!(comment.commentStatus === 'DELETED')">
+            <!--edit comment popup-->
+            <div id="editCommentTextArea">
+              <div class="textarea_edit_comment">
+                <div class="textarea_comment_1">
+                  <div>
+                    <i class="fa fa-comment" style="font-size: 1.2rem;"></i>
+                  </div>
+                  <div class="textarea_description_text">
+                    <p> {{comment.userName}} <span>{{comment.updateTime}}</span></p>
+                  </div>
+                </div>
+                <div class="textarea_edit_comment_2">
+                  <div class="textarea_edit_comment_2_textarea">
+                  <textarea #commentEditField placeholder="Put comment here..." rows="3"
+                            style="font-size: 0.7rem;">{{comment.message}}</textarea>
+                  </div>
+                </div>
+              </div>
+              <button type="submit" (click)="editComment(comment, commentEditField.value)">Save comment</button>
+            </div>
+            <!-- end of edit comment popup-->
+            <div id="commentWrapper">
             <div class="window_bottom_2_person_main">
               <div class="window_bottom_2_person">
                 <p> {{comment.userName}} <span>{{comment.updateTime}}</span></p>
@@ -107,10 +131,12 @@
                 </div>
                 <div class="window_bottom_2_person_change">
                   <i class="fa fa-trash"></i>
-                  <span> Edit </span> <span (click)="deleteComment(comment)"> Delete </span>
+                  <span (click)="editCommentButton(commentPopup.id)"> Edit </span> <span
+                  (click)="deleteComment(comment)"> Delete </span>
                 </div>
                 <div class="fake"></div>
               </div>
+            </div>
             </div>
           </div>
 
@@ -138,15 +164,9 @@
           <div class="h5_name">
             <h5> Actions: </h5>
           </div>
-          <a href="#">
-            <div class="button1"><i class="fa fa-paperclip"></i>Assign</div>
-          </a>
-          <a href="#">
-            <div class="button1"><i class="fa fa-paperclip"></i>Show ticket logs</div>
-          </a>
-
+          <div class="button1"><i class="fa fa-paperclip"></i>Assign</div>
+          <div class="button1"><i class="fa fa-paperclip"></i>Show ticket logs</div>
           <div class="button1" (click)="deleteTicket(ticketDto)">Archive ticket</div>
-
         </div>
       </div>
     </div>

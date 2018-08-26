@@ -13,6 +13,8 @@ import {HistoryLog} from '../../entity/HistoryLog';
 })
 export class TicketService {
 
+  blalbla: boolean;
+
   constructor(private http: HttpClient) {
 
   }
@@ -55,5 +57,17 @@ export class TicketService {
   closeForm() {
     document.getElementById('myForm').style.display = 'none';
     document.getElementById('closeForm').style.display = 'none';
+  }
+
+  timeZoneMethod(ticketDto: TicketDto) {
+    const timeZone = new Date().getHours() - new Date().getUTCHours();
+    for (const comment of ticketDto.comments) {
+      const date = new Date(comment.updateTime);
+      if (!this.blalbla) {
+        date.setHours(date.getHours() + timeZone);
+        comment.updateTime = comment.updateTime.substring(0, 11) + date.toTimeString().substring(0, 8);
+      }
+    }
+    this.blalbla = true;
   }
 }
