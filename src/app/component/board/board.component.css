@@ -15,7 +15,6 @@
 .board {
   user-select: none;
   white-space: nowrap;
-  /*margin-bottom: 8px;*/
   overflow-x: auto;
   overflow-y: hidden;
   padding-bottom: 8px;
@@ -27,10 +26,26 @@
   bottom: 0;
   left: 0;
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: 100% 100%;
 }
 
+.log-text {
+  word-wrap: break-word;
+  margin: 5px;
+}
 
+.log-username {
+  float: left;
+}
+
+.log-createTime {
+  float: right;
+}
+
+.list-name {
+  margin-left: 10px;
+  margin-top: 5px;
+}
 
 .addListButton {
   background: #e2e4e6;
@@ -171,7 +186,8 @@
   right: 0;
   overflow-x: hidden;
   transition: 0.5s;
-  padding-top: 60px;
+  margin-top: 50px;
+  padding-top: 50px;
   background-color: #edeff0;
 }
 
@@ -315,4 +331,8 @@
 .add-new-ticket:hover {
   text-decoration: none;
   cursor: pointer;
+}
+
+.gu-transit {
+  opacity: 0.8;
 }
