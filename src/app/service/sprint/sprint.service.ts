@@ -13,8 +13,6 @@ export class SprintService {
 
   private simpleUrl = '/api/sprint/';
 
-  private orderSprint: OrderSprint;
-
   constructor(private http: HttpClient) {
   }
 
@@ -41,7 +39,6 @@ export class SprintService {
 
   archiveSprint(sprint: Sprint): Observable<Sprint> {
     const url = `${this.simpleUrl}archive/${sprint.id}`;
-    console.log(sprint);
     return this.http.delete<Sprint>(url, this.createHttpOptions());
   }
 
@@ -70,7 +67,6 @@ export class SprintService {
   finishSprint(sprint: Sprint): Observable<Sprint> {
     sprint.sprintStatus = 'COMPLETED';
     const url = `${this.simpleUrl}${sprint.id}`;
-    console.log(sprint);
     return this.http.put<Sprint>(url, sprint, this.createHttpOptions());
   }
 
@@ -79,19 +75,9 @@ export class SprintService {
     this.http.put(url, ticket, this.createHttpOptions()).subscribe();
   }
 
-  updateSprintOrder(boardId: number, sprintId: string, sequenceNumber: number) {
-    this.createOrderSprint(boardId, sprintId, sequenceNumber);
+  updateSprintOrder(orderSprint: OrderSprint) {
     const url = `${this.simpleUrl}order`;
-    console.log(this.orderSprint);
-    this.http.put(url, this.orderSprint, this.createHttpOptions()).subscribe();
-  }
-
-  createOrderSprint(boardId: number, sprintId: string, sequenceNumber: number) {
-    this.orderSprint = {
-      boardId: boardId,
-      sprintId: sprintId,
-      sequenceNumber: sequenceNumber
-    };
+    this.http.put(url, orderSprint, this.createHttpOptions()).subscribe();
   }
 
   addTicket(ticket: Ticket): Observable<Ticket> {
@@ -102,9 +88,4 @@ export class SprintService {
     const sprintId = ticket.sprintId;
     return this.http.post<Ticket>(url, {boardId, name, tableListId, sprintId});
   }
-
-  // getSprintBacklogByboard(boardId: number): Observable<Sprint> {
-  //   const url = `${this.simpleUrl}backlog/${boardId}`;
-  //   return this.http.get<Sprint>(url, this.createHttpOptions());
-  // }
 }
