@@ -55,7 +55,7 @@
 
       <div class="upper-board" *ngIf="!isEditBoardClicked">
         <p align="center"><span class="boardName">{{currentBoard.name}}</span>
-          <a (click)="editBoardClick()" class="editBoardButton">Edit</a>
+          <a (click)="editBoardClick()" class="editBoardButton glyphicon glyphicon-pencil"></a>
           <span style="font-size:30px;cursor:pointer" class="open-history-button"
                 (click)="openHistorySidenav()">&#9776; open history</span></p>
       </div>
@@ -76,8 +76,8 @@
               <div *ngIf="!list.isEditListNameInProgress">
                 <p class="list-name">{{list.name}}</p>
                 <div class="options">
-                  <a (click)="setEditableListName(list)" class="options-text">Edit</a>
-                  <a (click)="deleteList(list)" class="options-text">Delete</a>
+                  <a (click)="setEditableListName(list)" class="options-text glyphicon glyphicon-pencil"></a>
+                  <a (click)="deleteList(list)" class="options-text glyphicon glyphicon-trash"></a>
                 </div>
               </div>
               <div *ngIf="list.isEditListNameInProgress">
