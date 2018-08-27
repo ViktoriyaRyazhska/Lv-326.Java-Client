@@ -183,7 +183,7 @@
 .ticket {
   border-radius: 3px;
   background-color: white;
-  width: 400px;
+  /*width: 400px;*/
   margin: 10px;
   padding: 10px;
 }
@@ -191,7 +191,7 @@
 .ticket-sprint {
   border-radius: 3px;
   background-color: white;
-  width: 650px;
+  /*width: 650px;*/
   margin: 10px;
   padding: 10px;
 }

@@ -61,19 +61,18 @@ export class SprintComponent implements OnInit {
       .subscribe(({ el, source, target }) => {
         const ticketId = el.getAttribute('id');
         console.log(ticketId);
-        const sprintId = target.parentElement.parentElement.getAttribute('id');
-        console.log(source.parentElement);
+        const sprintId = target.parentElement.getAttribute('id');
+        console.log(target.parentElement.getAttribute('id'));
         this.updateSprintForTicket(ticketId, sprintId);
         this.sprintService.updateSprintForTicket(this.ticket);
-        console.log('SPRINT_ID - ' + sprintId.substring(6, sprintId.length));
       })
     );
   }
 
   updateSprintForTicket(ticketId: string, sprintId: string) {
-    this.getTicket(parseInt(ticketId, 10));
+    this.getTicket(31);
     console.log(this.ticket);
-    this.ticket.sprintId = parseInt(sprintId, 10);
+    // this.ticket.sprintId = parseInt(sprintId, 10);
   }
 
   ngOnInit() {
@@ -215,7 +214,6 @@ export class SprintComponent implements OnInit {
   }
 
   getTicket(ticketId: number) {
-    this.ticketService.openForm();
     this.ticketService.getTicket(ticketId).subscribe(ticket => {
       this.ticket = ticket;
     });
