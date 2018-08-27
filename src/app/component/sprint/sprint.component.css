@@ -42,9 +42,156 @@
   cursor: pointer;
 }
 
-#bottom-right
+.bottom-right
 {
   right: 0;
   top: 0;
   position: absolute;
+}
+
+#closeForms {
+  display: none;
+  position: fixed;
+  height: 120vh;
+  width: 99vw;
+  z-index: 200;
+  background-color: #8080804d;
+}
+
+#myForms{
+  display: none;
+  position: absolute;
+  justify-content: center;
+  height: 100vh;
+  width: 99vw;
+}
+
+.boardName {
+  font-size: 30px;
+  padding: 10px;
+  background-color: #e2e4e6;
+}
+
+.list {
+  background: #e2e4e6;
+  border-radius: 3px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  max-height: 100%;
+  position: relative;
+  white-space: normal;
+}
+
+#window_main_containers {
+  margin: 4vh;
+  background-color: #EDEFF0;
+  border-radius: 0.3rem;
+  resize: both;
+  overflow: auto;
+  display: flex;
+  /*position: page;*/
+  z-index: 300;
+  position:fixed;
+  width: 500px;
+  height: 385px;
+  top: calc(50% - 250px);
+  left: calc(50% - 210px);
+}
+
+#sprints {
+  /*overflow-x: hidden;*/
+  /*overflow-y: scroll;*/
+  /*height: 80vh;*/
+}
+
+#backlog {
+  /*overflow-x: hidden;*/
+  /*overflow-y: scroll;*/
+  /*background: #eeeeee;*/
+}
+
+.sprint{
+  margin: 40px;
+}
+
+.h2{
+  font-size: 14px
+}
+
+.green-border-focus .form-control:focus {
+  border: 1px solid #8bc34a;
+  box-shadow: 0 0 0 0.2rem rgba(139, 195, 74, .25);
+}
+
+
+.cross::before, .cross::after {
+  position: absolute;
+  content: ' ';
+  height: 1.3rem;
+  width: 0.15rem;;
+  background-color: #A5A7A8;
+  cursor: pointer;
+}
+
+.cross:before {
+  transform: rotate(45deg);
+}
+
+.cross:after {
+  transform: rotate(-45deg);
+}
+
+.ticket-list-wrapper {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 0 4px;
+  z-index: 1;
+  min-height: 0;
+}
+
+.list-tickets {
+  background-color: #fff;
+  border-radius: 3px;
+  box-shadow: 0 1px 0 #ccc;
+  cursor: pointer;
+  display: block;
+  max-width: 300px;
+  min-height: 20px;
+  position: relative;
+  text-decoration: none;
+  z-index: 0;
+  overflow: hidden;
+  word-wrap: break-word;
+  margin: 10px;
+}
+
+.ticket-list-wrapper {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 0 4px;
+  z-index: 1;
+  min-height: 0;
+}
+
+.ticket-name {
+  text-align: center;
+}
+
+.ticket {
+  border-radius: 3px;
+  background-color: white;
+  width: 400px;
+  margin: 10px;
+  padding: 10px;
+}
+
+.ticket-sprint {
+  border-radius: 3px;
+  background-color: white;
+  width: 650px;
+  margin: 10px;
+  padding: 10px;
 }
