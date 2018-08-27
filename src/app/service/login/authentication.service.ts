@@ -22,7 +22,7 @@ export class AuthenticationService {
     }, headers)
       .subscribe(token => {
         localStorage.setItem('jwtToken', token.accessToken);
-        this.router.navigate(["/"])
+        this.router.navigate(["/"]);
         return token;
       });
   }
@@ -39,7 +39,17 @@ export class AuthenticationService {
   }
 
   logOut(): void {
-    localStorage.removeItem('accesToken');
+    localStorage.removeItem('accessToken');
     localStorage.clear();
+  }
+
+  signup(username: string, email: string, password: string): void {
+
+    this.http.post<any>(`http://localhost:8080/api/auth/signup`, {
+      username: username,
+      email: email,
+      password: password
+    }).subscribe();
+    this.router.navigate(["/login"])
   }
 }

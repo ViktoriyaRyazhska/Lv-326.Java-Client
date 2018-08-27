@@ -133,6 +133,21 @@
 </div>
 
 <div *ngIf="currentBoard.boardType === 'SCRUM'">
-  <app-sprint [currentBoard]="currentBoard"></app-sprint>
+  <div *ngIf="!isEditBoardClicked">
+    <p align="center"><span class="boardName">{{currentBoard.name}}</span>
+      <span (click)="editBoardClick()" class="editBoardButton">Edit</span>
+      <span style="font-size:30px;cursor:pointer" class="open-history-button"
+            (click)="openHistorySidenav()">&#9731; open history</span></p>
+  </div>
+  <div *ngIf="isEditBoardClicked">
+    <p align="center">
+      <input #nameField type="text" value="{{currentBoard.name}}">
+      <button (click)="editBoard(nameField.value)" class="editButton">Set</button>
+      <button (click)="editBoardClick()" class="back">Back</button>
+    </p>
+  </div>
+  <div>
+    <app-sprint [currentBoard]="currentBoard"></app-sprint>
+  </div>
 </div>
 
