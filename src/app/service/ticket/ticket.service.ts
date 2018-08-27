@@ -46,7 +46,9 @@ export class TicketService {
 
   editTicket(ticketDto: TicketDto): Observable<TicketDto> {
     const url = `/api/tickets/`;
-    return this.http.put<TicketDto>(url, ticketDto, this.createHttpOptions());
+    // return this.http.put<TicketDto>(url, ticketDto, this.createHttpOptions());
+    const description = 'a';
+    return this.http.patch<TicketDto>(url, {description}, this.createHttpOptions());
   }
 
   openForm() {
