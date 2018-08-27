@@ -31,6 +31,11 @@ export class BoardService {
     return this.http.get<Board>(url, this.createHttpOptions());
   }
 
+  getAllUserBoards(): Observable<Board[]> {
+    const url = `${this.simpleUrl}`;
+    return this.http.get<Board[]>(url, this.createHttpOptions());
+  }
+
   addList(boardId: number, list: List): Observable<List> {
     const url = `/api/lists/board/${boardId}`;
     return this.http.post<List>(url, list, this.createHttpOptions());

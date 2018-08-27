@@ -9,11 +9,13 @@ import {RouterModule, Routes} from '@angular/router';
 import { EnterTokenComponent } from './component/enter-token/enter-token.component';
 import {DragulaModule, DragulaService} from 'ng2-dragula';
 import { TicketComponent } from './component/ticket/ticket.component';
+import { HomePageComponent } from './component/home-page/home-page.component';
 // import { CloudinaryModule } from '@cloudinary/angular-5.x';
 // import * as  Cloudinary from 'cloudinary-core';
 
 const routes: Routes = [
   { path: 'board/:id', component: BoardComponent},
+  { path: 'boards', component: HomePageComponent},
   { path: 'enterToken', component: EnterTokenComponent}
 ];
 
@@ -22,7 +24,8 @@ const routes: Routes = [
     AppComponent,
     BoardComponent,
     EnterTokenComponent,
-    TicketComponent
+    TicketComponent,
+    HomePageComponent
   ],
   imports: [
     BrowserModule,
