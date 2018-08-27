@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Sprint } from '../../entity/Sprint';
 import {OrderSprint} from '../../entity/OrderSprint';
 import {TicketDto} from '../../entity/TicketDto';
+import {Ticket} from '../../entity/Ticket';
 
 @Injectable({
   providedIn: 'root'
@@ -24,11 +25,6 @@ export class SprintService {
 
   getSprint(sprintId: number): Observable<Sprint> {
     const url = `${this.simpleUrl}${sprintId}`;
-    return this.http.get<Sprint>(url, this.createHttpOptions());
-  }
-
-  getSprintBacklogByboard(boardId: number): Observable<Sprint> {
-    const url = `${this.simpleUrl}backlog/${boardId}`;
     return this.http.get<Sprint>(url, this.createHttpOptions());
   }
 
@@ -78,7 +74,7 @@ export class SprintService {
     return this.http.put<Sprint>(url, sprint, this.createHttpOptions());
   }
 
-  updateSprintForTicket(ticket: TicketDto) {
+  updateTicketForSprint(ticket: TicketDto) {
     const url = `api/tickets`;
     this.http.put(url, ticket, this.createHttpOptions()).subscribe();
   }
@@ -97,4 +93,18 @@ export class SprintService {
       sequenceNumber: sequenceNumber
     };
   }
+
+  addTicket(ticket: Ticket): Observable<Ticket> {
+    const url = `/api/tickets`;
+    const boardId = ticket.boardId;
+    const name = ticket.name;
+    const tableListId = ticket.tableListId;
+    const sprintId = ticket.sprintId;
+    return this.http.post<Ticket>(url, {boardId, name, tableListId, sprintId});
+  }
+
+  // getSprintBacklogByboard(boardId: number): Observable<Sprint> {
+  //   const url = `${this.simpleUrl}backlog/${boardId}`;
+  //   return this.http.get<Sprint>(url, this.createHttpOptions());
+  // }
 }

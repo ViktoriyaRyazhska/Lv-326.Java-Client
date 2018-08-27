@@ -10,7 +10,6 @@ import {DragulaService} from 'ng2-dragula';
 import {Subscription} from 'rxjs';
 import {ActivatedRoute} from '@angular/router';
 import {SprintService} from '../../service/sprint/sprint.service';
-import {a, b} from '@angular/core/src/render3';
 
 @Component({
   selector: 'app-sprint',
@@ -47,7 +46,6 @@ export class SprintComponent implements OnInit {
     this.subs.add(dragulaService.drop('SPRINTS')
       .subscribe(({ el }) => {
         const sprintId = el.getAttribute('id');
-        console.log(sprintId);
         const sequenceNumber = [].slice.call(el.parentElement.children).indexOf(el);
         const boardId = this.currentBoard.id;
         this.sprintService.updateSprintOrder(boardId, sprintId, sequenceNumber);
@@ -60,19 +58,10 @@ export class SprintComponent implements OnInit {
     this.subs.add(dragulaService.drop('TICKETSINSPRINT')
       .subscribe(({ el, source, target }) => {
         const ticketId = el.getAttribute('id');
-        console.log(ticketId);
         const sprintId = target.parentElement.getAttribute('id');
-        console.log(target.parentElement.getAttribute('id'));
-        this.updateSprintForTicket(ticketId, sprintId);
-        this.sprintService.updateSprintForTicket(this.ticket);
+        this.getTicketForSprint(ticketId, sprintId);
       })
     );
-  }
-
-  updateSprintForTicket(ticketId: string, sprintId: string) {
-    this.getTicket(31);
-    console.log(this.ticket);
-    // this.ticket.sprintId = parseInt(sprintId, 10);
   }
 
   ngOnInit() {
@@ -158,10 +147,9 @@ export class SprintComponent implements OnInit {
 
   addNewTicket(ticketName: string, sprint: Sprint) {
     this.configureTicket(ticketName, this.currentBoard.tableLists[0]);
-    this.boardService.addTicket(this.addedTicket)
+    this.sprintService.addTicket(this.addedTicket)
       .subscribe(ticket => sprint.ticketsForBoardResponse.push(ticket));
     this.clickAddNewTicket();
-    console.log(this.addedTicket);
   }
 
   configureTicket(ticketName: string, list: List) {
@@ -184,25 +172,21 @@ export class SprintComponent implements OnInit {
   editSprint(newName: string, sprint: Sprint) {
     this.sprintService.editSprint(newName, sprint).subscribe();
     this.editSprintClick(sprint);
-    console.log(this.currentSprint);
   }
 
   saveSprint(startDate: string, endDate: string, goal: string, sprint: Sprint) {
     this.sprintService.saveSprint
     (startDate, endDate, goal, sprint).subscribe();
     this.saveSprintClick(sprint);
-    console.log(this.currentSprint);
   }
 
   startSprint(startDate: string, endDate: string, goal: string, sprint: Sprint) {
     this.sprintService.startSprint(startDate, endDate, goal, sprint).subscribe();
     this.getBoard(sprint.boardId);
-    console.log(this.currentSprint);
   }
 
   finishSprint(sprint: Sprint) {
     this.sprintService.finishSprint(sprint).subscribe();
-    console.log(this.currentSprint);
   }
 
   editSprintClick(sprint: Sprint) {
@@ -217,7 +201,14 @@ export class SprintComponent implements OnInit {
     this.ticketService.getTicket(ticketId).subscribe(ticket => {
       this.ticket = ticket;
     });
-    console.log(this.ticket, 'GET TICKET');
+  }
+
+  getTicketForSprint(ticketId: string, sprintId: string) {
+    this.ticketService.getTicket(parseInt(ticketId, 10)).subscribe(ticket => {
+      this.ticket = ticket;
+      this.ticket.sprintId = parseInt(sprintId, 10);
+      this.sprintService.updateTicketForSprint(this.ticket);
+    });
   }
 
   moveToArchiveSprint(sprint: Sprint) {
@@ -225,7 +216,6 @@ export class SprintComponent implements OnInit {
       const number = this.currentBoard.sprints.indexOf(sprint);
       this.sprintService.archiveSprint(sprint).subscribe();
       this.currentBoard.sprints.splice(number, 1);
-      console.log(sprint);
     }
   }
 

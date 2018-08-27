@@ -39,7 +39,7 @@
       <!--SORTING-->
     </div>
     <div *ngIf="isAddSprintButtonClicked">
-      <input type="text" class="forsm-control form-control" #sprintName placeholder="Spri">
+      <input type="text" class="forsm-control form-control" #sprintName placeholder="Sprint name">
       <button type="button" class="btn btn-success" (click)="addSprint(sprintName.value, currentBoard.id)">Add</button>
       <button type="button" class="btn btn-default" (click)="changeButtonClick()">Back</button>
     </div>
