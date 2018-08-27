@@ -1,20 +1,13 @@
-<div class="row">
-  <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
-    <form (ngSubmit)="onSignin(f)" #f="ngForm">
-      <div class="form-group">
-        <label for="usernameOrEmail">usernameOrEmail</label>
-        <input id="usernameOrEmail" name="usernameOrEmail" ngModel class="form-control">
-      </div>
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input
-          type="password"
-          id="password"
-          name="password"
-          ngModel
-          class="form-control">
-      </div>
-      <button class="btn btn-primary" type="submit" [disabled]="!f.valid">Sign In</button>
-    </form>
-  </div>
+<div class="wrapper">
+  <form #f="ngForm" class="form-signin">
+    <h2 class="form-signin-heading">Please login</h2>
+    <input type="text" class="form-control" id="usernameOrEmail" ngModel name="usernameOrEmail"
+           placeholder="Username or Email" required="" autofocus=""/>
+    <input type="password" class="form-control" id="password" ngModel name="password" placeholder="Password"
+           required=""/>
+    <button class="btn btn-lg btn-primary btn-block" type="submit" (click)="signInGeneral(f)">Login</button>
+    <button class="btn btn-lg btn-primary btn-block" type="submit" (click)="signinWithGoogle()"><img
+      src="/src/app/resources/google-logo.png">Login with Google
+    </button>
+  </form>
 </div>

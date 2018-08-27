@@ -16,8 +16,23 @@ import {LoginComponent} from './login/login.component';
 import {FormsModule} from "@angular/forms";
 import {AuthenticationService} from "./service/login/authentication.service";
 import {JwtInterceptor} from "./service/login/jwt.interceptor";
+import {
+  AuthServiceConfig,
+  GoogleLoginProvider,
+  SocialLoginModule
+} from 'angular-6-social-login';
+
 // import { CloudinaryModule } from '@cloudinary/angular-5.x';
 // import * as  Cloudinary from 'cloudinary-core';
+
+export function getAuthServiceConfigs() {
+  let config = new AuthServiceConfig([{
+    id: GoogleLoginProvider.PROVIDER_ID,
+    provider: new GoogleLoginProvider("474548896537-cbiv8soh6l7h7fnj812krnms33qvrprg.apps.googleusercontent.com")
+  }]);
+
+  return config;
+}
 
 const routes: Routes = [
   {path: 'board/:id', component: BoardComponent},
@@ -43,12 +58,21 @@ const routes: Routes = [
     AppRoutingModule,
     DragulaModule,
     FormsModule,
+    SocialLoginModule,
     // CloudinaryModule.forRoot(Cloudinary, { cloud_name: 'djx1z46bi'}),
     RouterModule.forRoot(routes)
   ],
   providers: [DragulaService,
     AuthenticationService,
-    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptor,
+      multi: true
+    },
+    {
+      provide: AuthServiceConfig,
+      useFactory: getAuthServiceConfigs
+    }
   ],
   bootstrap: [AppComponent]
 })
