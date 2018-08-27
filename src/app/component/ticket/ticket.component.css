@@ -16,20 +16,19 @@
 /*}*/
 
 #window_main_container {
+  margin-top: 4vh;
+  margin-bottom: 4vh;
   background-color: #EDEFF0;
   border-radius: 0.3rem;
   width: 50%;
   height: auto;
   display: flex;
-  /*display: none;*/
   position: relative;
   z-index: 300;
 }
 
 .cross::before, .cross::after {
   position: absolute;
-  left: 47.5rem;
-  bottom: 45rem;
   content: ' ';
   height: 1.3rem;
   width: 0.15rem;;
@@ -63,7 +62,7 @@
 
 .window_bottom {
   width: 120%;
-  height: 45%;
+  height: 50%;
   overflow-y: scroll;
   margin-left: 30%;
 }
@@ -84,7 +83,6 @@
   flex-flow: column nowrap;
   justify-content: center;
   align-items: flex-start;
-  margin-top: 1rem;
 }
 
 .window_top_one i {
@@ -100,7 +98,7 @@
 
 .Todo_list {
   margin-left: 3rem;
-  font-size: 0.7rem;
+  font-size: 15px;
   color: gray;
 }
 
@@ -163,10 +161,31 @@
   margin-left: 0.5rem;
 }
 
-.textarea_description, .textarea_comment {
+.textarea_comment {
   display: flex;
   flex-flow: column nowrap;
   margin-top: 0.2rem;
+}
+
+#textarea_description {
+  display: flex;
+  /*display: none;*/
+  flex-flow: column nowrap;
+  margin-top: 0.2rem;
+}
+
+#descriptionWindowNew {
+  display: none;
+}
+
+#textarea_description_edit_button {
+  display: none;
+  flex-flow: column nowrap;
+  margin-top: 0.2rem;
+}
+
+#descriptionTextArea {
+  display: flex;
 }
 
 .textarea_description_1, .textarea_comment_1 {
@@ -217,7 +236,6 @@ textarea {
 }
 
 button[type=submit] {
-  width: 6rem;
   background-color: #D6DADC;
   border: none;
   padding: 0.4rem 0.5rem;
@@ -307,7 +325,7 @@ button[type=submit]:hover {
   text-align: center;
   font-size: 0.8rem;
   top: 50%;
-  margin-bottom: -5px;
+  margin-bottom: -10px;
 }
 
 .window_bottom_2_comment p {
@@ -435,4 +453,45 @@ i {
   color: darkgray;
   margin-left: 0.3rem;
   transition: 0.3s all;
+}
+
+.editDescription {
+  display: inline;
+}
+
+.window-module {
+  clear: both;
+  margin-bottom: 24px;
+  position: relative;
+}
+
+.window-module-title h3 {
+  display: inline-block;
+  width: auto;
+  margin: 0;
+  min-height: 18px;
+  min-width: 40px;
+}
+
+h3, h4, h5, h6 {
+  font-size: 10px;
+  /*line-height: 20px;*/
+}
+
+.card-detail-item-header-edit {
+  color: #8c8c8c;
+  text-decoration: underline;
+  margin-left: 5px;
+  display: inline;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.u-gutter {
+  margin-left: 40px;
+}
+
+#descriptionWindow {
+  /*display: none;*/
+  display: flex;
 }

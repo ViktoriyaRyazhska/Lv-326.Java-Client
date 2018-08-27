@@ -15,22 +15,37 @@
 .board {
   user-select: none;
   white-space: nowrap;
-  /*margin-bottom: 8px;*/
   overflow-x: auto;
   overflow-y: hidden;
   padding-bottom: 8px;
   position: absolute;
   width: 100%;
-  padding-top: 50px;
-  top: 45px;
+  padding-top: 20px;
+  top: 90px;
   right: 0;
   bottom: 0;
   left: 0;
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: 100% 100%;
 }
 
+.log-text {
+  word-wrap: break-word;
+  margin: 5px;
+}
 
+.log-username {
+  float: left;
+}
+
+.log-createTime {
+  float: right;
+}
+
+.list-name {
+  margin-left: 10px;
+  margin-top: 5px;
+}
 
 .addListButton {
   background: #e2e4e6;
@@ -41,6 +56,16 @@
   max-height: 100%;
   position: relative;
   white-space: normal;
+  cursor: pointer;
+  text-align: center;
+}
+
+.addList {
+  color: cadetblue;
+}
+
+.add-list-a {
+  text-decoration: none;
 }
 
 .newListTextfield {
@@ -144,7 +169,7 @@
   width: 0;
   position: fixed;
   z-index: 100000;
-  top: 0;
+  top: 50px;
   right: 0;
   overflow-x: hidden;
   transition: 0.5s;
@@ -161,7 +186,8 @@
   right: 0;
   overflow-x: hidden;
   transition: 0.5s;
-  padding-top: 60px;
+  margin-top: 50px;
+  padding-top: 50px;
   background-color: #edeff0;
 }
 
@@ -214,9 +240,14 @@
   width: 200px;
   cursor: pointer;
   border-radius: 5px;
-  margin-left: 100px;
+  margin-left: 90px;
   margin-top: 20px;
   margin-bottom: 20px;
+}
+
+.change-background-a {
+  text-decoration: none;
+  color: cadetblue;
 }
 
 .change-background:hover {
@@ -252,7 +283,56 @@
   display: none;
   position: absolute;
   height: 100vh;
-  width: 100vw;
+  width: 99vw;
   z-index: 200;
   background-color: #8080804d;
+}
+
+.url-image {
+  margin: 10px;
+  float: left;
+}
+
+.existingImages {
+  float: none;
+  width: 200px;
+  border-radius: 5px;
+  cursor: pointer;
+  color: cadetblue;
+}
+
+.existingImages:hover {
+  background-color: darkgrey;
+}
+
+.add-local-image {
+  float: left;
+}
+
+.cloud-image{
+  cursor: pointer;
+}
+
+.clear-background {
+  width: 200px;
+  border-radius: 5px;
+  cursor: pointer;
+  color: cadetblue;
+}
+
+.clear-background:hover {
+  background-color: darkgrey;
+}
+
+.add-new-ticket {
+  color: cadetblue;
+}
+
+.add-new-ticket:hover {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.gu-transit {
+  opacity: 0.8;
 }

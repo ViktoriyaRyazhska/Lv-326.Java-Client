@@ -6,6 +6,7 @@ import {List} from '../../entity/List';
 import {Ticket} from '../../entity/Ticket';
 import {TicketDto} from '../../entity/TicketDto';
 import {CommentDto} from '../../entity/CommentDto';
+import {HistoryLog} from '../../entity/HistoryLog';
 
 @Injectable({
   providedIn: 'root'
@@ -26,6 +27,11 @@ export class TicketService {
     return this.http.delete<TicketDto>(url, this.createHttpOptions());
   }
 
+  saveComment(comment: CommentDto): Observable<CommentDto> {
+    const url = `/api/comments/`;
+    return this.http.post<CommentDto>(url, comment, this.createHttpOptions());
+  }
+
   deleteComment(id: number): Observable<CommentDto> {
     const url = `/api/comments/${id}`;
     return this.http.delete<CommentDto>(url, this.createHttpOptions());
@@ -36,25 +42,18 @@ export class TicketService {
     return this.http.get<TicketDto>(url, this.createHttpOptions());
   }
 
+  editTicket(ticketDto: TicketDto): Observable<TicketDto> {
+    const url = `/api/tickets/`;
+    return this.http.put<TicketDto>(url, ticketDto, this.createHttpOptions());
+  }
+
   openForm() {
-    // document.getElementById('window_main_container').style.display = 'flex';
     document.getElementById('myForm').style.display = 'flex';
     document.getElementById('closeForm').style.display = 'flex';
   }
 
   closeForm() {
     document.getElementById('myForm').style.display = 'none';
-    // document.getElementById('window_main_container').style.display = 'none';
     document.getElementById('closeForm').style.display = 'none';
   }
-
-  // deleteHero (hero: Hero | number): Observable<Hero> {
-  //   const id = typeof hero === 'number' ? hero : hero.id;
-  //   const url = `${this.heroesUrl}/${id}`;
-  //
-  //   return this.http.delete<Hero>(url, httpOptions).pipe(
-  //     tap(_ => this.log(`deleted hero id=${id}`)),
-  //     catchError(this.handleError<Hero>('deleteHero'))
-  //   );
-  // }
 }

@@ -2,6 +2,7 @@ import {CommentDto} from './CommentDto';
 
 export class TicketDto {
   id: number;
+  status: string;
   createTime: string;
   updateTime: string;
   description: string;

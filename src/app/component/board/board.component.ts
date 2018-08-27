@@ -9,7 +9,7 @@ import {Subscription} from 'rxjs';
 import {TicketService} from '../../service/ticket/ticket.service';
 import {TicketDto} from '../../entity/TicketDto';
 import {HistoryLog} from '../../entity/HistoryLog';
-import * as url from 'url';
+import {OrderTicket} from '../../entity/OrderTicket';
 
 
 @Component({
@@ -22,6 +22,8 @@ export class BoardComponent implements OnInit {
   currentBoard: Board;
 
   addedList: List;
+
+  listForTicket: List;
 
   addedTicket: Ticket;
 
@@ -43,6 +45,12 @@ export class BoardComponent implements OnInit {
 
   confirmedImageName: string;
 
+  isTimeWasEdited = false;
+
+  existingImagesUrls: string[];
+
+  orderTicket: OrderTicket;
+
   constructor(private boardService: BoardService,
               private route: ActivatedRoute,
               private dragulaService: DragulaService,
@@ -53,12 +61,14 @@ export class BoardComponent implements OnInit {
     });
     this.subs.add(dragulaService.drop('TICKETS')
       .subscribe(({el, source, target}) => {
-        const listId = target.parentElement.parentElement.getAttribute('id');
-        // do not delete me, I wait drag and drop logic on server
-        console.log('ticketId - ' + el.getAttribute('id'));
-        console.log('listId - ' + listId.substring(4, listId.length));
-        console.log('sequence number - ' + [].slice.call(el.parentElement.children).indexOf(el));
-        console.log('boardId - ' + this.currentBoard.id);
+        // const listId = target.parentElement.parentElement.getAttribute('id');
+        // this.configureOrderTicket(Number(el.getAttribute('id')), Number(listId.substring(4, listId.length)),
+        //   [].slice.call(el.parentElement.children).indexOf(el));
+        // this.boardService.updateTicketOrdering(this.orderTicket);
+        const targetTicket = el.children[0].children[0].innerHTML;
+        const sourceList = source.parentElement.children[0].children[0].children[0].innerHTML;
+        const targetList = target.parentElement.children[0].children[0].children[0].innerHTML;
+        this.createUpperLog('Moved ticket ' + targetTicket + ' from list ' + sourceList + ' to list ' + targetList);
       })
     );
     this.dragulaService.createGroup('LISTS', {
@@ -74,8 +84,17 @@ export class BoardComponent implements OnInit {
     );
   }
 
+  configureOrderTicket(ticketId: number, listId: number, sequenceNumber: number) {
+    this.orderTicket = {
+      sequenceNumber: sequenceNumber,
+      tableListId: listId,
+      ticketId: ticketId
+    };
+  }
+
   openHistorySidenav() {
     document.getElementById('sidenav-history').style.width = '25%';
+    this.formatHistoryLogsToCurrentTimeZone();
   }
 
   closeNav() {
@@ -102,7 +121,8 @@ export class BoardComponent implements OnInit {
     this.ticketService.closeForm();
   }
 
-  getTicket(ticketId: number) {
+  getTicket(ticketId: number, list: List) {
+    this.listForTicket = list;
     this.ticketService.openForm();
     this.ticketService.getTicket(ticketId).subscribe(ticket => {
       this.ticketDto = ticket;
@@ -118,10 +138,12 @@ export class BoardComponent implements OnInit {
 
   addList(listName: string) {
     this.configureList(listName);
-    this.boardService.addList(this.currentBoard.id, this.addedList)
-      .subscribe(list => this.currentBoard.tableLists.push(list));
+    if (listName !== '') {
+      this.boardService.addList(this.currentBoard.id, this.addedList)
+        .subscribe(list => this.currentBoard.tableLists.push(list));
+      this.createUpperLog('created list with name ' + listName);
+    }
     this.isAddListButtonClicked = false;
-    this.createUpperLog('created list with name ' + listName);
   }
 
   configureList(listName: string) {
@@ -178,11 +200,13 @@ export class BoardComponent implements OnInit {
 
   addNewTicket(ticketName: string, list: List) {
     this.configureTicket(ticketName, list);
-    const id = this.currentBoard.tableLists.indexOf(list);
-    this.boardService.addTicket(this.addedTicket)
-      .subscribe(ticket => this.currentBoard.tableLists[id].ticketsForBoardResponse.push(ticket));
+    if (ticketName !== '') {
+      const id = this.currentBoard.tableLists.indexOf(list);
+      this.boardService.addTicket(this.addedTicket)
+        .subscribe(ticket => this.currentBoard.tableLists[id].ticketsForBoardResponse.push(ticket));
+      this.createUpperLog('created ticket ' + ticketName);
+    }
     this.clickAddNewTicket(list);
-    this.createUpperLog('created ticket ' + ticketName);
   }
 
   clickAddNewTicket(list: List) {
@@ -210,7 +234,10 @@ export class BoardComponent implements OnInit {
 
   createUpperLog(message: string) {
     this.configureLog(message);
-    this.boardService.createLog(this.addedLog).subscribe(log => this.currentBoard.logs.unshift(log));
+    this.boardService.createLog(this.addedLog).subscribe(log => {
+      this.formatNewLogToTimeZone(log);
+      this.currentBoard.logs.unshift(log);
+    });
   }
 
   configureLog(message: string) {
@@ -275,5 +302,42 @@ export class BoardComponent implements OnInit {
     const elems = this.image.toString().split('base64,');
     this.boardService.saveBackgroundImage(this.currentBoard, elems[elems.length - 1], this.confirmedImageName).subscribe();
     this.confirmedImage = this.image;
+  }
+
+  formatHistoryLogsToCurrentTimeZone() {
+    const timeZone = new Date().getHours() - new Date().getUTCHours();
+    for (const log of this.currentBoard.logs) {
+      const date = new Date(log.createTime);
+      if (!this.isTimeWasEdited) {
+        date.setHours(date.getHours() + timeZone);
+        log.createTime = log.createTime.substring(0, 11) + date.toTimeString().substring(0, 8);
+      }
+    }
+    this.isTimeWasEdited = true;
+  }
+
+  formatNewLogToTimeZone(log: HistoryLog) {
+    const timeZone = new Date().getHours() - new Date().getUTCHours();
+    const date = new Date(log.createTime);
+    date.setHours(date.getHours() + timeZone);
+    log.createTime = log.createTime.substring(0, 11) + date.toTimeString().substring(0, 8);
+  }
+
+  getExistingImagesUrls(boardId: number) {
+    if (!this.existingImagesUrls) {
+      this.boardService.getExistingImagesUrls(boardId).subscribe(urls => this.existingImagesUrls = urls);
+    } else {
+      this.existingImagesUrls = undefined;
+    }
+  }
+
+  setExistingImageOnBackground(imageUrl: string) {
+    this.boardService.setExistingImageOnBackground(imageUrl, this.currentBoard.id);
+    this.confirmedImage = imageUrl;
+  }
+
+  clearBoardBackground(boardId: number) {
+    this.boardService.clearBoardBackground(boardId);
+    this.confirmedImage = '#fff';
   }
 }
