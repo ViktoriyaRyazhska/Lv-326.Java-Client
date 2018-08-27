@@ -44,7 +44,7 @@ export class SprintComponent implements OnInit {
       direction: 'vertical'
     });
     this.subs.add(dragulaService.drop('SPRINTS')
-      .subscribe(({ el }) => {
+      .subscribe(({el}) => {
         const sprintId = el.getAttribute('id');
         const sequenceNumber = [].slice.call(el.parentElement.children).indexOf(el);
         const boardId = this.currentBoard.id;
@@ -56,7 +56,7 @@ export class SprintComponent implements OnInit {
       direction: 'vertical'
     });
     this.subs.add(dragulaService.drop('TICKETSINSPRINT')
-      .subscribe(({ el, source, target }) => {
+      .subscribe(({el, source, target}) => {
         const ticketId = el.getAttribute('id');
         const sprintId = target.parentElement.getAttribute('id');
         this.getTicketForSprint(ticketId, sprintId);
@@ -122,22 +122,27 @@ export class SprintComponent implements OnInit {
     this.isAddSprintButtonClicked = !this.isAddSprintButtonClicked;
   }
 
-  sortFuncByName () {
+  sortFuncByName() {
     this.currentBoard.sprints = this.currentBoard.sprints
       .sort((a, b) => a.label.toLocaleUpperCase().localeCompare(b.label.toLocaleUpperCase()));
   }
 
-  sortFuncByStartDate () {
+  sortFuncByStartDate() {
     this.currentBoard.sprints = this.currentBoard.sprints
       .sort((x, y) => {
-        if ( x.startDate === null && y.startDate != null ) { return  1; }
-        else if ( x.startDate != null && y.startDate === null ) { return -1; }
-        else if ( x.startDate === null && y.startDate === null ) { return 0; }
-        else { return new Date(x.startDate).getDate() - new Date(y.startDate).getDate(); }
+        if (x.startDate === null && y.startDate != null) {
+          return 1;
+        } else if (x.startDate != null && y.startDate === null) {
+          return -1;
+        } else if (x.startDate === null && y.startDate === null) {
+          return 0;
+        } else {
+          return new Date(x.startDate).getDate() - new Date(y.startDate).getDate();
+        }
       });
   }
 
-  noSort () {
+  noSort() {
     this.getBoard(this.currentBoard.id);
   }
 
@@ -165,7 +170,9 @@ export class SprintComponent implements OnInit {
       tableListId: list.id,
       boardId: this.currentBoard.id,
       createdById: null,
-      sprintId: this.currentBoard.backlog.id
+      sprintId: this.currentBoard.backlog.id,
+      // todo: add sequence number
+      sequenceNumber: null
     };
   }
 

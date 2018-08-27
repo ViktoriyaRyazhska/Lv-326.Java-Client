@@ -21,6 +21,7 @@ import {
   GoogleLoginProvider,
   SocialLoginModule
 } from 'angular-6-social-login';
+import {SignupComponent} from './signup/signup.component';
 
 // import { CloudinaryModule } from '@cloudinary/angular-5.x';
 // import * as  Cloudinary from 'cloudinary-core';
@@ -38,7 +39,8 @@ const routes: Routes = [
   {path: 'board/:id', component: BoardComponent},
   {path: 'enterToken', component: EnterTokenComponent},
   {path: 'login', component: LoginComponent},
-  {path: '', component: HomeComponent}
+  {path: '', component: HomeComponent},
+  {path: 'signup', component: SignupComponent}
 ];
 
 @NgModule({
@@ -50,7 +52,8 @@ const routes: Routes = [
     SprintComponent,
     HeaderComponent,
     HomeComponent,
-    LoginComponent
+    LoginComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,
