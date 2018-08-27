@@ -10,6 +10,7 @@ import {DragulaService} from 'ng2-dragula';
 import {Subscription} from 'rxjs';
 import {ActivatedRoute} from '@angular/router';
 import {SprintService} from '../../service/sprint/sprint.service';
+import {a, b} from '@angular/core/src/render3';
 
 @Component({
   selector: 'app-sprint',
@@ -52,6 +53,26 @@ export class SprintComponent implements OnInit {
         this.sprintService.updateSprintOrder(boardId, sprintId, sequenceNumber);
       })
     );
+    dragulaService.createGroup('TICKETSINSPRINT', {
+      revertOnSpill: true,
+      direction: 'vertical'
+    });
+    this.subs.add(dragulaService.drop('TICKETSINSPRINT')
+      .subscribe(({ el, source, target }) => {
+        const ticketId = el.getAttribute('id');
+        console.log(ticketId);
+        const sprintId = target.parentElement.getAttribute('id');
+        console.log(target.parentElement.getAttribute('id'));
+        this.updateSprintForTicket(ticketId, sprintId);
+        this.sprintService.updateSprintForTicket(this.ticket);
+      })
+    );
+  }
+
+  updateSprintForTicket(ticketId: string, sprintId: string) {
+    this.getTicket(31);
+    console.log(this.ticket);
+    // this.ticket.sprintId = parseInt(sprintId, 10);
   }
 
   ngOnInit() {
@@ -62,7 +83,7 @@ export class SprintComponent implements OnInit {
 
   getRouteSprint() {
     const id = +this.route.snapshot.paramMap.get('id');
-    this.getBoard(id);
+    this.getSprint(id);
   }
 
   getSprint(sprintId: number) {
@@ -99,6 +120,7 @@ export class SprintComponent implements OnInit {
       isAddSprintClicked: false,
       ticketsForBoardResponse: [],
       isEditSprintClicked: false,
+      isSaveSprintClicked: false,
     };
   }
 
@@ -118,7 +140,12 @@ export class SprintComponent implements OnInit {
 
   sortFuncByStartDate () {
     this.currentBoard.sprints = this.currentBoard.sprints
-      .sort((a, b) => a.startDate.localeCompare(b.startDate));
+      .sort((x, y) => {
+        if ( x.startDate === null && y.startDate != null ) { return  1; }
+        else if ( x.startDate != null && y.startDate === null ) { return -1; }
+        else if ( x.startDate === null && y.startDate === null ) { return 0; }
+        else { return new Date(x.startDate).getDate() - new Date(y.startDate).getDate(); }
+      });
   }
 
   noSort () {
@@ -160,15 +187,37 @@ export class SprintComponent implements OnInit {
     console.log(this.currentSprint);
   }
 
+  saveSprint(startDate: string, endDate: string, goal: string, sprint: Sprint) {
+    this.sprintService.saveSprint
+    (startDate, endDate, goal, sprint).subscribe();
+    this.saveSprintClick(sprint);
+    console.log(this.currentSprint);
+  }
+
+  startSprint(startDate: string, endDate: string, goal: string, sprint: Sprint) {
+    this.sprintService.startSprint(startDate, endDate, goal, sprint).subscribe();
+    this.getBoard(sprint.boardId);
+    console.log(this.currentSprint);
+  }
+
+  finishSprint(sprint: Sprint) {
+    this.sprintService.finishSprint(sprint).subscribe();
+    console.log(this.currentSprint);
+  }
+
   editSprintClick(sprint: Sprint) {
     sprint.isEditSprintClicked = (!sprint.isEditSprintClicked);
   }
 
+  saveSprintClick(sprint: Sprint) {
+    sprint.isSaveSprintClicked = (!sprint.isSaveSprintClicked);
+  }
+
   getTicket(ticketId: number) {
-    this.ticketService.openForm();
     this.ticketService.getTicket(ticketId).subscribe(ticket => {
       this.ticket = ticket;
     });
+    console.log(this.ticket, 'GET TICKET');
   }
 
   moveToArchiveSprint(sprint: Sprint) {
@@ -185,4 +234,15 @@ export class SprintComponent implements OnInit {
       this.sprintService.deleteSprint(sprint.id).subscribe();
     }
   }
+
+  openForm() {
+    document.getElementById('myForms').style.display = 'flex';
+    document.getElementById('closeForms').style.display = 'flex';
+  }
+
+  closeForm() {
+    document.getElementById('myForms').style.display = 'none';
+    document.getElementById('closeForms').style.display = 'none';
+  }
 }
+
