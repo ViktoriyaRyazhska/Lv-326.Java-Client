@@ -11,4 +11,5 @@ export class Ticket {
   boardId: number;
   createdById: number;
   sprintId: number;
+  sequenceNumber: number;
 }

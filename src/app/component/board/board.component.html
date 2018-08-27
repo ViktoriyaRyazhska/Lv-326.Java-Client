@@ -9,8 +9,8 @@
   <hr>
   <div *ngIf="currentBoard" class="logs-wrapper">
     <div *ngFor="let log of currentBoard.logs" class="log">
-      <span style="float: left">{{log.username}}</span><span style="float: right">{{log.createTime}}</span><br>
-      <p>{{log.message}}</p>
+      <span class="log-username">{{log.username}}</span><span class="log-createTime">{{log.createTime}}</span><br>
+      <p class="log-text">{{log.message}}</p>
       <hr>
     </div>
     <div class="show-more-logs">
@@ -55,7 +55,7 @@
 
       <div class="upper-board" *ngIf="!isEditBoardClicked">
         <p align="center"><span class="boardName">{{currentBoard.name}}</span>
-          <a (click)="editBoardClick()" class="editBoardButton">Edit</a>
+          <a (click)="editBoardClick()" class="editBoardButton glyphicon glyphicon-pencil"></a>
           <span style="font-size:30px;cursor:pointer" class="open-history-button"
                 (click)="openHistorySidenav()">&#9776; open history</span></p>
       </div>
@@ -74,10 +74,10 @@
           <div class="list">
             <div class="list-header">
               <div *ngIf="!list.isEditListNameInProgress">
-                <p align="center">{{list.name}}</p>
+                <p class="list-name">{{list.name}}</p>
                 <div class="options">
-                  <a (click)="setEditableListName(list)" class="options-text">Edit</a>
-                  <a (click)="deleteList(list)" class="options-text">Delete</a>
+                  <a (click)="setEditableListName(list)" class="options-text glyphicon glyphicon-pencil"></a>
+                  <a (click)="deleteList(list)" class="options-text glyphicon glyphicon-trash"></a>
                 </div>
               </div>
               <div *ngIf="list.isEditListNameInProgress">
@@ -130,23 +130,9 @@
       </div>
     </div>
   </div>
-
-  <div *ngIf="currentBoard.boardType === 'SCRUM'">
-    <div *ngIf="!isEditBoardClicked">
-      <p align="center"><span class="boardName">{{currentBoard.name}}</span>
-        <span (click)="editBoardClick()" class="editBoardButton">Edit</span>
-        <span style="font-size:30px;cursor:pointer" class="open-history-button"
-              (click)="openHistorySidenav()">&#9731; open history</span></p>
-    </div>
-    <div *ngIf="isEditBoardClicked">
-      <p align="center">
-        <input #nameField type="text" value="{{currentBoard.name}}">
-        <button (click)="editBoard(nameField.value)" class="editButton">Set</button>
-        <button (click)="editBoardClick()" class="back">Back</button>
-      </p>
-    </div>
-    <div>
-      <app-sprint [currentBoard]="currentBoard"></app-sprint>
-    </div>
-  </div>
 </div>
+
+<div *ngIf="currentBoard.boardType === 'SCRUM'">
+  <app-sprint [currentBoard]="currentBoard"></app-sprint>
+</div>
+

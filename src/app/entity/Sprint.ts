@@ -15,5 +15,5 @@ export class Sprint {
 
   isEditSprintClicked = false;
   isAddSprintClicked: false;
-  // isEditSprint = false;
+  isSaveSprintClicked: boolean;
 }

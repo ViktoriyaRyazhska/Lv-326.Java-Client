@@ -9,6 +9,7 @@ import {Subscription} from 'rxjs';
 import {TicketService} from '../../service/ticket/ticket.service';
 import {TicketDto} from '../../entity/TicketDto';
 import {HistoryLog} from '../../entity/HistoryLog';
+import {OrderTicket} from '../../entity/OrderTicket';
 
 
 @Component({
@@ -48,6 +49,8 @@ export class BoardComponent implements OnInit {
 
   existingImagesUrls: string[];
 
+  orderTicket: OrderTicket;
+
   constructor(private boardService: BoardService,
               private route: ActivatedRoute,
               private dragulaService: DragulaService,
@@ -59,11 +62,13 @@ export class BoardComponent implements OnInit {
     this.subs.add(dragulaService.drop('TICKETS')
       .subscribe(({el, source, target}) => {
         const listId = target.parentElement.parentElement.getAttribute('id');
-        // do not delete me, I wait drag and drop logic on server
-        console.log('ticketId - ' + el.getAttribute('id'));
-        console.log('listId - ' + listId.substring(4, listId.length));
-        console.log('sequence number - ' + [].slice.call(el.parentElement.children).indexOf(el));
-        console.log('boardId - ' + this.currentBoard.id);
+        this.configureOrderTicket(Number(el.getAttribute('id')), Number(listId.substring(4, listId.length)),
+          [].slice.call(el.parentElement.children).indexOf(el));
+        this.boardService.updateTicketOrdering(this.orderTicket);
+        const targetTicket = el.children[0].children[0].innerHTML;
+        const sourceList = source.parentElement.children[0].children[0].children[0].innerHTML;
+        const targetList = target.parentElement.children[0].children[0].children[0].innerHTML;
+        this.createUpperLog('Moved ticket ' + targetTicket + ' from list ' + sourceList + ' to list ' + targetList);
       })
     );
     this.dragulaService.createGroup('LISTS', {
@@ -77,6 +82,14 @@ export class BoardComponent implements OnInit {
         this.boardService.updateListOrder(boardId, listId, sequenceNumber);
       })
     );
+  }
+
+  configureOrderTicket(ticketId: number, listId: number, sequenceNumber: number) {
+    this.orderTicket = {
+      sequenceNumber: sequenceNumber,
+      tableListId: listId,
+      ticketId: ticketId
+    };
   }
 
   openHistorySidenav() {
@@ -126,10 +139,12 @@ export class BoardComponent implements OnInit {
 
   addList(listName: string) {
     this.configureList(listName);
-    this.boardService.addList(this.currentBoard.id, this.addedList)
-      .subscribe(list => this.currentBoard.tableLists.push(list));
+    if (listName !== '') {
+      this.boardService.addList(this.currentBoard.id, this.addedList)
+        .subscribe(list => this.currentBoard.tableLists.push(list));
+      this.createUpperLog('created list with name ' + listName);
+    }
     this.isAddListButtonClicked = false;
-    this.createUpperLog('created list with name ' + listName);
   }
 
   configureList(listName: string) {
@@ -185,12 +200,16 @@ export class BoardComponent implements OnInit {
   }
 
   addNewTicket(ticketName: string, list: List) {
-    this.configureTicket(ticketName, list);
-    const id = this.currentBoard.tableLists.indexOf(list);
-    this.boardService.addTicket(this.addedTicket)
-      .subscribe(ticket => this.currentBoard.tableLists[id].ticketsForBoardResponse.push(ticket));
+    console.log(document.getElementById('list' + list.id).children[0].children[1].children.length);
+    const newTicketSequenceNumber = document.getElementById('list' + list.id).children[0].children[1].children.length;
+    this.configureTicket(ticketName, list, newTicketSequenceNumber);
+    if (ticketName !== '') {
+      const id = this.currentBoard.tableLists.indexOf(list);
+      this.boardService.addTicket(this.addedTicket)
+        .subscribe(ticket => this.currentBoard.tableLists[id].ticketsForBoardResponse.push(ticket));
+      this.createUpperLog('created ticket ' + ticketName);
+    }
     this.clickAddNewTicket(list);
-    this.createUpperLog('created ticket ' + ticketName);
   }
 
   clickAddNewTicket(list: List) {
@@ -199,7 +218,7 @@ export class BoardComponent implements OnInit {
       = (!this.currentBoard.tableLists[id].isAddNewTicketClicked);
   }
 
-  configureTicket(ticketName: string, list: List) {
+  configureTicket(ticketName: string, list: List, sequenceNumber: number) {
     this.addedTicket = {
       id: null,
       createTime: null,
@@ -212,7 +231,8 @@ export class BoardComponent implements OnInit {
       tableListId: list.id,
       boardId: this.currentBoard.id,
       createdById: null,
-      sprintId: null
+      sprintId: null,
+      sequenceNumber: sequenceNumber
     };
   }
 
