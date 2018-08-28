@@ -44,6 +44,7 @@ export class TicketService {
     return this.http.delete<CommentDto>(url, this.createHttpOptions());
   }
 
+
   getTicket(ticketId: number): Observable<TicketDto> {
     const url = `/api/tickets/${ticketId}`;
     return this.http.get<TicketDto>(url, this.createHttpOptions());
