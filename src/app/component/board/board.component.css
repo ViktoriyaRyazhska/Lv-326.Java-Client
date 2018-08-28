@@ -279,14 +279,14 @@
   display: none;
 }
 
-#closeForm {
-  display: none;
-  position: absolute;
-  height: 100vh;
-  width: 99vw;
-  z-index: 200;
-  background-color: #8080804d;
-}
+/*#closeForm {*/
+  /*display: none;*/
+  /*position: absolute;*/
+  /*height: 100vh;*/
+  /*width: 99vw;*/
+  /*z-index: 200;*/
+  /*background-color: #8080804d;*/
+/*}*/
 
 .url-image {
   margin: 10px;

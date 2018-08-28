@@ -2,8 +2,38 @@
   display: none;
   position: absolute;
   justify-content: center;
-  height: 100vh;
+  height: 92vh;
   width: 99vw;
+}
+
+.priority {
+  height: 40px;
+  width: 150px;
+  display: flex;
+  justify-content: center;
+}
+
+.ticketType {
+  height: 40px;
+  width: 150px;
+  display: flex;
+  justify-content: center;
+}
+
+.estimation {
+  height: 40px;
+  width: 150px;
+  display: flex;
+  justify-content: center;
+}
+
+#editNameForm {
+  margin-top: 3vh;
+  display: none;
+}
+
+#editNameForm1 {
+  display: none;
 }
 
 /*#closeForm {*/
@@ -16,15 +46,16 @@
 /*}*/
 
 #window_main_container {
-  margin-top: 4vh;
-  margin-bottom: 4vh;
+  margin-top: 1vh;
+  /*margin-bottom: 4vh;*/
   background-color: #EDEFF0;
   border-radius: 0.3rem;
-  width: 50%;
+  width: 45%;
   height: auto;
   display: flex;
   position: relative;
   z-index: 300;
+  font-size: 14px;
 }
 
 .cross::before, .cross::after {
@@ -51,7 +82,6 @@
   flex-flow: column nowrap;
   width: 70%;
   height: 100%;
-
 }
 
 .window_top {
@@ -61,10 +91,10 @@
 }
 
 .window_bottom {
-  width: 120%;
-  height: 50%;
+  width: 100%;
+  height: 58%;
   overflow-y: scroll;
-  margin-left: 30%;
+  margin-left: 10%;
 }
 
 .window_right_bar {
@@ -73,7 +103,8 @@
   align-items: center;
   flex-flow: column nowrap;
   width: 30%;
-  height: 40%;
+  height: 100%;
+  margin-top: -150px;
 }
 
 /*Ліва половина вікна */
@@ -91,9 +122,11 @@
   margin-right: 0.7rem;
 }
 
-.window_top_one_1 {
-  font-size: 1.1rem;
+#window_top_one_1 {
+  font-size: 20px;
   font-weight: 700;
+  display: flex;
+  margin-top: 2vh;
 }
 
 .Todo_list {
@@ -129,7 +162,6 @@
   margin-top: 0.5rem;
   color: gray;
   text-transform: uppercase;
-  font-size: 0.7rem;
   letter-spacing: 0.05rem;
   font-weight: 300;
 }
@@ -149,7 +181,6 @@
   text-align: center;
   vertical-align: center;
   font-weight: 600;
-  font-size: 0.75rem;
 }
 
 .window_top_two i {
@@ -162,6 +193,12 @@
 }
 
 .textarea_comment {
+   display: flex;
+   flex-flow: column nowrap;
+   margin-top: 0.2rem;
+ }
+
+.textarea_edit_comment {
   display: flex;
   flex-flow: column nowrap;
   margin-top: 0.2rem;
@@ -199,10 +236,17 @@
 .textarea_description_text {
   margin-left: 1.1rem;
   font-weight: 600;
-  font-size: 0.9rem;
 }
 
 .textarea_comment_2 {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  margin: 0;
+  padding: 0;
+}
+
+.textarea_edit_comment_2 {
   width: 100%;
   display: flex;
   justify-content: flex-start;
@@ -214,7 +258,12 @@
   width: 101%;
 }
 
+.textarea_edit_comment_2_textarea {
+  width: 101%;
+}
+
 textarea {
+  font-size: 14px;
   width: 89%;
   resize: none;
   border-radius: 0.2rem;
@@ -232,7 +281,6 @@ textarea {
   text-align: center;
   vertical-align: center;
   font-weight: 600;
-  font-size: 0.75rem;
 }
 
 button[type=submit] {
@@ -242,7 +290,6 @@ button[type=submit] {
   color: black;
   cursor: pointer;
   transition: all 0.8s;
-  font-size: 0.8rem;
   letter-spacing: 0.2px;
   font-weight: 500;
   transition: 0.3s all;
@@ -281,7 +328,7 @@ button[type=submit]:hover {
 .fake {
   content: "";
   height: 1.5px;
-  width: 230%;
+  width: 150%;
   background-color: darkgrey;
   margin-top: 2px;
 }
@@ -302,41 +349,36 @@ button[type=submit]:hover {
 }
 
 .window_bottom_2_person {
+  font-size: 10px;
   margin-left: 0.8rem;
   background-color: #EDEFF0;
 }
 
 .window_bottom_2 p {
-  font-size: 0.8rem;
   font-weight: 600;
   margin-bottom: 2px;
 }
 
 .window_bottom_2 p span {
-  font-size: 0.7rem;
   font-weight: 200;
 }
 
 .window_bottom_2_comment {
-  background-color: #fff;
-  width: 5rem;
-  height: 1.5rem;
-  box-shadow: -0.05rem 0.12rem 0.12rem 0rem gray;
-  text-align: center;
-  font-size: 0.8rem;
-  top: 50%;
-  margin-bottom: -10px;
+  /*background-color: #fff;*/
+  /*width: 5rem;*/
+  /*height: 1.5rem;*/
+  /*box-shadow: -0.05rem 0.12rem 0.12rem 0rem gray;*/
+  /*text-align: center;*/
+  /*top: 50%;*/
 }
 
 .window_bottom_2_comment p {
   text-align: center;
-  font-size: 0.8rem;
   font-weight: 100;
 
 }
 
 .window_bottom_2_comment_time p {
-  font-size: 0.6rem;
   color: gray;
 }
 
@@ -347,7 +389,6 @@ button[type=submit]:hover {
 }
 
 .window_bottom_2_person_change span {
-  font-size: 0.7rem;
   text-decoration: underline;
   cursor: pointer;
   color: gray;
@@ -403,6 +444,7 @@ a {
 }
 
 .Add_card, .actions {
+  font-size: 12px;
   width: 95%;
 }
 
@@ -414,7 +456,6 @@ a {
   margin-top: 0.4rem;
   background-color: #E2E4E6;
   font-weight: bold;
-  font-size: 0.85rem;
   cursor: pointer;
   margin-left: 0.8rem;
   transition: 0.3s all;
@@ -432,7 +473,6 @@ hr {
   margin-left: 1.6rem;
   color: #9AA5CD;
   font-weight: 600;
-  font-size: 0.9rem;
 }
 
 .Add_card .button1:hover, .actions .button2:hover {
@@ -494,4 +534,14 @@ h3, h4, h5, h6 {
 #descriptionWindow {
   /*display: none;*/
   display: flex;
+  height: 50px;
 }
+
+.editCommentTextArea {
+  display: none;
+}
+
+#commentWrapper {
+  display: flex;
+}
+

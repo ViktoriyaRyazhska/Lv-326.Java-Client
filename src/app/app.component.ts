@@ -7,4 +7,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
 
+
+  closeForm() {
+    document.getElementById('myForm').style.display = 'none';
+    document.getElementById('closeForm').style.display = 'none';
+  }
 }
