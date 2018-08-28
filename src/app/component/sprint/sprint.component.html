@@ -83,10 +83,11 @@
         <!--TRASH-->
         <button type="button" class="close" aria-label="Close" (click)="moveToArchiveSprint(sprint)"><span aria-hidden="true">&times;</span></button>
       </div>
+      <br>
       <div class="col-sm-12" dragula="TICKETSINSPRINT" [(dragulaModel)]="sprint.ticketsForBoardResponse">
         <div class="ticket-sprint text" *ngFor="let ticketSprint of sprint.ticketsForBoardResponse" id="{{ticketSprint.id}}"
              (click)="getTicket(ticketSprint.id)">
-          <span class="ticket-name">{{ticketSprint.name}}</span>
+          <div class="ticket-name">{{ticketSprint.name}}</div>
         </div>
         <br>
       </div>
