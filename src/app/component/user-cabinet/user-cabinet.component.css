@@ -1,13 +1,13 @@
 .box {
-  background-color: #8c8c8c;
+  background-color: #A5A7A8;
   border-radius: 6px;
   box-sizing: border-box;
   cursor: pointer;
   display: block;
   font-size: 14px;
-  height: 75px;
-  max-height: 85px;
-  width: 150px;
+  height: 100px;
+  max-height: 100px;
+  width: 200px;
   /*max-width: 100px;*/
   padding: 10px;
   margin: 10px;

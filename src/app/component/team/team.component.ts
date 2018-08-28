@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {Board} from '../../entity/Board';
 import {TeamService} from '../../service/team/team.service';
-import {Team} from '../../entity/Team';
+import {TeamDto} from '../../entity/TeamDto';
 import {ActivatedRoute} from '@angular/router';
+import {UserDto} from '../../entity/UserDto';
 
 @Component({
   selector: 'app-team',
@@ -10,9 +11,10 @@ import {ActivatedRoute} from '@angular/router';
   styleUrls: ['./team.component.css']
 })
 export class TeamComponent implements OnInit {
-  currentTeam: Team;
+  currentTeam: TeamDto;
   board: Board;
   teamBoards: Board[];
+  users: UserDto[];
 
   constructor(private teamService: TeamService,
               private route: ActivatedRoute) {
@@ -39,11 +41,14 @@ export class TeamComponent implements OnInit {
       .subscribe(boards => this.teamBoards = boards);
   }
 
-  getAllTeamMembers(teamId: number) {
-
+  getAllTeamMembers(id: number) {
+    this.teamService.getAllTeamMembers(id)
+      .subscribe(users => this.users = users);
   }
 
-  createTeam() {
-
+  deleteUserFromTeam(teamId: number, userId: number) {
+    if (confirm(`Delete user?`)) {
+      this.teamService.deleteUserFromTeam(teamId, userId).subscribe();
+    }
   }
 }

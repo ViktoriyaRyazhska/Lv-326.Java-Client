@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Team} from '../../entity/Team';
+import {TeamDto} from '../../entity/TeamDto';
 import {TeamService} from '../../service/team/team.service';
 import {BoardService} from '../../service/board/board.service';
 import {Board} from '../../entity/Board';
@@ -11,7 +11,7 @@ import {Board} from '../../entity/Board';
   styleUrls: ['./user-cabinet.component.css']
 })
 export class UserCabinetComponent implements OnInit {
-  teams: Team[];
+  teams: TeamDto[];
   boards: Board[];
 
   constructor(private teamService: TeamService,
@@ -36,5 +36,10 @@ export class UserCabinetComponent implements OnInit {
   createBoard(name: String, boardType: String) {
     this.boardService.createBoard({name, boardType} as Board)
       .subscribe(board => this.boards.push(board));
+  }
+
+  createTeam(name: string) {
+    this.teamService.cteateTeam(name)
+      .subscribe(team => this.teams.push(team));
   }
 }
