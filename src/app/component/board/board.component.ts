@@ -127,7 +127,6 @@ export class BoardComponent implements OnInit {
     this.ticketService.getTicket(ticketId).subscribe(ticket => {
       this.ticketDto = ticket;
     });
-    this.ticketService.timeZoneMethod(this.ticketDto);
   }
 
   getBoard(id: number) {

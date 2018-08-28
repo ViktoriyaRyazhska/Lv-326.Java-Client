@@ -7,13 +7,12 @@ import {Ticket} from '../../entity/Ticket';
 import {TicketDto} from '../../entity/TicketDto';
 import {CommentDto} from '../../entity/CommentDto';
 import {HistoryLog} from '../../entity/HistoryLog';
+import {compileInjector} from '@angular/compiler';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TicketService {
-
-  blalbla: boolean;
 
   constructor(private http: HttpClient) {
 
@@ -24,14 +23,20 @@ export class TicketService {
     return {headers: new HttpHeaders(headers)};
   }
 
-  deleteTicket(ticket: TicketDto): Observable<TicketDto> {
-    const url = `/api/tickets/${ticket.id}`;
-    return this.http.delete<TicketDto>(url, this.createHttpOptions());
+  archiveTicket(ticketId: number): Observable<TicketDto> {
+    const id = ticketId;
+    const status = 'DELETED';
+    return this.http.patch<TicketDto>(`/api/tickets/`, {id, status}, this.createHttpOptions());
   }
 
   saveComment(comment: CommentDto): Observable<CommentDto> {
-    const url = `/api/comments/`;
-    return this.http.post<CommentDto>(url, comment, this.createHttpOptions());
+    const message = comment.message;
+    const ticketId = comment.ticketId;
+    return this.http.post<CommentDto>(`/api/comments/`, {message, ticketId}, this.createHttpOptions());
+  }
+
+  editComment(comment: CommentDto): Observable<CommentDto> {
+    return this.http.put<CommentDto>(`/api/comments/`, comment, this.createHttpOptions());
   }
 
   deleteComment(id: number): Observable<CommentDto> {
@@ -44,11 +49,16 @@ export class TicketService {
     return this.http.get<TicketDto>(url, this.createHttpOptions());
   }
 
-  editTicket(ticketDto: TicketDto): Observable<TicketDto> {
-    const url = `/api/tickets/`;
-    // return this.http.put<TicketDto>(url, ticketDto, this.createHttpOptions());
-    const description = 'a';
-    return this.http.patch<TicketDto>(url, {description}, this.createHttpOptions());
+  editTicketName(ticketDto: TicketDto): Observable<TicketDto> {
+    const id = ticketDto.id;
+    const name = ticketDto.name;
+    return this.http.patch<TicketDto>(`/api/tickets/`, {id, name}, this.createHttpOptions());
+  }
+
+  editDescription(ticketDto: TicketDto): Observable<TicketDto> {
+    const id = ticketDto.id;
+    const description = ticketDto.description;
+    return this.http.patch<TicketDto>(`/api/tickets/`, {id, description}, this.createHttpOptions());
   }
 
   openForm() {
@@ -61,15 +71,81 @@ export class TicketService {
     document.getElementById('closeForm').style.display = 'none';
   }
 
-  timeZoneMethod(ticketDto: TicketDto) {
-    const timeZone = new Date().getHours() - new Date().getUTCHours();
-    for (const comment of ticketDto.comments) {
-      const date = new Date(comment.updateTime);
-      if (!this.blalbla) {
-        date.setHours(date.getHours() + timeZone);
-        comment.updateTime = comment.updateTime.substring(0, 11) + date.toTimeString().substring(0, 8);
-      }
-    }
-    this.blalbla = true;
+  setPriorityLow(ticketDto: TicketDto) {
+    const id = ticketDto.id;
+    const ticketPriority = 'LOW';
+    return this.http.patch<TicketDto>(`/api/tickets/`, {id, ticketPriority}, this.createHttpOptions());
+  }
+
+  setPriorityMedium(ticketDto: TicketDto) {
+    const id = ticketDto.id;
+    const ticketPriority = 'MEDIUM';
+    return this.http.patch<TicketDto>(`/api/tickets/`, {id, ticketPriority}, this.createHttpOptions());
+  }
+
+  setPriorityHigh(ticketDto: TicketDto) {
+    const id = ticketDto.id;
+    const ticketPriority = 'HIGH';
+    return this.http.patch<TicketDto>(`/api/tickets/`, {id, ticketPriority}, this.createHttpOptions());
+  }
+
+  setTicketIssueTypeBug(ticketDto: TicketDto) {
+    const id = ticketDto.id;
+    const ticketIssueType = 'BUG';
+    return this.http.patch<TicketDto>(`/api/tickets/`, {id, ticketIssueType}, this.createHttpOptions());
+  }
+
+  setTicketIssueTypeTask(ticketDto: TicketDto) {
+    const id = ticketDto.id;
+    const ticketIssueType = 'TASK';
+    return this.http.patch<TicketDto>(`/api/tickets/`, {id, ticketIssueType}, this.createHttpOptions());
+  }
+
+  setTicketIssueTypeStory(ticketDto: TicketDto) {
+    const id = ticketDto.id;
+    const ticketIssueType = 'STORY';
+    return this.http.patch<TicketDto>(`/api/tickets/`, {id, ticketIssueType}, this.createHttpOptions());
+  }
+
+  setTicketIssueTypeEpic(ticketDto: TicketDto) {
+    const id = ticketDto.id;
+    const ticketIssueType = 'EPIC';
+    return this.http.patch<TicketDto>(`/api/tickets/`, {id, ticketIssueType}, this.createHttpOptions());
+  }
+
+  setTicketEstimationXS(ticketDto: TicketDto) {
+    const id = ticketDto.id;
+    const estimation = 'XS';
+    return this.http.patch<TicketDto>(`/api/tickets/`, {id, estimation}, this.createHttpOptions());
+  }
+
+  setTicketEstimationS(ticketDto: TicketDto) {
+    const id = ticketDto.id;
+    const estimation = 'S';
+    return this.http.patch<TicketDto>(`/api/tickets/`, {id, estimation}, this.createHttpOptions());
+  }
+
+  setTicketEstimationM(ticketDto: TicketDto) {
+    const id = ticketDto.id;
+    const estimation = 'M';
+    return this.http.patch<TicketDto>(`/api/tickets/`, {id, estimation}, this.createHttpOptions());
+  }
+
+  setTicketEstimationL(ticketDto: TicketDto) {
+    const id = ticketDto.id;
+    const estimation = 'L';
+    return this.http.patch<TicketDto>(`/api/tickets/`, {id, estimation}, this.createHttpOptions());
+  }
+
+  setTicketEstimationXL(ticketDto: TicketDto) {
+    const id = ticketDto.id;
+    const estimation = 'XL';
+    return this.http.patch<TicketDto>(`/api/tickets/`, {id, estimation}, this.createHttpOptions());
+  }
+
+  setTicketEstimationXXL(ticketDto: TicketDto) {
+    const id = ticketDto.id;
+    const estimation = 'XXL';
+    return this.http.patch<TicketDto>(`/api/tickets/`, {id, estimation}, this.createHttpOptions());
   }
 }
