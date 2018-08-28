@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Sprint } from '../../entity/Sprint';
 import {OrderSprint} from '../../entity/OrderSprint';
 import {TicketDto} from '../../entity/TicketDto';
+import {Ticket} from '../../entity/Ticket';
 
 @Injectable({
   providedIn: 'root'
@@ -11,8 +12,6 @@ import {TicketDto} from '../../entity/TicketDto';
 export class SprintService {
 
   private simpleUrl = '/api/sprint/';
-
-  private orderSprint: OrderSprint;
 
   constructor(private http: HttpClient) {
   }
@@ -24,11 +23,6 @@ export class SprintService {
 
   getSprint(sprintId: number): Observable<Sprint> {
     const url = `${this.simpleUrl}${sprintId}`;
-    return this.http.get<Sprint>(url, this.createHttpOptions());
-  }
-
-  getSprintBacklogByboard(boardId: number): Observable<Sprint> {
-    const url = `${this.simpleUrl}backlog/${boardId}`;
     return this.http.get<Sprint>(url, this.createHttpOptions());
   }
 
@@ -45,7 +39,6 @@ export class SprintService {
 
   archiveSprint(sprint: Sprint): Observable<Sprint> {
     const url = `${this.simpleUrl}archive/${sprint.id}`;
-    console.log(sprint);
     return this.http.delete<Sprint>(url, this.createHttpOptions());
   }
 
@@ -74,27 +67,25 @@ export class SprintService {
   finishSprint(sprint: Sprint): Observable<Sprint> {
     sprint.sprintStatus = 'COMPLETED';
     const url = `${this.simpleUrl}${sprint.id}`;
-    console.log(sprint);
     return this.http.put<Sprint>(url, sprint, this.createHttpOptions());
   }
 
-  updateSprintForTicket(ticket: TicketDto) {
+  updateTicketForSprint(ticket: TicketDto) {
     const url = `api/tickets`;
     this.http.put(url, ticket, this.createHttpOptions()).subscribe();
   }
 
-  updateSprintOrder(boardId: number, sprintId: string, sequenceNumber: number) {
-    this.createOrderSprint(boardId, sprintId, sequenceNumber);
+  updateSprintOrder(orderSprint: OrderSprint) {
     const url = `${this.simpleUrl}order`;
-    console.log(this.orderSprint);
-    this.http.put(url, this.orderSprint, this.createHttpOptions()).subscribe();
+    this.http.put(url, orderSprint, this.createHttpOptions()).subscribe();
   }
 
-  createOrderSprint(boardId: number, sprintId: string, sequenceNumber: number) {
-    this.orderSprint = {
-      boardId: boardId,
-      sprintId: sprintId,
-      sequenceNumber: sequenceNumber
-    };
+  addTicket(ticket: Ticket): Observable<Ticket> {
+    const url = `/api/tickets`;
+    const boardId = ticket.boardId;
+    const name = ticket.name;
+    const tableListId = ticket.tableListId;
+    const sprintId = ticket.sprintId;
+    return this.http.post<Ticket>(url, {boardId, name, tableListId, sprintId});
   }
 }

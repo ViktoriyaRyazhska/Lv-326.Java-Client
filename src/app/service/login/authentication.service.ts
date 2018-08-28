@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {HttpHeaders} from "@angular/common/http";
-import {TokenModel} from "./token/token-model";
+import {HttpHeaders} from '@angular/common/http';
+import {TokenModel} from './token/token-model';
 import {AuthService} from 'angular-6-social-login';
-import {Router} from "@angular/router";
+import {Router} from '@angular/router';
 
 @Injectable()
 export class AuthenticationService {
@@ -22,7 +22,7 @@ export class AuthenticationService {
     }, headers)
       .subscribe(token => {
         localStorage.setItem('jwtToken', token.accessToken);
-        this.router.navigate(["/"]);
+        this.router.navigate(['/cabinet']);
         return token;
       });
   }
@@ -30,11 +30,11 @@ export class AuthenticationService {
   loginWithGoogle(token: string): void {
     this.http.get<TokenModel>('http://localhost:8080/api/auth/oauth/google?access_token=' + token)
       .subscribe(jwtToken => {
-        console.log("Social login with Google was successful");
+        console.log('Social login with Google was successful');
         localStorage.setItem('jwtToken', jwtToken.accessToken);
-        this.router.navigate(["/"])
+        this.router.navigate(['/cabinet']);
       }, onFail => {
-        console.log("Fail to social login with Google");
+        console.log('Fail to social login with Google');
       });
   }
 
@@ -50,6 +50,6 @@ export class AuthenticationService {
       email: email,
       password: password
     }).subscribe();
-    this.router.navigate(["/login"])
+    this.router.navigate(['/login']);
   }
 }

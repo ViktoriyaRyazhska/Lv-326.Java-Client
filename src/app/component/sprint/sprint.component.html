@@ -1,8 +1,6 @@
 <div id="closeForms" (click)="closeForm()"></div>
 <!--<app-ticket [ticketDto]="ticket"></app-ticket>-->
 
-
-<!--<div class="container board-wrapper">-->
   <!--BOARD NANE-->
 <div align="center" class="boardName">{{currentBoard.name}}</div>
 <div class="col-sm-4">
@@ -16,20 +14,20 @@
         <span class="ticket-name">{{ticketBacklog.name}}</span>
       </div>
     </div>
-    <div align="center" *ngIf="!isAddNewTicketClicked">
+    <div align="center" *ngIf="!isAddNewTicketClicked" style="background: #e2e4e6; padding: 5px">
       <button type="button" class="btn btn-primary main-button" (click)="clickAddNewTicket(currentBoard.backlog)">Add new issue</button>
     </div>
     <div *ngIf="isAddNewTicketClicked">
       <input type="text" class="forsm-control form-control" #createTicketField>
-      <button type="button" class="btn btn-success" (click)="addNewTicket(createTicketField.value, currentBoard.backlog)">Add</button>
-      <button type="button" class="btn btn-default" (click)="clickAddNewTicket(currentBoard.backlog)">Back</button>
+      <button type="button" class="btn btn-success h2" (click)="addNewTicket(createTicketField.value, currentBoard.backlog)">Add</button>
+      <button type="button" class="btn btn-default h2" (click)="clickAddNewTicket(currentBoard.backlog)">Back</button>
     </div>
   </div>
 </div>
-<!--SPINTS-->
-<div class="col-sm-8" dragula="SPRINTS" [(dragulaModel)]="currentBoard.sprints">
+
+<div class="col-sm-8">
   <!--ADD BUTTON-->
-  <div class="col-sm-8 col-sm-offset-4" style="margin: 10px">
+  <div style="margin: 10px">
     <div *ngIf="!isAddSprintButtonClicked">
       <button type="button" class="btn btn-primary main-button" (click)= "addSprintButtonClick()"> Add Sprint </button>
       <!--SORTING-->
@@ -39,218 +37,94 @@
       <!--SORTING-->
     </div>
     <div *ngIf="isAddSprintButtonClicked">
-      <input type="text" class="forsm-control form-control" #sprintName placeholder="Spri">
-      <button type="button" class="btn btn-success" (click)="addSprint(sprintName.value, currentBoard.id)">Add</button>
-      <button type="button" class="btn btn-default" (click)="changeButtonClick()">Back</button>
+      <input type="text" class="forsm-control form-control" #sprintName placeholder="Sprint name">
+      <button type="button" class="btn btn-success h2" (click)="addSprint(sprintName.value, currentBoard.id)">Add</button>
+      <button type="button" class="btn btn-default h2" (click)="changeButtonClick()">Back</button>
     </div>
   </div>
-  <!--FOR EACH SPRINT-->
-  <div class="col-sm-12" *ngFor="let sprint of currentBoard.sprints" id="{{sprint.id}}"
-       (click)="getSprint(sprint.id)" style="background: #e2e4e6; margin: 5px; padding: 10px">
-    <!--SPRINT CONTAINER-->
-    <div class="col-sm-8">
-      <div class="col-sm-12">
-        <!--SPRINT STATUS-->
-        <span *ngIf="sprint.sprintStatus === 'ACTIVE'" style="color: green"> Active</span>
-        <span *ngIf="sprint.sprintStatus === 'CREATED'" style="color: orange"> Created </span>
-        <span *ngIf="sprint.sprintStatus === 'COMPLETED'" style="color: blue">Completed</span>
+  <!--SPINTS-->
+  <div dragula="SPRINTS" [(dragulaModel)]="currentBoard.sprints">
+    <!--FOR EACH SPRINT-->
+    <div class="col-sm-12" *ngFor="let sprint of currentBoard.sprints" id="{{sprint.id}}"
+         (click)="getSprint(sprint.id)" style="background: #e2e4e6; margin: 5px; padding: 10px">
+      <!--SPRINT CONTAINER-->
+      <div class="col-sm-8">
+        <div class="col-sm-12">
+          <!--SPRINT STATUS-->
+          <span *ngIf="sprint.sprintStatus === 'ACTIVE'" style="color: green"> Active</span>
+          <span *ngIf="sprint.sprintStatus === 'CREATED'" style="color: orange"> Created </span>
+          <span *ngIf="sprint.sprintStatus === 'COMPLETED'" style="color: darkgrey">Completed</span>
+        </div>
+        <!--EDIT NAME-->
+        <div class="backlog-name">
+          <span *ngIf="!sprint.isEditSprintClicked">
+            <div class="glyphicon glyphicon-pencil" (click)="editSprintClick(sprint)"><b>{{ sprint.label }}</b></div>
+          </span>
+          <span *ngIf="sprint.isEditSprintClicked">
+            <b>{{ sprint.label }}</b>
+            <input #nameField type="text" value="{{sprint.label}}">
+            <button type="button" class="btn btn-success h2" (click)="editSprint(nameField.value, sprint)">Set</button>
+            <button type="button" class="btn btn-default h2" (click)="editSprintClick(sprint)">Back</button>
+          </span>
+        </div>
       </div>
-      <!--EDIT NAME-->
-      <div class="backlog-name">
-        <span *ngIf="!sprint.isEditSprintClicked">
-          <i class="fa fa-edit fa-sm" aria-hidden="true" (click)="editSprintClick(sprint)"><b>{{ sprint.label }}</b></i>
+      <div class="col-sm-3">
+        <!--BUTTOMS-->
+        <span class="bottom-right" *ngIf="sprint.sprintStatus === 'ACTIVE'">
+          <button type="button" class="btn btn-success main-button" (click)="openForm()" disabled> Start Sprint </button>
+          <button type="button" class="btn btn-danger main-button" (click)="finishSprint(sprint)">Finish</button>
         </span>
-        <span *ngIf="sprint.isEditSprintClicked">
-          <b>{{ sprint.label }}</b>
-          <input #nameField type="text" value="{{sprint.label}}">
-          <button type="button" class="btn btn-success" (click)="editSprint(nameField.value, sprint)">Set</button>
-          <button type="button" class="btn btn-default" (click)="editSprintClick(sprint)">Back</button>
+        <span class="bottom-right" *ngIf="sprint.sprintStatus != 'ACTIVE'">
+          <button type="button" class="btn btn-success main-button" (click)="openForm()"> Start Sprint </button>
+          <button type="button" class="btn btn-danger main-button" (click)="finishSprint(sprint)" disabled>Finish</button>
         </span>
       </div>
-    </div>
-    <div class="col-sm-3">
-      <!--BUTTOMS-->
-      <span class="bottom-right" *ngIf="sprint.sprintStatus === 'ACTIVE'">
-        <button type="button" class="btn btn-success main-button" (click)="openForm()" disabled> Start Sprint </button>
-        <button type="button" class="btn btn-danger main-button" (click)="finishSprint(sprint)">Finish</button>
-      </span>
-      <span class="bottom-right" *ngIf="sprint.sprintStatus != 'ACTIVE'">
-        <button type="button" class="btn btn-success main-button" (click)="openForm()"> Start Sprint </button>
-        <button type="button" class="btn btn-danger main-button" (click)="finishSprint(sprint)" disabled>Finish</button>
-      </span>
-    </div>
-    <div class="col-sm-1">
-      <!--TRASH-->
-      <button type="button" class="close" aria-label="Close" (click)="moveToArchiveSprint(sprint)"><span aria-hidden="true">&times;</span></button>
-    </div>
-    <div class="col-sm-12" dragula="TICKETSINSPRINT" [(dragulaModel)]="sprint.ticketsForBoardResponse">
-      <div class="ticket-sprint text" *ngFor="let ticketSprint of sprint.ticketsForBoardResponse" id="{{ticketSprint.id}}"
-           (click)="getTicket(ticketSprint.id)">
-        <span class="ticket-name">{{ticketSprint.name}}</span>
+      <div class="col-sm-1">
+        <!--TRASH-->
+        <button type="button" class="close" aria-label="Close" (click)="moveToArchiveSprint(sprint)"><span aria-hidden="true">&times;</span></button>
       </div>
-      <br>
+      <div class="col-sm-12" dragula="TICKETSINSPRINT" [(dragulaModel)]="sprint.ticketsForBoardResponse">
+        <div class="ticket-sprint text" *ngFor="let ticketSprint of sprint.ticketsForBoardResponse" id="{{ticketSprint.id}}"
+             (click)="getTicket(ticketSprint.id)">
+          <span class="ticket-name">{{ticketSprint.name}}</span>
+        </div>
+        <br>
+      </div>
     </div>
   </div>
 </div>
-<!--<div class="row">-->
-  <div class="col-sm-8 offset-4">
-    <!--<div *ngIf="!isAddSprintButtonClicked">-->
-      <!--<button class="btn btn-outline-info main-button" (click)= "addSprintButtonClick()"> Add Sprint </button>-->
-      <!--&lt;!&ndash;SORTING&ndash;&gt;-->
-      <!--<div class="form-check form-check-inline">-->
-        <!--<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" (click)= "noSort()" checked>-->
-        <!--<label class="form-check-label" for="inlineRadio1">No Sort</label>-->
-      <!--</div>-->
-      <!--<div class="form-check form-check-inline">-->
-        <!--<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2" (click)= "sortFuncByName()">-->
-        <!--<label class="form-check-label" for="inlineRadio2">By Name</label>-->
-      <!--</div>-->
-      <!--<div class="form-check form-check-inline">-->
-        <!--<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3" (click)= "sortFuncByStartDate()">-->
-        <!--<label class="form-check-label" for="inlineRadio3" >By Start Date</label>-->
-      <!--</div>-->
-      <!--&lt;!&ndash;SORTING&ndash;&gt;-->
-    <!--</div>-->
-    <!--<div *ngIf="isAddSprintButtonClicked">-->
-      <!--<input type="text" class="forsm-control form-control" #sprintName>-->
-      <!--<button class="btn btn-outline-success btn-space"  (click)="addSprint(sprintName.value, currentBoard.id)">Add</button>-->
-      <!--<button class="btn btn-outline-dark btn-space" (click)="changeButtonClick()">Back</button>-->
-    <!--</div>-->
-  </div>
-  <div class="col-sm">
-    <!--<div class="container">-->
-      <!--<div class="row">-->
-    <div class="col-sm-4">
-      <!--<div class="col-sm-12 btn border-secondary" id="backlog">-->
-        <!--&lt;!&ndash;BACKLOG&ndash;&gt;-->
-        <!--<div class="backlog-name"> <b>{{ currentBoard.backlog.label }}</b></div>-->
-        <!--&lt;!&ndash;BACKLOG TICKETS&ndash;&gt;-->
-        <!--<div dragula="TICKETSINSPRINT" [(dragulaModel)]="currentBoard.backlog.ticketsForBoardResponse"-->
-             <!--class="ticket-list-wrapper">-->
-          <!--<div *ngFor="let ticketBacklog of currentBoard.backlog.ticketsForBoardResponse" id="{{ticketBacklog.id}}"-->
-               <!--(click)="getTicket(ticketBacklog.id)">-->
-            <!--<span class="p-1 mb-4 bg-light text-dark d-flex align-items-start row-eq-height border border-info text">{{ticketBacklog.name}}</span>-->
-          <!--</div>-->
-        <!--</div>-->
-        <!--<div *ngIf="!isAddNewTicketClicked">-->
-          <!--<button class="btn btn-outline-success btn-space" (click)="clickAddNewTicket(currentBoard.backlog)">Add new issue</button>-->
-        <!--</div>-->
-        <!--<div *ngIf="isAddNewTicketClicked">-->
-          <!--<input type="text" class="forsm-control form-control" #createTicketField>-->
-          <!--<button class="btn btn-outline-success btn-space" (click)="addNewTicket(createTicketField.value, currentBoard.backlog)">Add</button>-->
-          <!--<button class="btn btn-outline-dark btn-space" (click)="clickAddNewTicket(currentBoard.backlog)">Back</button>-->
-        <!--</div>-->
-      </div>
-    </div>
-    <!--<div class="col-sm-8">-->
-      <!--SPINTS-->
-      <!--<div class="container btn border-secondary" id="sprints">-->
-        <!--<div class="row" dragula="SPRINTS" [(dragulaModel)]="currentBoard.sprints">-->
-          <!--FOR EACH SPRINT-->
-          <!--<div class="col-sm-12" *ngFor="let sprintv of currentBoard.sprints" id="{{sprintv.id}}"-->
-               <!--(click)="getSprint(sprintv.id)">-->
-            <!--&lt;!&ndash;SPRINT CONTAINER&ndash;&gt;-->
-            <!--<div class="container">-->
-              <!--<div class="row p-1 mb-4 bg-light text-dark foo border border-warning d-flex align-items-start row-eq-height">-->
-                <!--<div class="col-sm-7">-->
-                  <!--<div class="">-->
-                    <!--<div>-->
-                      <!--&lt;!&ndash;SPRINT STATUS&ndash;&gt;-->
-                      <!--<span *ngIf="sprint.sprintStatus === 'ACTIVE'" style="color: green">-->
-                        <!--Active-->
-                      <!--</span>-->
-                      <!--<span *ngIf="sprint.sprintStatus === 'CREATED'" style="color: orange">-->
-                        <!--Created-->
-                      <!--</span>-->
-                      <!--<span *ngIf="sprint.sprintStatus === 'COMPLETED'" style="color: blue">-->
-                        <!--Completed-->
-                      <!--</span>-->
-                    <!--</div>-->
-                    <!--&lt;!&ndash;EDIT NAME&ndash;&gt;-->
-                    <!--<div class="backlog-name">-->
-                      <!--<span *ngIf="!sprint.isEditSprintClicked">-->
-                        <!--<i class="fa fa-edit fa-sm" aria-hidden="true" (click)="editSprintClick(sprint)"><b>{{ sprint.label }}</b></i>-->
-                      <!--</span>-->
-                      <!--<span *ngIf="sprint.isEditSprintClicked">-->
-                        <!--<b>{{ sprint.label }}</b>-->
-                          <!--<input #nameField type="text" value="{{sprint.label}}">-->
-                          <!--<button class="btn btn-outline-success btn-space" (click)="editSprint(nameField.value, sprint)">Set</button>-->
-                          <!--<button class="btn btn-outline-dark btn-space" (click)="editSprintClick(sprint)">Back</button>-->
-                      <!--</span>-->
-                    <!--</div>-->
-                  <!--</div>-->
-                <!--</div>-->
-                <!--BUTTOMS-->
-                <!--<div class="col-sm-4">-->
-                  <!--<span class="bottom-right" *ngIf="sprint.sprintStatus === 'ACTIVE'">-->
-                    <!--<button class="btn btn-outline-success main-button" (click)="openForm()" disabled> Start Sprint </button>-->
-                    <!--<button class="btn btn-outline-primary main-button" (click)="finishSprint(sprint)">Finish</button>-->
-                  <!--</span>-->
-                  <!--<span class="bottom-right" *ngIf="sprint.sprintStatus != 'ACTIVE'">-->
-                    <!--<button class="btn btn-outline-success main-button" (click)="openForm()"> Start Sprint </button>-->
-                    <!--<button class="btn btn-outline-primary main-button" (click)="finishSprint(sprint)" disabled>Finish</button>-->
-                  <!--</span>-->
-                <!--</div>-->
-                <!--TRASH-->
-                <!--<div class="col-sm-1">-->
-                  <!--<i class="fa fa-trash-o fa-lg" aria-hidden="true" (click)="moveToArchiveSprint(sprint)"></i>-->
-                <!--</div>-->
-                <!--TICKETS-->
-                <!--<div class="col-sm-12 ticket-list-wrapper" dragula="TICKETSINSPRINT" [(dragulaModel)]="sprint.ticketsForBoardResponse">-->
-                  <!--<div *ngFor="let ticketSprint of sprint.ticketsForBoardResponse" id="{{ticketSprint.id}}"-->
-                       <!--(click)="getTicket(ticketSprint.id)">-->
-                    <!--<span class="p-1 mb-4 bg-light text-dark d-flex align-items-start row-eq-height border border-info text">{{ticketSprint.name}}</span>-->
-                  <!--</div>-->
-                <!--</div>-->
-              <!--</div>-->
-            <!--</div>-->
-          <!--</div>-->
-        <!--</div>-->
-      <!--</div>-->
-    <!--</div>-->
-  <!--</div>-->
-      <!--</div>-->
-    <!--</div>-->
-  <!--</div>-->
-<!--</div>-->
 
-<div class="container" id="myForms">
-  <div class="row" id="window_main_containers">
-    <div class="col-sm-12 btn border-warning">
-      <h1 class="sprint">{{ currentSprint.label }}</h1>
-      <div class="cross"></div>
-      <div class="container">
-        <div class="row p-1 mb-4 text-dark foo d-flex align-items-start row-eq-height">
-          <div class="col-sm-4 ">
-            <h3 align="left">Start Date:</h3>
-          </div>
+<div id="myForms">
+  <div class="col-sm-12" id="window_main_containers">
+    <div class="col-sm-12">
+      <div align="center"> <h1 class="sprint">{{ currentSprint.label }}</h1>
+      </div>
+      <div class="col-sm-12">
+        <div class="col-sm-12">
+          <div class="col-sm-4 "> <h4>Start Date:</h4> </div>
           <div class="col-sm-8">
-            <input #startDateField class="form-control" type="date" value="2019-08-19" required="required">
+            <input #startDateField class="form-control" type="date" value="2018-08-28" required="required">
           </div>
         </div>
-        <div class="row p-1 mb-4 text-dark foo d-flex align-items-start row-eq-height">
-          <div class="col-sm-4 ">
-            <h3 align="left">End Date:</h3>
-          </div>
+        <div class="col-sm-12">
+          <div class="col-sm-4 "> <h4>End Date:</h4> </div>
           <div class="col-sm-8">
-            <input #endDateField class="form-control" type="date" value="2019-08-19" required="required">
+            <input #endDateField class="form-control" type="date" value="2018-08-28" required="required">
           </div>
         </div>
-        <div class="row p-1 mb-4 text-dark foo d-flex align-items-start row-eq-height">
-          <div class="col-sm-4 ">
-            <h3 align="left">Goal:</h3>
-          </div>
+        <div class="col-sm-12">
+          <div class="col-sm-4 "><h4 >Goal:</h4></div>
           <div class="col-sm-8">
             <div class="form-group green-border-focus">
               <textarea #goalField type="text" class="form-control" rows="3"></textarea>
             </div>
           </div>
         </div>
-        <div class="row p-1 mb-4 text-dark foo d-flex align-items-start row-eq-height">
-          <div class="col-sm-8 offset-4">
-            <button class="btn btn-outline-dark btn-space h2" (click)="closeForm()">Cancel</button>
-            <button class="btn btn-outline-warning btn-space h2" (click)="saveSprint(startDateField.value, endDateField.value, goalField.value, currentSprint)">Save</button>
-            <button class="btn btn-outline-success btn-space h2" (click)="startSprint(startDateField.value, endDateField.value, goalField.value, currentSprint)">Start</button>
+        <div>
+          <div align="center" class="col-sm-8 col-sm-offset-4">
+            <button class="btn btn-default h2" (click)="closeForm()">Cancel</button>
+            <button class="btn btn-primary h2" (click)="saveSprint(startDateField.value, endDateField.value, goalField.value, currentSprint)">Save</button>
+            <button class="btn btn-success h2" (click)="startSprint(startDateField.value, endDateField.value, goalField.value, currentSprint)">Start</button>
           </div>
         </div>
       </div>

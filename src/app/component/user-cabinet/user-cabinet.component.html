@@ -1,0 +1,120 @@
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" rel="script">
+
+<div class="container">
+  <!--Boards-->
+  <div class="row">
+    <!--First column-->
+    <div class="col-sm-2">
+      <h2>Boards</h2>
+      <h2>Teams</h2>
+      <div *ngIf="teams">
+        <a *ngFor="let team of teams"
+           routerLink="/teams/{{team.id}}">
+          {{team.name}}
+        </a>
+        <div>
+          <!-- Trigger the modal with a button -->
+          <a type="button" data-toggle="modal" data-target="#myModalTeam">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+          </a>
+          <!-- Modal -->
+          <div class="modal fade" id="myModalTeam" role="dialog">
+            <div class="modal-dialog">
+              <!-- Modal content-->
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">Please, put team's name</h4>
+                </div>
+                <div class="modal-body">
+                  <form>
+                    <div class="form-group">
+                      <label>Name</label>
+                      <input #nameTeam class="form-control" type="text" placeholder="Enter name" required>
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="submit" class="btn btn-default" data-dismiss="modal"
+                          (click)="createTeam(nameTeam.value); nameTeam.value=''">Add</button>
+                  <button type="submit" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--End First column-->
+
+    <!--Second column-->
+    <div class="col-sm-10">
+
+      <div *ngIf="boards" class="wraper">
+        <div *ngFor="let board of boards">
+          <a routerLink='../createdBoard/{{board.id}}'>
+            <div class="box">
+              {{board.name}}
+            </div>
+          </a>
+        </div>
+        <div>
+          <!-- Trigger the modal with a button -->
+          <div type="button" class="box" data-toggle="modal" data-target="#myModal">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Create board
+          </div>
+          <!-- Modal -->
+          <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+              <!-- Modal content-->
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">Please, put the name of board and choose type for it</h4>
+                </div>
+                <div class="modal-body">
+                  <form>
+                    <div class="form-group">
+                      <label>Name</label>
+                      <input #name class="form-control" type="text" placeholder="Enter name" required>
+                    </div>
+                    <br/>
+                    <div class="form-group">
+                      <label>Select type</label>
+                      <select #type class="form-control" required>
+                        <option value="CUSTOM" selected>CUSTOM</option>
+                        <option value="SCRUM">SCRUM</option>
+                      </select>
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="submit" class="btn btn-default" data-dismiss="modal"
+                          (click)="createBoard(name.value, type.value); name.value=''">Create
+                  </button>
+                  <button type="submit" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--End Second column-->
+  </div>
+  <!--End Boards-->
+
+  <!--Teams-->
+  <div class="row">
+    <!--First column-->
+    <div class="col-sm-2">
+
+    </div>
+    <!--End First column-->
+    <!--Second column-->
+
+    <!--End Second column-->
+  </div>
+  <!--End Teams-->
+</div>

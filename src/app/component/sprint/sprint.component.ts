@@ -10,7 +10,7 @@ import {DragulaService} from 'ng2-dragula';
 import {Subscription} from 'rxjs';
 import {ActivatedRoute} from '@angular/router';
 import {SprintService} from '../../service/sprint/sprint.service';
-import {a, b} from '@angular/core/src/render3';
+import {OrderSprint} from '../../entity/OrderSprint';
 
 @Component({
   selector: 'app-sprint',
@@ -22,6 +22,8 @@ export class SprintComponent implements OnInit {
   addedSprint: Sprint;
 
   currentSprint: Sprint;
+
+  orderSprint: OrderSprint;
 
   ticket: TicketDto;
 
@@ -47,10 +49,9 @@ export class SprintComponent implements OnInit {
     this.subs.add(dragulaService.drop('SPRINTS')
       .subscribe(({el}) => {
         const sprintId = el.getAttribute('id');
-        console.log(sprintId);
         const sequenceNumber = [].slice.call(el.parentElement.children).indexOf(el);
         const boardId = this.currentBoard.id;
-        this.sprintService.updateSprintOrder(boardId, sprintId, sequenceNumber);
+        this.updateSprintOrder(boardId, sprintId, sequenceNumber);
       })
     );
     dragulaService.createGroup('TICKETSINSPRINT', {
@@ -60,19 +61,10 @@ export class SprintComponent implements OnInit {
     this.subs.add(dragulaService.drop('TICKETSINSPRINT')
       .subscribe(({el, source, target}) => {
         const ticketId = el.getAttribute('id');
-        console.log(ticketId);
         const sprintId = target.parentElement.getAttribute('id');
-        console.log(target.parentElement.getAttribute('id'));
-        this.updateSprintForTicket(ticketId, sprintId);
-        this.sprintService.updateSprintForTicket(this.ticket);
+        this.getTicketForSprint(ticketId, sprintId);
       })
     );
-  }
-
-  updateSprintForTicket(ticketId: string, sprintId: string) {
-    this.getTicket(31);
-    console.log(this.ticket);
-    // this.ticket.sprintId = parseInt(sprintId, 10);
   }
 
   ngOnInit() {
@@ -89,12 +81,6 @@ export class SprintComponent implements OnInit {
   getSprint(sprintId: number) {
     this.sprintService.getSprint(sprintId).subscribe(sprint => {
       this.currentSprint = sprint;
-    });
-  }
-
-  getBoard(boardId: number) {
-    this.boardService.getBoard(boardId).subscribe(board => {
-      this.currentBoard = board;
     });
   }
 
@@ -124,13 +110,8 @@ export class SprintComponent implements OnInit {
     };
   }
 
-  clickAddNewTicket() {
-    this.isAddNewTicketClicked
-      = (!this.isAddNewTicketClicked);
-  }
-
-  addSprintButtonClick() {
-    this.isAddSprintButtonClicked = !this.isAddSprintButtonClicked;
+  noSort() {
+    this.getBoard(this.currentBoard.id);
   }
 
   sortFuncByName() {
@@ -153,20 +134,71 @@ export class SprintComponent implements OnInit {
       });
   }
 
-  noSort() {
-    this.getBoard(this.currentBoard.id);
+  editSprint(newName: string, sprint: Sprint) {
+    this.sprintService.editSprint(newName, sprint).subscribe();
+    this.editSprintClick(sprint);
+  }
+
+  saveSprint(startDate: string, endDate: string, goal: string, sprint: Sprint) {
+    this.sprintService.saveSprint
+    (startDate, endDate, goal, sprint).subscribe();
+    this.saveSprintClick(sprint);
+  }
+
+  startSprint(startDate: string, endDate: string, goal: string, sprint: Sprint) {
+    this.sprintService.startSprint(startDate, endDate, goal, sprint).subscribe();
+    this.getBoard(sprint.boardId);
+  }
+
+  finishSprint(sprint: Sprint) {
+    this.sprintService.finishSprint(sprint).subscribe();
+  }
+
+  updateSprintOrder(boardId: number, sprintId: string, sequenceNumber: number) {
+    this.configureOrderSprint(boardId, sprintId, sequenceNumber);
+    this.sprintService.updateSprintOrder(this.orderSprint);
+  }
+
+  configureOrderSprint(boardId, sprintId, sequenceNumber) {
+    this.orderSprint = {
+      boardId: boardId,
+      sequenceNumber: sequenceNumber,
+      sprintId: sprintId
+    };
+  }
+
+  moveToArchiveSprint(sprint: Sprint) {
+    if (confirm(`Delete sprint ${sprint.label}`)) {
+      const number = this.currentBoard.sprints.indexOf(sprint);
+      this.sprintService.archiveSprint(sprint).subscribe();
+      this.currentBoard.sprints.splice(number, 1);
+    }
+  }
+
+  deleteSprint(sprint: Sprint) {
+    if (confirm(`Delete sprint ${sprint.label}`)) {
+      this.sprintService.deleteSprint(sprint.id).subscribe();
+    }
+  }
+
+  addSprintButtonClick() {
+    this.isAddSprintButtonClicked = !this.isAddSprintButtonClicked;
   }
 
   changeButtonClick() {
     this.isAddSprintButtonClicked = !this.isAddSprintButtonClicked;
   }
 
+  clickAddNewTicket() {
+    this.isAddNewTicketClicked
+      = (!this.isAddNewTicketClicked);
+  }
+
   addNewTicket(ticketName: string, sprint: Sprint) {
     this.configureTicket(ticketName, this.currentBoard.tableLists[0]);
-    this.boardService.addTicket(this.addedTicket)
+    this.sprintService.addTicket(this.addedTicket)
       .subscribe(ticket => sprint.ticketsForBoardResponse.push(ticket));
     this.clickAddNewTicket();
-    console.log(this.addedTicket);
   }
 
   configureTicket(ticketName: string, list: List) {
@@ -183,33 +215,8 @@ export class SprintComponent implements OnInit {
       boardId: this.currentBoard.id,
       createdById: null,
       sprintId: this.currentBoard.backlog.id,
-      // todo: add sequence number
       sequenceNumber: null
     };
-  }
-
-  editSprint(newName: string, sprint: Sprint) {
-    this.sprintService.editSprint(newName, sprint).subscribe();
-    this.editSprintClick(sprint);
-    console.log(this.currentSprint);
-  }
-
-  saveSprint(startDate: string, endDate: string, goal: string, sprint: Sprint) {
-    this.sprintService.saveSprint
-    (startDate, endDate, goal, sprint).subscribe();
-    this.saveSprintClick(sprint);
-    console.log(this.currentSprint);
-  }
-
-  startSprint(startDate: string, endDate: string, goal: string, sprint: Sprint) {
-    this.sprintService.startSprint(startDate, endDate, goal, sprint).subscribe();
-    this.getBoard(sprint.boardId);
-    console.log(this.currentSprint);
-  }
-
-  finishSprint(sprint: Sprint) {
-    this.sprintService.finishSprint(sprint).subscribe();
-    console.log(this.currentSprint);
   }
 
   editSprintClick(sprint: Sprint) {
@@ -221,25 +228,18 @@ export class SprintComponent implements OnInit {
   }
 
   getTicket(ticketId: number) {
+    this.ticketService.openForm();
     this.ticketService.getTicket(ticketId).subscribe(ticket => {
       this.ticket = ticket;
     });
-    console.log(this.ticket, 'GET TICKET');
   }
 
-  moveToArchiveSprint(sprint: Sprint) {
-    if (confirm(`Delete sprint ${sprint.label}`)) {
-      const number = this.currentBoard.sprints.indexOf(sprint);
-      this.sprintService.archiveSprint(sprint).subscribe();
-      this.currentBoard.sprints.splice(number, 1);
-      console.log(sprint);
-    }
-  }
-
-  deleteSprint(sprint: Sprint) {
-    if (confirm(`Delete sprint ${sprint.label}`)) {
-      this.sprintService.deleteSprint(sprint.id).subscribe();
-    }
+  getTicketForSprint(ticketId: string, sprintId: string) {
+    this.ticketService.getTicket(parseInt(ticketId, 10)).subscribe(ticket => {
+      this.ticket = ticket;
+      this.ticket.sprintId = parseInt(sprintId, 10);
+      this.sprintService.updateTicketForSprint(this.ticket);
+    });
   }
 
   openForm() {
@@ -250,6 +250,12 @@ export class SprintComponent implements OnInit {
   closeForm() {
     document.getElementById('myForms').style.display = 'none';
     document.getElementById('closeForms').style.display = 'none';
+  }
+
+  getBoard(boardId: number) {
+    this.boardService.getBoard(boardId).subscribe(board => {
+      this.currentBoard = board;
+    });
   }
 }
 

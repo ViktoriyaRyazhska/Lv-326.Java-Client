@@ -1,11 +1,3 @@
-.editSprintButton {
-  color: darkblue;
-}
-
-.btn-space{
-  margin: 7px 0 7px 7px;
-}
-
 .row-eq-height {
   display: -webkit-box;
 }
@@ -28,22 +20,7 @@
   display: block;
 }
 
-.editButton {
-  text-decoration: none;
-  color: cadetblue;
-  margin: 3px;
-  cursor: pointer;
-}
-
-.deleteButton {
-  text-decoration: none;
-  color: firebrick;
-  margin: 3px;
-  cursor: pointer;
-}
-
-.bottom-right
-{
+.bottom-right {
   right: 0;
   top: 0;
   position: absolute;
@@ -99,24 +76,13 @@
   left: calc(50% - 210px);
 }
 
-#sprints {
-  /*overflow-x: hidden;*/
-  /*overflow-y: scroll;*/
-  /*height: 80vh;*/
-}
-
-#backlog {
-  /*overflow-x: hidden;*/
-  /*overflow-y: scroll;*/
-  /*background: #eeeeee;*/
-}
-
 .sprint{
   margin: 40px;
 }
 
 .h2{
-  font-size: 14px
+  font-size: 14px;
+  margin-right: 2px;
 }
 
 .green-border-focus .form-control:focus {
@@ -183,7 +149,6 @@
 .ticket {
   border-radius: 3px;
   background-color: white;
-  /*width: 400px;*/
   margin: 10px;
   padding: 10px;
 }
@@ -191,7 +156,6 @@
 .ticket-sprint {
   border-radius: 3px;
   background-color: white;
-  /*width: 650px;*/
   margin: 10px;
   padding: 10px;
 }

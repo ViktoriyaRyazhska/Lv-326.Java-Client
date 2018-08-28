@@ -9,6 +9,8 @@ export class TicketDto {
   expirationDate: string;
   name: string;
   ticketPriority: string;
+  ticketIssueType: string;
+  estimation: string;
   assignedToId: number;
   createdById: number;
   assignedToName: string;

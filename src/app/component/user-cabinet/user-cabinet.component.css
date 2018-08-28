@@ -1,0 +1,40 @@
+.box {
+  background-color: #A5A7A8;
+  border-radius: 6px;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: block;
+  font-size: 14px;
+  height: 100px;
+  max-height: 100px;
+  width: 200px;
+  /*max-width: 100px;*/
+  padding: 10px;
+  margin: 10px;
+  text-align: center;
+}
+
+.wraper {
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 14px;
+  font-weight: 400;
+  height: 350px;
+  width: 95%;
+  line-height: 20px;
+  list-style-image: none;
+  list-style-position: outside;
+  list-style-type: none;
+  margin: 0px;
+  padding: 0px;
+  -webkit-margin-after: 0px;
+  -webkit-margin-before: 0px;
+  -webkit-margin-end: 0px;
+  -webkit-margin-start: 0px;
+  -webkit-padding-start: 0px;
+}
+
+.wraper a, a:hover {
+  text-decoration: none;
+  color: black;
+}
