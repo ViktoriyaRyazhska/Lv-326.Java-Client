@@ -1,0 +1,16 @@
+<div class="wrapper">
+  <form #f="ngForm" class="form-signup">
+    <h2 class="form-signup-heading">Please sign up</h2>
+    <input type="text" class="form-control" id="username" ngModel name="username"
+           placeholder="Username" required="" autofocus=""/>
+    <input type="text" class="form-control" id="email" ngModel name="email"
+           placeholder="Email" required="" autofocus=""/>
+    <input type="password" class="form-control" id="password" ngModel name="password" placeholder="Password"
+           required=""/>
+    <button class="btn btn-lg btn-primary btn-block" type="submit" (click)="signupGeneral(f)">Sign up</button>
+    <button class="btn btn-lg btn-primary btn-block" type="submit"><img
+      src="/src/app/resources/google-logo.png">Sign up with Google
+    </button>
+  </form>
+</div>
+

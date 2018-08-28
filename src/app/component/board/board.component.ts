@@ -61,10 +61,10 @@ export class BoardComponent implements OnInit {
     });
     this.subs.add(dragulaService.drop('TICKETS')
       .subscribe(({el, source, target}) => {
-        // const listId = target.parentElement.parentElement.getAttribute('id');
-        // this.configureOrderTicket(Number(el.getAttribute('id')), Number(listId.substring(4, listId.length)),
-        //   [].slice.call(el.parentElement.children).indexOf(el));
-        // this.boardService.updateTicketOrdering(this.orderTicket);
+        const listId = target.parentElement.parentElement.getAttribute('id');
+        this.configureOrderTicket(Number(el.getAttribute('id')), Number(listId.substring(4, listId.length)),
+          [].slice.call(el.parentElement.children).indexOf(el));
+        this.boardService.updateTicketOrdering(this.orderTicket);
         const targetTicket = el.children[0].children[0].innerHTML;
         const sourceList = source.parentElement.children[0].children[0].children[0].innerHTML;
         const targetList = target.parentElement.children[0].children[0].children[0].innerHTML;
@@ -199,7 +199,9 @@ export class BoardComponent implements OnInit {
   }
 
   addNewTicket(ticketName: string, list: List) {
-    this.configureTicket(ticketName, list);
+    console.log(document.getElementById('list' + list.id).children[0].children[1].children.length);
+    const newTicketSequenceNumber = document.getElementById('list' + list.id).children[0].children[1].children.length;
+    this.configureTicket(ticketName, list, newTicketSequenceNumber);
     if (ticketName !== '') {
       const id = this.currentBoard.tableLists.indexOf(list);
       this.boardService.addTicket(this.addedTicket)
@@ -215,7 +217,7 @@ export class BoardComponent implements OnInit {
       = (!this.currentBoard.tableLists[id].isAddNewTicketClicked);
   }
 
-  configureTicket(ticketName: string, list: List) {
+  configureTicket(ticketName: string, list: List, sequenceNumber: number) {
     this.addedTicket = {
       id: null,
       createTime: null,
@@ -228,7 +230,8 @@ export class BoardComponent implements OnInit {
       tableListId: list.id,
       boardId: this.currentBoard.id,
       createdById: null,
-      sprintId: null
+      sprintId: null,
+      sequenceNumber: sequenceNumber
     };
   }
 

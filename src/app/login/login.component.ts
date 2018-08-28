@@ -11,8 +11,7 @@ import {AuthenticationService} from '../service/login/authentication.service';
 export class LoginComponent implements OnInit {
 
   constructor(private authService: AuthenticationService,
-              private socialAuthService: AuthService,
-              private authenticationService: AuthenticationService) {
+              private socialAuthService: AuthService) {
   }
 
   public signinWithGoogle() {
@@ -22,7 +21,7 @@ export class LoginComponent implements OnInit {
     this.socialAuthService.signIn(socialPlatformProvider).then(
       (userData) => { //on success
         //this will return user data from google. What you need is a user token which you will send it to the server
-        this.authenticationService.loginWithGoogle(userData.token);
+        this.authService.loginWithGoogle(userData.token);
 
       }
     ).catch(reason => {

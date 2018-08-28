@@ -23,6 +23,7 @@ import {
   SocialLoginModule
 } from 'angular-6-social-login';
 import { TeamComponent } from './component/team/team.component';
+import {SignupComponent} from './signup/signup.component';
 
 // import { CloudinaryModule } from '@cloudinary/angular-5.x';
 // import * as  Cloudinary from 'cloudinary-core';
@@ -43,7 +44,8 @@ const routes: Routes = [
   {path: 'teams/:id', component: TeamComponent},
   {path: 'enterToken', component: EnterTokenComponent},
   {path: 'login', component: LoginComponent},
-  {path: '', component: HomeComponent}
+  {path: '', component: HomeComponent},
+  {path: 'signup', component: SignupComponent}
 ];
 
 @NgModule({
@@ -57,7 +59,8 @@ const routes: Routes = [
     HeaderComponent,
     HomeComponent,
     LoginComponent,
-    TeamComponent
+    TeamComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,

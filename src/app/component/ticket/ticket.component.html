@@ -2,21 +2,29 @@
   <div id="window_main_container">
     <div class="window_top_and_bottom_container">
       <div class="window_top">
-        <div class="window_top_one">
-          <div class="window_top_one_1">
-            <i class="fa fa-window-maximize" style="font-size: 1.2rem;"></i>
-            <h2>{{ticketDto.name}}</h2>
-          </div>
-          <!--<div class="Todo_list"><h2>In a {{listForTicket.name}} list</h2>-->
-          <!--</div>-->
+        <!--<div class="window_top_one">-->
+        <div id="window_top_one_1">
+          <i class="fa fa-window-maximize"></i>
+          {{ticketDto.name}}
+          <div class="card-detail-item-header-edit" (click)="editTicketNameButton()">Edit</div>
         </div>
+        <!--edit ticket name-->
+        <div id="editNameForm">
+          <textarea #nameField rows="1" style="height: 20px">{{ticketDto.name}}</textarea>
+        </div>
+        <div id="editNameForm1">
+          <button type="submit" (click)="editTicketName(nameField.value)">Save name</button>
+        </div>
+
+        <!--end of edit ticket name-->
+        <!--<div class="Todo_list"><h2>In a {{listForTicket.name}} list</h2>-->
+        <!--</div>-->
         <div class="window_top_two Todo_list">
           Created by: {{ticketDto.createdByName}}
           <div class="Todo_list" *ngIf="ticketDto.assignedToName">
             Assigned to: {{ticketDto.assignedToName}}
           </div>
         </div>
-
 
         <div *ngIf="!ticketDto.description">
           <div id="textarea_description">
@@ -29,10 +37,11 @@
               </div>
             </div>
             <div class="textarea_description_2">
-              <textarea placeholder="Add description..." rows="3" style="font-size: 0.7rem;"
+              <textarea placeholder="Add description..." rows="3"
                         #descriptionField></textarea>
               <button type="submit" value="saveDescription" name="saveDescription"
-                      (click)="saveDescription(descriptionField.value)">Save description</button>
+                      (click)="editDescription(descriptionField.value)">Save description
+              </button>
             </div>
           </div>
         </div>
@@ -48,10 +57,10 @@
             </div>
           </div>
           <div class="textarea_description_2">
-        <textarea placeholder="Add description..." rows="3" style="font-size: 0.7rem;"
+        <textarea placeholder="Add description..." rows="3"
                   #descriptionField>{{ticketDto.description}}</textarea>
           </div>
-          <button type="submit" (click)="saveDescription(descriptionField.value)">Save description</button>
+          <button type="submit" style="width: 40%;" (click)="editDescription(descriptionField.value)">Save description</button>
         </div>
         <!--end of after clicking "edit" description button-->
 
@@ -60,7 +69,7 @@
             <div class="window-module">
               <div class="window-module-title window-module-title-no-divider"><span
                 class="icon-description icon-lg window-module-title-icon"></span>
-                <h3 class="u-inline-block"><b>Description</b></h3>
+                <b style="margin-left: 20px">Description</b>
                 <div
                   class="card-detail-item-header-edit" (click)="editDescriptionButton()">Edit
                 </div>
@@ -68,8 +77,8 @@
               <div class="u-gutter js-hide-on-minimize-desc">
                 <div class="editable" attr="desc">
                   <div class="description-content js-desc-content">
-                    <div class="current markeddown hide-on-edit js-card-desc js-show-with-desc" dir="auto"><h2>
-                      {{ticketDto.description}}</h2>
+                    <div class="current markeddown hide-on-edit js-card-desc js-show-with-desc" dir="auto">
+                      {{ticketDto.description}}
                     </div>
                   </div>
                 </div>
@@ -89,27 +98,51 @@
           </div>
           <div class="textarea_comment_2">
             <div class="textarea_comment_2_textarea">
-              <textarea #commentField placeholder="Put comment here..." rows="3" style="font-size: 0.7rem;"></textarea>
+              <textarea #commentField placeholder="Put comment here..." rows="2"></textarea>
             </div>
           </div>
         </div>
         <button type="submit" (click)="saveComment(commentField.value)">Save comment</button>
       </div>
 
-
       <div class="window_bottom">
-        <div *ngFor="let comment of ticketDto.comments.reverse()" class="window_bottom_2">
+        <div *ngFor="let comment of ticketDto.comments.reverse()" class="window_bottom_2" id="comment{{comment.id}}"
+             #commentPopup>
           <div *ngIf="!(comment.commentStatus === 'DELETED')">
-            <div class="window_bottom_2_person_main">
-              <div class="window_bottom_2_person">
-                <p> {{comment.userName}} <span>{{comment.updateTime}}</span></p>
-                <div class="window_bottom_2_comment">{{comment.message}}
+            <!--edit comment popup-->
+            <div class="editCommentTextArea" id="commentTextArea{{comment.id}}" style="display: none">
+              <div class="textarea_edit_comment">
+                <div class="textarea_comment_1">
+                  <div>
+                    <i class="fa fa-comment" style="font-size: 1.2rem;"></i>
+                  </div>
+                  <div class="textarea_description_text">
+                    <p> {{comment.userName}} <span>{{comment.updateTime}}</span></p>
+                  </div>
                 </div>
-                <div class="window_bottom_2_person_change">
-                  <i class="fa fa-trash"></i>
-                  <span> Edit </span> <span (click)="deleteComment(comment)"> Delete </span>
+                <div class="textarea_edit_comment_2">
+                  <div class="textarea_edit_comment_2_textarea">
+                    <textarea #newCommentEditField placeholder="Put comment here..."
+                              rows="1">{{comment.message}}</textarea>
+                  </div>
                 </div>
-                <div class="fake"></div>
+              </div>
+              <button type="submit" (click)="editComment(comment, newCommentEditField.value)">Save comment</button>
+            </div>
+            <!-- end of edit comment popup-->
+            <div id="commentWrapper" style="display: flex">
+              <div class="window_bottom_2_person_main">
+                <div class="window_bottom_2_person">
+                  <p> {{comment.userName}} <span>{{comment.updateTime}}</span></p>
+                  <div class="window_bottom_2_comment">{{comment.message}}
+                  </div>
+                  <div class="window_bottom_2_person_change">
+                    <i class="fa fa-trash"></i>
+                    <span (click)="editCommentButton(comment.id)"> Edit </span> <span
+                    (click)="deleteComment(comment)"> Delete </span>
+                  </div>
+                  <div class="fake"></div>
+                </div>
               </div>
             </div>
           </div>
@@ -136,18 +169,57 @@
       <div class="right_top_bar">
         <div class="Add_card">
           <div class="h5_name">
-            <h5> Actions: </h5>
+            Actions:
           </div>
-          <a href="#">
-            <div class="button1"><i class="fa fa-paperclip"></i>Assign</div>
-          </a>
-          <a href="#">
-            <div class="button1"><i class="fa fa-paperclip"></i>Show ticket logs</div>
-          </a>
-
-          <div class="button1" (click)="deleteTicket(ticketDto)">Archive ticket</div>
-
+          <div class="button1"><i class="fa fa-paperclip"></i>Assign</div>
+          <div class="button1"><i class="fa fa-paperclip"></i>Show ticket logs</div>
+          <div class="button1" (click)="archiveTicket(ticketDto)">Archive ticket</div>
         </div>
+      </div>
+      <div class="priority">
+        <ul class="nav navbar-nav navbar-right">
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+               aria-expanded="false">Priority: {{ticketDto.ticketPriority.toLowerCase()}} <span
+              class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a (click)="setPriorityLow(ticketDto)">Low</a></li>
+              <li><a (click)="setPriorityMedium(ticketDto)">Medium</a></li>
+              <li><a (click)="setPriorityHigh(ticketDto)">High</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div class="ticketType">
+        <ul class="nav navbar-nav navbar-right">
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+               aria-expanded="false">Ticket type: {{ticketDto.ticketIssueType.toLowerCase()}} <span
+              class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a (click)="setTicketIssueTypeBug(ticketDto)">BUG</a></li>
+              <li><a (click)="setTicketIssueTypeTask(ticketDto)">TASK</a></li>
+              <li><a (click)="setTicketIssueTypeStory(ticketDto)">STORY</a></li>
+              <li><a (click)="setTicketIssueTypeEpic(ticketDto)">EPIC</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div class="estimation">
+        <ul class="nav navbar-nav navbar-right">
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+               aria-expanded="false">Estimation: {{ticketDto.estimation.toLowerCase()}} <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a (click)="setTicketEstimationXS(ticketDto)">XS</a></li>
+              <li><a (click)="setTicketEstimationS(ticketDto)">S</a></li>
+              <li><a (click)="setTicketEstimationM(ticketDto)">M</a></li>
+              <li><a (click)="setTicketEstimationL(ticketDto)">L</a></li>
+              <li><a (click)="setTicketEstimationXL(ticketDto)">XL</a></li>
+              <li><a (click)="setTicketEstimationXXL(ticketDto)">XXL</a></li>
+            </ul>
+          </li>
+        </ul>
       </div>
     </div>
   </div>

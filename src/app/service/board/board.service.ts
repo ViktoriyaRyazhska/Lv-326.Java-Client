@@ -62,7 +62,8 @@ export class BoardService {
     const boardId = ticket.boardId;
     const name = ticket.name;
     const tableListId = ticket.tableListId;
-    return this.http.post<Ticket>(url, {boardId, name, tableListId});
+    const sequenceNumber = ticket.sequenceNumber;
+    return this.http.post<Ticket>(url, {boardId, name, tableListId, sequenceNumber});
   }
 
   createLog(historyLog: HistoryLog): Observable<HistoryLog> {
