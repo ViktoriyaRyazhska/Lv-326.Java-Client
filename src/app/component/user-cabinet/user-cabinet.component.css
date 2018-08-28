@@ -1,0 +1,35 @@
+.box {
+  background-color: #8c8c8c;
+  border-radius: 6px;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: block;
+  font-size: 14px;
+  height: 75px;
+  max-height: 75px;
+  min-width: 60px;
+  max-width: 100px;
+  padding: 20px;
+  margin: 20px;
+  text-align: center;
+}
+
+.wraper {
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 14px;
+  font-weight: 400;
+  height: 350px;
+  width: 95%;
+  line-height: 20px;
+  list-style-image: none;
+  list-style-position: outside;
+  list-style-type: none;
+  margin: 0px;
+  padding: 0px;
+  -webkit-margin-after: 0px;
+  -webkit-margin-before: 0px;
+  -webkit-margin-end: 0px;
+  -webkit-margin-start: 0px;
+  -webkit-padding-start: 0px;
+}

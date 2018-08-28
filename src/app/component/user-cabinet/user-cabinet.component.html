@@ -1,0 +1,148 @@
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-4">
+      <div>
+        <button (click)="getAllUserBoards()">Boards</button>
+      </div>
+      <div>
+        <button (click)="getAllUserTeams()">Teams</button>
+        <div *ngIf="teams">
+          <ul>
+            <li *ngFor="let team of teams">
+              <a routerLink="/teams/{{team.id}}">
+                {{team.name}}
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-8">
+
+      <div *ngIf="boards" class="wraper">
+        <div *ngFor="let board of boards">
+          <a routerLink='../createdBoard/{{board.id}}'>
+            <div class="box">
+              {{board.name}}
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div class="container">
+        <!-- Trigger the modal with a button -->
+        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Create board
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" role="dialog">
+          <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Please, put the name of board and choose type for it</h4>
+              </div>
+              <div class="modal-body">
+
+                <form>
+                  <div class="form-group">
+                    <label>Name</label>
+                    <input #name class="form-control" type="text" placeholder="Enter name" required>
+                  </div>
+                  <br/>
+
+                  <div class="form-group">
+                    <label>Select type</label>
+                    <select #type class="form-control" required>
+                      <option value="CUSTOM" selected>CUSTOM</option>
+                      <option value="SCRUM">SCRUM</option>
+                    </select>
+                  </div>
+                </form>
+
+              </div>
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-default" (click)="createBoard(name.value, type.value); name.value=''">Create
+                </button>
+                <button type="submit" class="btn btn-default" data-dismiss="modal">Close</button>
+                <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+
+      <!--<div>-->
+      <!--<p align="center">-->
+      <!--<input type="text" #boardField required>-->
+      <!--<select type="text" #boardType required>-->
+      <!--<option selected value="CUSTOM">CUSTOM</option>-->
+      <!--<option>SCRUM</option>-->
+      <!--</select>-->
+      <!--<button (click)="createBoard(boardField, boardType)">Add</button>-->
+      <!--<button (click)="createBoard()">Back</button>-->
+      <!--</p>-->
+      <!--</div>-->
+
+
+      <!--<div class="list-footer">-->
+      <!--<div *ngIf="!createdBoard.isAddNewBoardClicked">-->
+      <!--<p align="center">-->
+      <!--<a (click)="createBoard(createdBoard)" class="add-new-board">Add new board</a>-->
+      <!--</p>-->
+      <!--</div>-->
+
+      <!--<div *ngIf="createdBoard.isAddNewBoardClicked">-->
+      <!--<p align="center">-->
+      <!--<input type="text" #createBoardField class="createBoardField" required>-->
+      <!--<select #createBoardType>-->
+      <!--<option selected>CUSTOM</option>-->
+      <!--<option>SCRUM</option>-->
+      <!--</select>-->
+      <!--<button (click)="createBoard(createBoardField.value, createBoardType.value)">Add</button>-->
+      <!--<button (click)="createBoard()">Back</button>-->
+      <!--</p>-->
+      <!--</div>-->
+      <!--</div>-->
+
+
+      <!--<div *ngIf="boards; else elseBlock">-->
+      <!--<ul>-->
+      <!--<li *ngFor="let createdBoard of boards">-->
+      <!--&lt;!&ndash;<a routerLink="/teams/{{team.id}}">&ndash;&gt;-->
+      <!--{{createdBoard.name}}-->
+      <!--&lt;!&ndash;</a>&ndash;&gt;-->
+      <!--</li>-->
+      <!--</ul>-->
+      <!--</div>-->
+      <!--<ng-template #elseBlock>-->
+      <!--<h2>Виглядає просто, працює — потужно!</h2>-->
+
+      <!--<p>Cajillo працює в режимі реального часу — і дуже швидко. Коли хтось переміщує картку, вона відразу ж рухається-->
+      <!--на вашій дошці, незалежно від того, який пристрій ви використовуєте. Вкладку можна весь день тримати відкритою-->
+      <!--без оновлення сторінки. Крім того, Cajillo відкривається й завантажується так швидко, що ви цього навіть не-->
+      <!--помічаєте.</p>-->
+
+      <!--<p> Ви можете створювати скільки завгодно дощок, карток і команд та додавати до них будь-яку кількість-->
+      <!--учасників. Також можна робити будь-яку кількість дощок або команд приватними або публічними.</p>-->
+
+      <!--<p>Дошка в Cajillo — це список списків, заповнених картками, які використовуєте ви-->
+      <!--та ваша команда. Це набагато більше, ніж здається на перший погляд. Cajillo має все необхідне для того,-->
+      <!--щоб організувати проект будь-якого розміру.</p>-->
+
+      <!--<p>У вас багато дощок у Cajillo? Використовуйте команди, щоб тримати всіх у курсі. Команди — це групи людей та-->
+      <!--дощок, наприклад ваша компанія, сім’я чи сусіди по кімнаті. Ви можете створити стільки команд, скільки-->
+      <!--забажаєте!s</p>-->
+      <!--</ng-template>-->
+
+
+    </div>
+  </div>
+</div>

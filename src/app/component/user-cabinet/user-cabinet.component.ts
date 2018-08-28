@@ -7,12 +7,14 @@ import {Board} from '../../entity/Board';
 
 @Component({
   selector: 'app-home-page',
-  templateUrl: './home-page.component.html',
-  styleUrls: ['./home-page.component.css']
+  templateUrl: './user-cabinet.html',
+  styleUrls: ['./user-cabinet.css']
 })
-export class HomePageComponent implements OnInit {
+export class UserCabinetComponent implements OnInit {
   teams: Team[];
   boards: Board[];
+  createdBoard: Board;
+
 
   constructor(private teamService: TeamService,
               private boardService: BoardService) {
@@ -20,6 +22,7 @@ export class HomePageComponent implements OnInit {
 
   ngOnInit() {
     this.getAllUserTeams();
+    this.getAllUserBoards();
   }
 
   getAllUserTeams() {
@@ -30,5 +33,10 @@ export class HomePageComponent implements OnInit {
   getAllUserBoards() {
     this.boardService.getAllUserBoards()
       .subscribe(boards => this.boards = boards);
+  }
+
+  createBoard(name: String, boardType: String) {
+    this.boardService.createBoard({name, boardType} as Board)
+      .subscribe(createdBoard => this.boards.push(createdBoard));
   }
 }
