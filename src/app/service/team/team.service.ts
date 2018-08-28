@@ -18,8 +18,18 @@ export class TeamService {
     return {headers: new HttpHeaders(headers)};
   }
 
+  getTeam(id: number): Observable<Team> {
+  const url = `${this.simpleUrl}${id}`;
+  return this.http.get<Team>(url);
+  }
+
   getAllUserTeams(): Observable<Team[]> {
     const url = `${this.simpleUrl}`;
-    return this.http.get<Team[]>(url, this.createHttpOptions());
+    return this.http.get<Team[]>(url);
+  }
+
+  getAllTeamBoards(id: number): Observable<Board[]> {
+    const url = `/api/teams/${id}/boards`;
+    return this.http.get<Board[]>(url);
   }
 }

@@ -8,20 +8,21 @@ import {AppRoutingModule} from './module/routing/app-routing.module';
 import {RouterModule, Routes} from '@angular/router';
 import {EnterTokenComponent} from './component/enter-token/enter-token.component';
 import {DragulaModule, DragulaService} from 'ng2-dragula';
-import { HomePageComponent } from './component/home-page/home-page.component';
+import {UserCabinetComponent} from './component/user-cabinet/user-cabinet.component';
 import {TicketComponent} from './component/ticket/ticket.component';
 import {SprintComponent} from './component/sprint/sprint.component';
 import {HeaderComponent} from './header/header.component';
 import {HomeComponent} from './home/home.component';
 import {LoginComponent} from './login/login.component';
-import {FormsModule} from "@angular/forms";
-import {AuthenticationService} from "./service/login/authentication.service";
-import {JwtInterceptor} from "./service/login/jwt.interceptor";
+import {FormsModule} from '@angular/forms';
+import {AuthenticationService} from './service/login/authentication.service';
+import {JwtInterceptor} from './service/login/jwt.interceptor';
 import {
   AuthServiceConfig,
   GoogleLoginProvider,
   SocialLoginModule
 } from 'angular-6-social-login';
+import { TeamComponent } from './component/team/team.component';
 
 // import { CloudinaryModule } from '@cloudinary/angular-5.x';
 // import * as  Cloudinary from 'cloudinary-core';
@@ -29,7 +30,7 @@ import {
 export function getAuthServiceConfigs() {
   let config = new AuthServiceConfig([{
     id: GoogleLoginProvider.PROVIDER_ID,
-    provider: new GoogleLoginProvider("474548896537-cbiv8soh6l7h7fnj812krnms33qvrprg.apps.googleusercontent.com")
+    provider: new GoogleLoginProvider('474548896537-cbiv8soh6l7h7fnj812krnms33qvrprg.apps.googleusercontent.com')
   }]);
 
   return config;
@@ -37,8 +38,9 @@ export function getAuthServiceConfigs() {
 
 const routes: Routes = [
 
-  {path: 'board/:id', component: BoardComponent},
-  { path: 'boards', component: HomePageComponent},
+  {path: 'createdBoard/:id', component: BoardComponent},
+  {path: 'cabinet', component: UserCabinetComponent},
+  {path: 'teams/:id', component: TeamComponent},
   {path: 'enterToken', component: EnterTokenComponent},
   {path: 'login', component: LoginComponent},
   {path: '', component: HomeComponent}
@@ -50,11 +52,12 @@ const routes: Routes = [
     BoardComponent,
     EnterTokenComponent,
     TicketComponent,
-    HomePageComponent,
+    UserCabinetComponent,
     SprintComponent,
     HeaderComponent,
     HomeComponent,
-    LoginComponent
+    LoginComponent,
+    TeamComponent
   ],
   imports: [
     BrowserModule,

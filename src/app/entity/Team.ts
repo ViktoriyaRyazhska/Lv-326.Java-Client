@@ -3,4 +3,7 @@ export class Team {
   name: string;
   description: string;
   avatar: string;
+
+  constructor() {
+  }
 }

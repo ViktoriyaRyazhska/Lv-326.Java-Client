@@ -26,6 +26,11 @@ export class BoardService {
     return this.http.get<Board>(url);
   }
 
+  createBoard(board: Board): Observable<Board> {
+    const url = `${this.simpleUrl}`;
+    return this.http.post<Board>(url, board);
+  }
+
   getAllUserBoards(): Observable<Board[]> {
     const url = `${this.simpleUrl}`;
     return this.http.get<Board[]>(url);

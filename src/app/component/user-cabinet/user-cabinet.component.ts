@@ -6,15 +6,13 @@ import {Board} from '../../entity/Board';
 
 
 @Component({
-  selector: 'app-home-page',
-  templateUrl: './user-cabinet.html',
-  styleUrls: ['./user-cabinet.css']
+  selector: 'app-user-cabinet',
+  templateUrl: './user-cabinet.component.html',
+  styleUrls: ['./user-cabinet.component.css']
 })
 export class UserCabinetComponent implements OnInit {
   teams: Team[];
   boards: Board[];
-  createdBoard: Board;
-
 
   constructor(private teamService: TeamService,
               private boardService: BoardService) {
@@ -37,6 +35,6 @@ export class UserCabinetComponent implements OnInit {
 
   createBoard(name: String, boardType: String) {
     this.boardService.createBoard({name, boardType} as Board)
-      .subscribe(createdBoard => this.boards.push(createdBoard));
+      .subscribe(board => this.boards.push(board));
   }
 }

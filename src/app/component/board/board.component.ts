@@ -191,7 +191,7 @@ export class BoardComponent implements OnInit {
     this.currentBoard.name = newName;
     this.boardService.editBoard(newName, this.currentBoard).subscribe();
     this.editBoardClick();
-    this.createUpperLog('changed board name to ' + newName);
+    this.createUpperLog('changed createdBoard name to ' + newName);
   }
 
   editBoardClick() {
