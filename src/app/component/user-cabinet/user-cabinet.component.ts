@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {TeamDto} from '../../entity/TeamDto';
+import {TeamDto} from '../../models/TeamDto';
 import {TeamService} from '../../service/team/team.service';
 import {BoardService} from '../../service/board/board.service';
-import {Board} from '../../entity/Board';
+import {Board} from '../../models/Board';
 
 
 @Component({

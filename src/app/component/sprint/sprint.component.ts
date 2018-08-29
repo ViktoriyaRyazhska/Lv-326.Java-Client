@@ -1,16 +1,16 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Board} from '../../entity/Board';
-import {Sprint} from '../../entity/Sprint';
+import {Board} from '../../models/Board';
+import {Sprint} from '../../models/Sprint';
 import {BoardService} from '../../service/board/board.service';
-import {TicketDto} from '../../entity/TicketDto';
-import {List} from '../../entity/List';
-import {Ticket} from '../../entity/Ticket';
+import {TicketDto} from '../../models/TicketDto';
+import {List} from '../../models/List';
+import {Ticket} from '../../models/Ticket';
 import {TicketService} from '../../service/ticket/ticket.service';
 import {DragulaService} from 'ng2-dragula';
 import {Subscription} from 'rxjs';
 import {ActivatedRoute} from '@angular/router';
 import {SprintService} from '../../service/sprint/sprint.service';
-import {OrderSprint} from '../../entity/OrderSprint';
+import {OrderSprint} from '../../models/OrderSprint';
 
 @Component({
   selector: 'app-sprint',

@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '../../../../node_modules/@angular/common/http';
 import {Observable} from 'rxjs';
-import {TeamDto} from '../../entity/TeamDto';
-import {Board} from '../../entity/Board';
-import {UserDto} from '../../entity/UserDto';
+import {TeamDto} from '../../models/TeamDto';
+import {Board} from '../../models/Board';
+import {UserDto} from '../../models/UserDto';
 
 @Injectable({
   providedIn: 'root'
