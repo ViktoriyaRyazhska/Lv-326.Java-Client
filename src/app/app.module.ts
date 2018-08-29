@@ -23,7 +23,7 @@ import {
   SocialLoginModule
 } from 'angular-6-social-login';
 import {TeamComponent} from './component/team/team.component';
-import {SignupComponent} from './signup/signup.component';
+import {SignupComponent} from './component/signup/signup.component';
 
 // import { CloudinaryModule } from '@cloudinary/angular-5.x';
 // import * as  Cloudinary from 'cloudinary-core';
