@@ -7,7 +7,7 @@ body {
   margin-bottom: 80px;
 }
 
-.form-signin {
+.form-login {
   max-width: 380px;
   padding: 15px 35px 45px;
   margin: 0 auto;
@@ -15,7 +15,7 @@ body {
   border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-.form-signin-heading,
+.form-login-heading,
 .checkbox {
   margin-bottom: 30px;
 }
