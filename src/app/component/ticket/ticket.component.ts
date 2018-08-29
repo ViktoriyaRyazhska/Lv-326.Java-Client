@@ -1,8 +1,8 @@
 import {Component, OnInit, Input} from '@angular/core';
 import {TicketService} from '../../service/ticket/ticket.service';
-import {TicketDto} from '../../entity/TicketDto';
-import {List} from '../../entity/List';
-import {CommentDto} from '../../entity/CommentDto';
+import {TicketDto} from '../../models/TicketDto';
+import {List} from '../../models/List';
+import {CommentDto} from '../../models/CommentDto';
 
 @Component({
   selector: 'app-ticket',

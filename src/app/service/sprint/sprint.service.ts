@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Sprint } from '../../entity/Sprint';
-import {OrderSprint} from '../../entity/OrderSprint';
-import {TicketDto} from '../../entity/TicketDto';
-import {Ticket} from '../../entity/Ticket';
+import { Sprint } from '../../models/Sprint';
+import {OrderSprint} from '../../models/OrderSprint';
+import {TicketDto} from '../../models/TicketDto';
+import {Ticket} from '../../models/Ticket';
 
 @Injectable({
   providedIn: 'root'
