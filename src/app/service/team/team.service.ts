@@ -14,11 +14,6 @@ export class TeamService {
   constructor(private http: HttpClient) {
   }
 
-  createHttpOptions() {
-    const headers = JSON.parse(localStorage.getItem('appHeaders'));
-    return {headers: new HttpHeaders(headers)};
-  }
-
   getTeam(id: number): Observable<TeamDto> {
     const url = `${this.simpleUrl}${id}`;
     return this.http.get<TeamDto>(url);

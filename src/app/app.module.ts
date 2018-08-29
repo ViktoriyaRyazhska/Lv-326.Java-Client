@@ -38,13 +38,7 @@ export function getAuthServiceConfigs() {
 }
 
 const routes: Routes = [
-
-  // change routerLink from createdBoard to board
-
-
-  {path: 'createdBoard/:id', component: BoardComponent},
-
-
+  {path: 'board/:id', component: BoardComponent},
   {path: 'cabinet', component: UserCabinetComponent},
   {path: 'teams/:id', component: TeamComponent},
   {path: 'enterToken', component: EnterTokenComponent},
