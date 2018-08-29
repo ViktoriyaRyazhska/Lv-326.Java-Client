@@ -74,7 +74,6 @@ const routes: Routes = [
     DragulaModule,
     FormsModule,
     SocialLoginModule,
-    // CloudinaryModule.forRoot(Cloudinary, { cloud_name: 'djx1z46bi'}),
     RouterModule.forRoot(routes)
   ],
   providers: [DragulaService,
