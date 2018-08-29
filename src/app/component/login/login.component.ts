@@ -14,9 +14,8 @@ export class LoginComponent implements OnInit {
               private socialAuthService: AuthService) {
   }
 
-  public signinWithGoogle() {
-    const socialPlatformProvider = GoogleLoginProvider.PROVIDER_ID;
-
+  public loginWithGoogle() {
+     const socialPlatformProvider = GoogleLoginProvider.PROVIDER_ID;
     this.socialAuthService.signIn(socialPlatformProvider).then(
       (userData) => {
         this.authService.loginWithGoogle(userData.token);
@@ -28,7 +27,8 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
-  signInGeneral(form: NgForm) {
+
+  loginGeneral(form: NgForm) {
     const usernameOrEmail = form.value.usernameOrEmail;
     const password = form.value.password;
     this.authService.login(usernameOrEmail, password);
