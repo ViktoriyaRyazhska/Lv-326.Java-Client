@@ -1,15 +1,15 @@
 import {Component, OnInit} from '@angular/core';
 import {BoardService} from '../../service/board/board.service';
-import {Board} from '../../entity/Board';
-import {List} from '../../entity/List';
+import {Board} from '../../models/Board';
+import {List} from '../../models/List';
 import {ActivatedRoute} from '@angular/router';
-import {Ticket} from '../../entity/Ticket';
+import {Ticket} from '../../models/Ticket';
 import {DragulaService} from 'ng2-dragula';
 import {Subscription} from 'rxjs';
 import {TicketService} from '../../service/ticket/ticket.service';
-import {TicketDto} from '../../entity/TicketDto';
-import {HistoryLog} from '../../entity/HistoryLog';
-import {OrderTicket} from '../../entity/OrderTicket';
+import {TicketDto} from '../../models/TicketDto';
+import {HistoryLog} from '../../models/HistoryLog';
+import {OrderTicket} from '../../models/OrderTicket';
 
 
 @Component({

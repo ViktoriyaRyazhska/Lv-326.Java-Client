@@ -1,16 +1,16 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Board} from '../../entity/Board';
-import {Sprint} from '../../entity/Sprint';
+import {Board} from '../../models/Board';
+import {Sprint} from '../../models/Sprint';
 import {BoardService} from '../../service/board/board.service';
-import {TicketDto} from '../../entity/TicketDto';
-import {List} from '../../entity/List';
-import {Ticket} from '../../entity/Ticket';
+import {TicketDto} from '../../models/TicketDto';
+import {List} from '../../models/List';
+import {Ticket} from '../../models/Ticket';
 import {TicketService} from '../../service/ticket/ticket.service';
 import {DragulaService} from 'ng2-dragula';
 import {Subscription} from 'rxjs';
 import {ActivatedRoute} from '@angular/router';
 import {SprintService} from '../../service/sprint/sprint.service';
-import {OrderSprint} from '../../entity/OrderSprint';
+import {OrderSprint} from '../../models/OrderSprint';
 
 @Component({
   selector: 'app-sprint',
@@ -62,7 +62,8 @@ export class SprintComponent implements OnInit {
       .subscribe(({el, source, target}) => {
         const ticketId = el.getAttribute('id');
         const sprintId = target.parentElement.getAttribute('id');
-        this.getTicketForSprint(ticketId, sprintId);
+        const sequenceNumber = [].slice.call(el.parentElement.children).indexOf(el);
+        this.getTicketForSprint(ticketId, sprintId, sequenceNumber);
       })
     );
   }
@@ -234,12 +235,8 @@ export class SprintComponent implements OnInit {
     });
   }
 
-  getTicketForSprint(ticketId: string, sprintId: string) {
-    this.ticketService.getTicket(parseInt(ticketId, 10)).subscribe(ticket => {
-      this.ticket = ticket;
-      this.ticket.sprintId = parseInt(sprintId, 10);
-      this.sprintService.updateTicketForSprint(this.ticket);
-    });
+  getTicketForSprint(ticketId: string, sprintId: string, sequenceNumber: number) {
+      this.sprintService.updateOrder(ticketId, sprintId, sequenceNumber);
   }
 
   openForm() {

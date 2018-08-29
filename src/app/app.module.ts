@@ -11,9 +11,9 @@ import {DragulaModule, DragulaService} from 'ng2-dragula';
 import {UserCabinetComponent} from './component/user-cabinet/user-cabinet.component';
 import {TicketComponent} from './component/ticket/ticket.component';
 import {SprintComponent} from './component/sprint/sprint.component';
-import {HeaderComponent} from './header/header.component';
-import {HomeComponent} from './home/home.component';
-import {LoginComponent} from './login/login.component';
+import {HeaderComponent} from './component/header/header.component';
+import {HomeComponent} from './component/home/home.component';
+import {LoginComponent} from './component/login/login.component';
 import {FormsModule} from '@angular/forms';
 import {AuthenticationService} from './service/login/authentication.service';
 import {JwtInterceptor} from './service/login/jwt.interceptor';
@@ -22,14 +22,14 @@ import {
   GoogleLoginProvider,
   SocialLoginModule
 } from 'angular-6-social-login';
-import { TeamComponent } from './component/team/team.component';
+import {TeamComponent} from './component/team/team.component';
 import {SignupComponent} from './signup/signup.component';
 
 // import { CloudinaryModule } from '@cloudinary/angular-5.x';
 // import * as  Cloudinary from 'cloudinary-core';
 
 export function getAuthServiceConfigs() {
-  let config = new AuthServiceConfig([{
+  const config = new AuthServiceConfig([{
     id: GoogleLoginProvider.PROVIDER_ID,
     provider: new GoogleLoginProvider('474548896537-cbiv8soh6l7h7fnj812krnms33qvrprg.apps.googleusercontent.com')
   }]);
@@ -39,7 +39,12 @@ export function getAuthServiceConfigs() {
 
 const routes: Routes = [
 
+  // change routerLink from createdBoard to board
+
+
   {path: 'createdBoard/:id', component: BoardComponent},
+
+
   {path: 'cabinet', component: UserCabinetComponent},
   {path: 'teams/:id', component: TeamComponent},
   {path: 'enterToken', component: EnterTokenComponent},

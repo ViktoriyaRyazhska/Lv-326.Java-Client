@@ -1,12 +1,12 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Board} from '../../entity/Board';
+import {Board} from '../../models/Board';
 import {Observable} from 'rxjs';
-import {List} from '../../entity/List';
-import {Ticket} from '../../entity/Ticket';
-import {HistoryLog} from '../../entity/HistoryLog';
-import {OrderTableList} from '../../entity/OrderTableList';
-import {OrderTicket} from '../../entity/OrderTicket';
+import {List} from '../../models/List';
+import {Ticket} from '../../models/Ticket';
+import {HistoryLog} from '../../models/HistoryLog';
+import {OrderTableList} from '../../models/OrderTableList';
+import {OrderTicket} from '../../models/OrderTicket';
 
 
 @Injectable({

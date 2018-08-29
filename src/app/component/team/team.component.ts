@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {Board} from '../../entity/Board';
+import {Board} from '../../models/Board';
 import {TeamService} from '../../service/team/team.service';
-import {TeamDto} from '../../entity/TeamDto';
+import {TeamDto} from '../../models/TeamDto';
 import {ActivatedRoute} from '@angular/router';
-import {UserDto} from '../../entity/UserDto';
+import {UserDto} from '../../models/UserDto';
 
 @Component({
   selector: 'app-team',
