@@ -62,7 +62,8 @@ export class SprintComponent implements OnInit {
       .subscribe(({el, source, target}) => {
         const ticketId = el.getAttribute('id');
         const sprintId = target.parentElement.getAttribute('id');
-        this.getTicketForSprint(ticketId, sprintId);
+        const sequenceNumber = [].slice.call(el.parentElement.children).indexOf(el);
+        this.getTicketForSprint(ticketId, sprintId, sequenceNumber);
       })
     );
   }
@@ -234,12 +235,8 @@ export class SprintComponent implements OnInit {
     });
   }
 
-  getTicketForSprint(ticketId: string, sprintId: string) {
-    this.ticketService.getTicket(parseInt(ticketId, 10)).subscribe(ticket => {
-      this.ticket = ticket;
-      this.ticket.sprintId = parseInt(sprintId, 10);
-      this.sprintService.updateTicketForSprint(this.ticket);
-    });
+  getTicketForSprint(ticketId: string, sprintId: string, sequenceNumber: number) {
+      this.sprintService.updateOrder(ticketId, sprintId, sequenceNumber);
   }
 
   openForm() {

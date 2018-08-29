@@ -71,7 +71,7 @@ export class SprintService {
   }
 
   updateTicketForSprint(ticket: TicketDto) {
-    const url = `api/tickets`;
+    const url = `api/tickets/`;
     this.http.put(url, ticket, this.createHttpOptions()).subscribe();
   }
 
@@ -87,5 +87,10 @@ export class SprintService {
     const tableListId = ticket.tableListId;
     const sprintId = ticket.sprintId;
     return this.http.post<Ticket>(url, {boardId, name, tableListId, sprintId});
+  }
+
+  updateOrder(id: string, sprintId: string, sequenceNumber: number) {
+    const url = `api/tickets`;
+    this.http.patch(url, {id, sprintId, sequenceNumber}).subscribe();
   }
 }
