@@ -14,7 +14,7 @@ import {SprintComponent} from './component/sprint/sprint.component';
 import {HeaderComponent} from './component/header/header.component';
 import {HomeComponent} from './component/home/home.component';
 import {LoginComponent} from './component/login/login.component';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AuthenticationService} from './service/login/authentication.service';
 import {JwtInterceptor} from './service/login/jwt.interceptor';
 import {
@@ -24,9 +24,6 @@ import {
 } from 'angular-6-social-login';
 import {TeamComponent} from './component/team/team.component';
 import {SignupComponent} from './component/signup/signup.component';
-
-// import { CloudinaryModule } from '@cloudinary/angular-5.x';
-// import * as  Cloudinary from 'cloudinary-core';
 
 export function getAuthServiceConfigs() {
   const config = new AuthServiceConfig([{
@@ -68,7 +65,9 @@ const routes: Routes = [
     DragulaModule,
     FormsModule,
     SocialLoginModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [DragulaService,
     AuthenticationService,

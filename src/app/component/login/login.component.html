@@ -1,13 +1,34 @@
 <div class="wrapper">
-  <form #f="ngForm" class="form-login">
-    <h2 class="form-login-heading">Please login</h2>
-    <input type="text" class="form-control" id="usernameOrEmail" ngModel name="usernameOrEmail"
-           placeholder="Username or Email" required="" autofocus=""/>
-    <input type="password" class="form-control" id="password" ngModel name="password" placeholder="Password"
-           required=""/>
-    <button class="btn btn-lg btn-primary btn-block" type="submit" (click)="loginGeneral(f)">Login</button>
-    <button class="btn btn-lg btn-primary btn-block" type="submit" (click)="loginWithGoogle()"><img
-      src="/src/app/resources/google-logo.png">Login with Google
-    </button>
+  <form [formGroup]="loginForm">
+    <div class="form-login">
+      <div class="form-group">
+        <h2 class="form-login-heading">Please login</h2>
+        <input class="form-control" type="email" placeholder="Enter your email" formControlName="email"
+               [formControl]="emailControl" required="" autofocus="">
+        <div *ngIf="emailControl.hasError('email') && !emailControl.hasError('required')">
+          Please enter a valid email address
+          <div *ngIf="emailControl.hasError('required')">
+            Email is <strong>required</strong>
+          </div>
+        </div>
+        <input class="form-control" type="password" placeholder="Password" formControlName="password"
+               [formControl]="passwordControl" required="" autofocus="">
+        <div *ngIf="passwordControl.hasError('minlength') && !passwordControl.hasError('required')">
+          Password must contain more than 6 characters
+          <div *ngIf="passwordControl.hasError('maxlength') && !passwordControl.hasError('required')">
+            Password must contain less than 16 characters
+            <div *ngIf="passwordControl.hasError('required')">
+              Password is <strong>required</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <button class="btn btn-lg btn-primary btn-block" type="submit" (click)="loginGeneral()">Log in</button>
+        <button class="btn btn-lg btn-primary btn-block" type="submit" (click)="loginWithGoogle()"><img
+          src="/src/app/resources/google-logo.png">Login with Google
+        </button>
+      </div>
+    </div>
   </form>
 </div>
