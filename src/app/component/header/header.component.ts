@@ -27,4 +27,9 @@ export class HeaderComponent implements OnInit, DoCheck {
     this.authenticationService.logOut();
     this.router.navigate(['/']);
   }
+
+  myProfile() {
+    this.router.navigate([`profile`]);
+  }
 }
+

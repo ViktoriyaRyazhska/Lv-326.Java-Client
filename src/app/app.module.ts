@@ -24,9 +24,7 @@ import {
 } from 'angular-6-social-login';
 import {TeamComponent} from './component/team/team.component';
 import {SignupComponent} from './component/signup/signup.component';
-
-// import { CloudinaryModule } from '@cloudinary/angular-5.x';
-// import * as  Cloudinary from 'cloudinary-core';
+import { UserProfileComponent } from './component/user-profile/user-profile.component';
 
 export function getAuthServiceConfigs() {
   const config = new AuthServiceConfig([{
@@ -44,7 +42,8 @@ const routes: Routes = [
   {path: 'enterToken', component: EnterTokenComponent},
   {path: 'login', component: LoginComponent},
   {path: '', component: HomeComponent},
-  {path: 'signup', component: SignupComponent}
+  {path: 'signup', component: SignupComponent},
+  {path: 'profile', component: UserProfileComponent}
 ];
 
 @NgModule({
@@ -59,7 +58,8 @@ const routes: Routes = [
     HomeComponent,
     LoginComponent,
     TeamComponent,
-    SignupComponent
+    SignupComponent,
+    UserProfileComponent
   ],
   imports: [
     BrowserModule,
