@@ -14,7 +14,7 @@ import {OrderTicket} from '../../models/OrderTicket';
 })
 export class BoardService {
 
-  private simpleUrl = '/boards/';
+  private simpleUrl = '/boards';
 
   private orderTableList: OrderTableList;
 

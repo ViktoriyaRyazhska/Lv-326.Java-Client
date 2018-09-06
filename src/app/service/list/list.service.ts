@@ -9,7 +9,7 @@ import {debounceTime} from 'rxjs/operators';
 })
 export class ListService {
 
-  private simpleUrl = '/lists/';
+  private simpleUrl = '/lists';
   constructor(private http: HttpClient) { }
 
 

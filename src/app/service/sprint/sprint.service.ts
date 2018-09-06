@@ -11,7 +11,7 @@ import {Ticket} from '../../models/Ticket';
 })
 export class SprintService {
 
-  private simpleUrl = '/sprint/';
+  private simpleUrl = '/sprint';
 
   constructor(private http: HttpClient) {
   }
