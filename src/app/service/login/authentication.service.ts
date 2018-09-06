@@ -16,7 +16,7 @@ export class AuthenticationService {
 
     const headers = {headers: new HttpHeaders({'Content-Type': 'application/json'})};
 
-    return this.http.post<any>(`http://localhost:8080/api/auth/signin`, {
+    return this.http.post<any>(`http://api.cajillo.ga/auth/signin`, {
       usernameOrEmail: usernameOrEmail,
       password: password
     }, headers)
@@ -28,7 +28,7 @@ export class AuthenticationService {
   }
 
   loginWithGoogle(token: string): void {
-    this.http.get<TokenModel>('http://localhost:8080/api/auth/oauth/google?access_token=' + token)
+    this.http.get<TokenModel>('http://api.cajillo.ga/auth/oauth/google?access_token=' + token)
       .subscribe(jwtToken => {
         console.log('Social login with Google was successful');
         localStorage.setItem('jwtToken', jwtToken.accessToken);
@@ -45,7 +45,7 @@ export class AuthenticationService {
 
   signup(username: string, email: string, password: string): void {
 
-    this.http.post<any>(`http://localhost:8080/api/auth/signup`, {
+    this.http.post<any>(`http://api.cajillo.ga/auth/signup`, {
       username: username,
       email: email,
       password: password
