@@ -14,7 +14,10 @@ import {OrderTicket} from '../../models/OrderTicket';
 })
 export class BoardService {
 
-  private simpleUrl = '/boards';
+  private simpleUrlBoard = '/api/boards/';
+  private simpleUrlList = '/api/lists';
+  private simpleUrlLog = '/api/log';
+  private simpleUrlTicket = '/api/tickets';
 
   private orderTableList: OrderTableList;
 
@@ -22,43 +25,43 @@ export class BoardService {
   }
 
   getBoard(id: number): Observable<Board> {
-    const url = `${this.simpleUrl}${id}`;
+    const url = `${this.simpleUrlBoard}${id}`;
     return this.http.get<Board>(url);
   }
 
   createBoard(board: Board): Observable<Board> {
-    const url = `${this.simpleUrl}`;
+    const url = `${this.simpleUrlBoard}`;
     return this.http.post<Board>(url, board);
   }
 
   getAllUserBoards(): Observable<Board[]> {
-    const url = `${this.simpleUrl}`;
+    const url = `${this.simpleUrlBoard}`;
     return this.http.get<Board[]>(url);
   }
 
   addList(boardId: number, list: List): Observable<List> {
-    const url = `/lists/board/${boardId}`;
+    const url = `${this.simpleUrlList}/board/${boardId}`;
     return this.http.post<List>(url, list);
   }
 
   deleteList(id: number): Observable<List> {
-    const url = `/lists/${id}`;
+    const url = `${this.simpleUrlList}/${id}`;
     return this.http.delete<List>(url);
   }
 
   editList(list: List): Observable<List> {
-    const url = `/lists/${list.id}/board/${list.boardId}`;
+    const url = `${this.simpleUrlList}/${list.id}/board/${list.boardId}`;
     return this.http.put<List>(url, list);
   }
 
   editBoard(newName: string, board: Board): Observable<Board> {
     board.name = newName;
-    const url = `/boards/${board.id}`;
+    const url = `${this.simpleUrlBoard}/${board.id}`;
     return this.http.put<Board>(url, board);
   }
 
   addTicket(ticket: Ticket): Observable<Ticket> {
-    const url = `/tickets`;
+    const url = `${this.simpleUrlTicket}`;
     const boardId = ticket.boardId;
     const name = ticket.name;
     const tableListId = ticket.tableListId;
@@ -67,17 +70,17 @@ export class BoardService {
   }
 
   createLog(historyLog: HistoryLog): Observable<HistoryLog> {
-    const url = '/log';
+    const url = `${this.simpleUrlLog}`;
     return this.http.post<HistoryLog>(url, historyLog);
   }
 
   getMoreLogs(lastLogId: number, boardId: number): Observable<HistoryLog[]> {
-    const url = `/log/${boardId}/${lastLogId}`;
+    const url = `${this.simpleUrlLog}/${boardId}/${lastLogId}`;
     return this.http.get<HistoryLog[]>(url);
   }
 
   saveBackgroundImage(board: Board, base64Image: string, imageName: string) {
-    const url = `/boards/image`;
+    const url = `${this.simpleUrlBoard}/image`;
     board.image = base64Image;
     board.imageName = imageName;
     return this.http.put(url, board);
@@ -86,7 +89,7 @@ export class BoardService {
   updateListOrder(boardId: number, listId: string, sequenceNumber: number) {
     listId = listId.split('list')[1];
     this.createOrderTableList(boardId, listId, sequenceNumber);
-    const url = `/lists/order`;
+    const url = `${this.simpleUrlList}/order`;
     this.http.put(url, this.orderTableList).subscribe();
   }
 
@@ -99,22 +102,22 @@ export class BoardService {
   }
 
   getExistingImagesUrls(boardId: number): Observable<string[]> {
-    const url = `/boards/images/${boardId}`;
+    const url = `${this.simpleUrlBoard}/images/${boardId}`;
     return this.http.get<string[]>(url);
   }
 
   setExistingImageOnBackground(imageUrl: string, boardId: number) {
-    const url = `/boards/images/${boardId}`;
+    const url = `${this.simpleUrlBoard}/images/${boardId}`;
     this.http.put(url, imageUrl).subscribe();
   }
 
   clearBoardBackground(boardId: number) {
-    const url = `/boards/images/${boardId}`;
+    const url = `${this.simpleUrlBoard}/images/${boardId}`;
     this.http.delete(url).subscribe();
   }
 
   updateTicketOrdering(orderTicket: OrderTicket) {
-    const url = '/tickets/order';
+    const url = `${this.simpleUrlTicket}/order`;
     this.http.put(url, orderTicket).subscribe();
   }
 }

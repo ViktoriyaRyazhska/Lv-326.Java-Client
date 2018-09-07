@@ -11,7 +11,7 @@ import {Ticket} from '../../models/Ticket';
 })
 export class SprintService {
 
-  private simpleUrl = '/sprint';
+  private simpleUrl = 'http://localhost:8080/api/sprint';
 
   constructor(private http: HttpClient) {
   }
@@ -71,7 +71,7 @@ export class SprintService {
   }
 
   updateTicketForSprint(ticket: TicketDto) {
-    const url = `tickets/`;
+    const url = `http://localhost:8080/api/sprint/tickets/`;
     this.http.put(url, ticket, this.createHttpOptions()).subscribe();
   }
 
@@ -81,7 +81,7 @@ export class SprintService {
   }
 
   addTicket(ticket: Ticket): Observable<Ticket> {
-    const url = `/tickets`;
+    const url = `http://localhost:8080/api/sprint/tickets`;
     const boardId = ticket.boardId;
     const name = ticket.name;
     const tableListId = ticket.tableListId;
@@ -90,7 +90,7 @@ export class SprintService {
   }
 
   updateOrder(id: string, sprintId: string, sequenceNumber: number) {
-    const url = `tickets`;
+    const url = `http://localhost:8080/api/sprint/tickets`;
     this.http.patch(url, {id, sprintId, sequenceNumber}).subscribe();
   }
 }

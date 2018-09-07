@@ -9,7 +9,7 @@ import {UserDto} from '../../models/UserDto';
   providedIn: 'root'
 })
 export class TeamService {
-  private simpleUrl = '/teams';
+  private simpleUrl = '/api/teams';
 
   constructor(private http: HttpClient) {
   }

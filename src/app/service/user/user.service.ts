@@ -11,7 +11,7 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   getUserByToken(): Observable<UserDto> {
-    const url = '/users';
+    const url = '/api/users';
     return this.http.get<UserDto>(url);
   }
 }
