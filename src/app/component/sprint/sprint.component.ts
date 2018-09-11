@@ -37,8 +37,6 @@ export class SprintComponent implements OnInit {
 
   subs = new Subscription();
 
-  orderTicket: OrderTicket;
-
   constructor(private sprintService: SprintService,
               private boardService: BoardService,
               private ticketService: TicketService,
@@ -63,9 +61,10 @@ export class SprintComponent implements OnInit {
     });
     this.subs.add(dragulaService.drop('ITEMS')
       .subscribe(({el, source, target}) => {
+        console.log('Drop !!!', target.parentElement.getAttribute('id').split('sprint')[1]);
         const ticketId = Number(el.getAttribute('id').split('list')[0]);
         const sprintId = Number(target.parentElement.getAttribute('id').split('sprint')[1]);
-        const listId = Number(el.getAttribute('id').split('list')[1]);
+        const listId = el.getAttribute('id').split('list')[1];
         const sequenceNumber = [].slice.call(el.parentElement.children).indexOf(el);
         this.updateTicketForSprint(ticketId, listId, sequenceNumber, sprintId);
         console.log(ticketId, sprintId, sequenceNumber, listId);
@@ -242,7 +241,7 @@ export class SprintComponent implements OnInit {
     });
   }
 
-  updateTicketForSprint(ticketId: number, listId: number, sequenceNumber: number, sprintId: number) {
+  updateTicketForSprint(ticketId: number, listId: string, sequenceNumber: number, sprintId: number) {
       this.sprintService.updateOrder(ticketId, listId, sequenceNumber, sprintId);
   }
 

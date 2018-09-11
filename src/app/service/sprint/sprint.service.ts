@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 import { Sprint } from '../../models/Sprint';
 import {OrderSprint} from '../../models/OrderSprint';
 import {Ticket} from '../../models/Ticket';
-import {OrderTicket} from '../../models/OrderTicket';
 
 @Injectable({
   providedIn: 'root'
@@ -86,7 +85,7 @@ export class SprintService {
     return this.http.post<Ticket>(url, {boardId, name, tableListId, sprintId, sequenceNumber});
   }
 
-  updateOrder(ticketId: number, listId: number, sequenceNumber: number, sprintId: number) {
+  updateOrder(ticketId: number, listId: string, sequenceNumber: number, sprintId: number) {
     const url = `api/tickets/order`;
     this.http.put(url, {ticketId, listId, sequenceNumber, sprintId}).subscribe();
   }

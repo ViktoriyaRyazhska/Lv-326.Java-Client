@@ -118,6 +118,10 @@
   min-height: 5px;
 }
 
+.add-new-ticket {
+  color: cadetblue;
+}
+
 .list-tickets {
   background-color: #fff;
   border-radius: 3px;
