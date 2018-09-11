@@ -7,12 +7,13 @@
   <div class="col-sm-12">
     <!--BACKLOG-->
     <div align="center" class="backlog-name add-new-ticket"> <b>{{ currentBoard.backlog.label }}</b></div>
-    <!--BACKLOG TICKETS-->
-    <div class="ticket-sprint-wrapper" align="center" dragula="ITEMS" style="background: #e2e4e6; padding: 5px" id="sprint{{ currentBoard.backlog.id }}">
-      <div class="ticket text" *ngFor="let ticketBacklog of currentBoard.backlog.ticketsForBoardResponse"
-            id="{{ ticketBacklog.id + 'list' + ticketBacklog.tableListId }}"
-           (click)="getTicket(ticketBacklog.id)">
-        <span class="ticket-name" >{{ ticketBacklog.name }}</span>
+    <div id="{{ currentBoard.backlog.id }}">
+      <div class="ticket-sprint-wrapper" align="center" dragula="ITEMS" style="background: #e2e4e6; padding: 5px">
+        <div class="ticket-sprint text" *ngFor="let ticketB of currentBoard.backlog.ticketsForBoardResponse"
+             id="{{ ticketB.id  + 'list' + ticketB.tableListId }}"
+             (click)="getTicket(ticketB.id)">
+          <span class="ticket-name">{{ ticketB.name }}</span>
+        </div>
       </div>
     </div>
     <div align="center" *ngIf="!isAddNewTicketClicked" style="background: #e2e4e6; padding: 5px">
@@ -38,7 +39,7 @@
     </div>
 
     <div class="" align="center" dragula="SPRINTS" [(dragulaModel)]="currentBoard.sprints" style="background: #e2e4e6; padding: 5px">
-      <div class="sprint text" *ngFor="let sprintS of currentBoard.sprints" id="sprint{{ sprintS.id }}"
+      <div class="sprint text" *ngFor="let sprintS of currentBoard.sprints" id="{{ sprintS.id }}"
            (click)="getSprint(sprintS.id)">
         <div align="left" class="handle">
           <button type="button" class="close" aria-label="Close" (click)="moveToArchiveSprint(sprintS)"><span aria-hidden="true">&times;</span></button>

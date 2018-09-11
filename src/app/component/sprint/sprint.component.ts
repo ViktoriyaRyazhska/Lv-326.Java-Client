@@ -10,7 +10,6 @@ import {Subscription} from 'rxjs';
 import {ActivatedRoute} from '@angular/router';
 import {SprintService} from '../../service/sprint/sprint.service';
 import {OrderSprint} from '../../models/OrderSprint';
-import {OrderTicket} from '../../models/OrderTicket';
 
 @Component({
   selector: 'app-sprint',
@@ -37,6 +36,8 @@ export class SprintComponent implements OnInit {
 
   subs = new Subscription();
 
+  newTicketSequenceNumber: number;
+
   constructor(private sprintService: SprintService,
               private boardService: BoardService,
               private ticketService: TicketService,
@@ -49,7 +50,7 @@ export class SprintComponent implements OnInit {
     });
     this.subs.add(dragulaService.drop('SPRINTS')
       .subscribe(({el, target, source}) => {
-        const sprintId = Number(el.getAttribute('id').split('sprint')[1]);
+        const sprintId = Number(el.getAttribute('id'));
         const sequenceNumber = [].slice.call(el.parentElement.children).indexOf(el);
         const boardId = this.currentBoard.id;
         this.updateSprintOrder(boardId, sprintId, sequenceNumber);
@@ -61,9 +62,8 @@ export class SprintComponent implements OnInit {
     });
     this.subs.add(dragulaService.drop('ITEMS')
       .subscribe(({el, source, target}) => {
-        console.log('Drop !!!', target.parentElement.getAttribute('id').split('sprint')[1]);
         const ticketId = Number(el.getAttribute('id').split('list')[0]);
-        const sprintId = Number(target.parentElement.getAttribute('id').split('sprint')[1]);
+        const sprintId = Number(target.parentElement.getAttribute('id'));
         const listId = el.getAttribute('id').split('list')[1];
         const sequenceNumber = [].slice.call(el.parentElement.children).indexOf(el);
         this.updateTicketForSprint(ticketId, listId, sequenceNumber, sprintId);
@@ -200,8 +200,12 @@ export class SprintComponent implements OnInit {
   }
 
   addNewTicket(ticketName: string, sprint: Sprint) {
-    const newTicketSequenceNumber = document.getElementById('sprint' + this.currentBoard.backlog.id).children.length;
-    this.configureTicket(ticketName, newTicketSequenceNumber);
+    if (sprint.sprintType === 'SPRINT') {
+      this.newTicketSequenceNumber = document.getElementById('' + this.currentBoard.backlog.id).children.length;
+    } else {
+      this.newTicketSequenceNumber = document.getElementById('' + this.currentBoard.backlog.id).children[0].children.length;
+    }
+    this.configureTicket(ticketName, this.newTicketSequenceNumber);
     this.sprintService.addTicket(this.addedTicket)
       .subscribe(ticket => sprint.ticketsForBoardResponse.push(ticket));
     this.clickAddNewTicket();
