@@ -6,23 +6,23 @@
         <div id="window_top_one_1">
           <i class="fa fa-window-maximize"></i>
           {{ticketDto.name}}
-          <div class="card-detail-item-header-edit" (click)="editTicketNameButton()">Edit</div>
+          <div class="card-detail-item-header-edit" (click)="editTicketNameButton()">{{"Edit" | translate}}</div>
         </div>
         <!--edit ticket name-->
         <div id="editNameForm">
           <textarea #nameField rows="1" style="height: 20px">{{ticketDto.name}}</textarea>
         </div>
         <div id="editNameForm1">
-          <button type="submit" (click)="editTicketName(nameField.value)">Save name</button>
+          <button type="submit" (click)="editTicketName(nameField.value)">{{"Save name" | translate}}</button>
         </div>
 
         <!--end of edit ticket name-->
         <!--<div class="Todo_list"><h2>In a {{listForTicket.name}} list</h2>-->
         <!--</div>-->
         <div class="window_top_two Todo_list">
-          Created by: {{ticketDto.createdByName}}
+          {{"Created by" | translate}}: {{ticketDto.createdByName}}
           <div class="Todo_list" *ngIf="ticketDto.assignedToName">
-            Assigned to: {{ticketDto.assignedToName}}
+            {{"Assigned to" | translate}}: {{ticketDto.assignedToName}}
           </div>
         </div>
 
@@ -33,14 +33,14 @@
                 <i class="fa fa-align-justify" style="font-size: 1.2rem;"></i>
               </div>
               <div class="textarea_description_text">
-                <p>Description</p>
+                <p>{{"Description" | translate}}</p>
               </div>
             </div>
             <div class="textarea_description_2">
               <textarea placeholder="Add description..." rows="3"
                         #descriptionField></textarea>
               <button type="submit" value="saveDescription" name="saveDescription"
-                      (click)="editDescription(descriptionField.value)">Save description
+                      (click)="editDescription(descriptionField.value)">{{"Save description" | translate}}
               </button>
             </div>
           </div>
@@ -53,14 +53,14 @@
               <i class="fa fa-align-justify" style="font-size: 1.2rem;"></i>
             </div>
             <div class="textarea_description_text">
-              <p>Description</p>
+              <p>{{"Description" | translate}}</p>
             </div>
           </div>
           <div class="textarea_description_2">
-        <textarea placeholder="Add description..." rows="3"
+        <textarea placeholder="{{'Add description' | translate}}..." rows="3"
                   #descriptionField>{{ticketDto.description}}</textarea>
           </div>
-          <button type="submit" style="width: 40%;" (click)="editDescription(descriptionField.value)">Save description</button>
+          <button type="submit" style="width: 40%;" (click)="editDescription(descriptionField.value)">{{"Save description" | translate}}</button>
         </div>
         <!--end of after clicking "edit" description button-->
 
@@ -71,7 +71,7 @@
                 class="icon-description icon-lg window-module-title-icon"></span>
                 <b style="margin-left: 20px">Description</b>
                 <div
-                  class="card-detail-item-header-edit" (click)="editDescriptionButton()">Edit
+                  class="card-detail-item-header-edit" (click)="editDescriptionButton()">{{"Edit" | translate}}
                 </div>
               </div>
               <div class="u-gutter js-hide-on-minimize-desc">
@@ -93,16 +93,16 @@
               <i class="fa fa-comment" style="font-size: 1.2rem;"></i>
             </div>
             <div class="textarea_description_text">
-              <p>Comments</p>
+              <p>{{"Comments" | translate}}</p>
             </div>
           </div>
           <div class="textarea_comment_2">
             <div class="textarea_comment_2_textarea">
-              <textarea #commentField placeholder="Put comment here..." rows="2"></textarea>
+              <textarea #commentField placeholder="{{'Put comment here' | translate}}..." rows="2"></textarea>
             </div>
           </div>
         </div>
-        <button type="submit" (click)="saveComment(commentField.value)">Save comment</button>
+        <button type="submit" (click)="saveComment(commentField.value)">{{"Save comment" | translate}}</button>
       </div>
 
       <div class="window_bottom">
@@ -122,12 +122,12 @@
                 </div>
                 <div class="textarea_edit_comment_2">
                   <div class="textarea_edit_comment_2_textarea">
-                    <textarea #newCommentEditField placeholder="Put comment here..."
+                    <textarea #newCommentEditField placeholder="{{'Put comment here' | translate}}..."
                               rows="1">{{comment.message}}</textarea>
                   </div>
                 </div>
               </div>
-              <button type="submit" (click)="editComment(comment, newCommentEditField.value)">Save comment</button>
+              <button type="submit" (click)="editComment(comment, newCommentEditField.value)">{{"Save comment" | translate}}</button>
             </div>
             <!-- end of edit comment popup-->
             <div id="commentWrapper" style="display: flex">
@@ -138,8 +138,8 @@
                   </div>
                   <div class="window_bottom_2_person_change">
                     <i class="fa fa-trash"></i>
-                    <span (click)="editCommentButton(comment.id)"> Edit </span> <span
-                    (click)="deleteComment(comment)"> Delete </span>
+                    <span (click)="editCommentButton(comment.id)"> {{"Edit" | translate}} </span> <span
+                    (click)="deleteComment(comment)"> {{"Delete" | translate}} </span>
                   </div>
                   <div class="fake"></div>
                 </div>
@@ -169,18 +169,18 @@
       <div class="right_top_bar">
         <div class="Add_card">
           <div class="h5_name">
-            Actions:
+            {{"Actions" | translate}}:
           </div>
-          <div class="button1"><i class="fa fa-paperclip"></i>Assign</div>
-          <div class="button1"><i class="fa fa-paperclip"></i>Show ticket logs</div>
-          <div class="button1" (click)="archiveTicket(ticketDto)">Archive ticket</div>
+          <div class="button1"><i class="fa fa-paperclip"></i>{{"Assign" | translate}}</div>
+          <div class="button1"><i class="fa fa-paperclip"></i>{{"Show ticket logs" | translate}}</div>
+          <div class="button1" (click)="archiveTicket(ticketDto)">{{"Archive ticket" | translate}}</div>
         </div>
       </div>
       <div class="priority">
         <ul class="nav navbar-nav navbar-right">
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-               aria-expanded="false">Priority: {{ticketDto.ticketPriority.toLowerCase()}} <span
+               aria-expanded="false">{{"Priority" | translate}}: {{ticketDto.ticketPriority.toLowerCase()}} <span
               class="caret"></span></a>
             <ul class="dropdown-menu">
               <li><a (click)="setPriorityLow(ticketDto)">Low</a></li>
@@ -194,7 +194,7 @@
         <ul class="nav navbar-nav navbar-right">
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-               aria-expanded="false">Ticket type: {{ticketDto.ticketIssueType.toLowerCase()}} <span
+               aria-expanded="false">{{"Ticket type" | translate}}: {{ticketDto.ticketIssueType.toLowerCase()}} <span
               class="caret"></span></a>
             <ul class="dropdown-menu">
               <li><a (click)="setTicketIssueTypeBug(ticketDto)">BUG</a></li>
@@ -209,7 +209,7 @@
         <ul class="nav navbar-nav navbar-right">
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-               aria-expanded="false">Estimation: {{ticketDto.estimation.toLowerCase()}} <span class="caret"></span></a>
+               aria-expanded="false">{{"Estimation" | translate}}: {{ticketDto.estimation.toLowerCase()}} <span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li><a (click)="setTicketEstimationXS(ticketDto)">XS</a></li>
               <li><a (click)="setTicketEstimationS(ticketDto)">S</a></li>

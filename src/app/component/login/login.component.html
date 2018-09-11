@@ -1,13 +1,13 @@
 <div class="wrapper">
   <form #f="ngForm" class="form-login">
-    <h2 class="form-login-heading">Please login</h2>
+    <h2 class="form-login-heading">{{"Please login" | translate}}</h2>
     <input type="text" class="form-control" id="usernameOrEmail" ngModel name="usernameOrEmail"
-           placeholder="Username or Email" required="" autofocus=""/>
-    <input type="password" class="form-control" id="password" ngModel name="password" placeholder="Password"
+           placeholder="{{'Username or Email' | translate}}" required="" autofocus=""/>
+    <input type="password" class="form-control" id="password" ngModel name="password" placeholder="{{'Password' | translate}}"
            required=""/>
-    <button class="btn btn-lg btn-primary btn-block" type="submit" (click)="loginGeneral(f)">Login</button>
+    <button class="btn btn-lg btn-primary btn-block" type="submit" (click)="loginGeneral(f)">{{"Login" | translate}}</button>
     <button class="btn btn-lg btn-primary btn-block" type="submit" (click)="loginWithGoogle()"><img
-      src="/src/app/resources/google-logo.png">Login with Google
+      src="/src/app/resources/google-logo.png">{{"Login with Google" | translate}}
     </button>
   </form>
 </div>

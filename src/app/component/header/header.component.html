@@ -15,13 +15,13 @@
         <li><a href="/cabinet"><span class="glyphicon glyphicon-home"></span></a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li *ngIf="!loggedIn"><a [routerLink]="['/signup']"><span class="glyphicon glyphicon-user"></span> Sign Up</a>
+        <li *ngIf="!loggedIn"><a [routerLink]="['/signup']"><span class="glyphicon glyphicon-user"></span> {{"Sign Up" | translate}}</a>
         </li>
-        <li *ngIf="!loggedIn"><a [routerLink]="['/login']"><span class="glyphicon glyphicon-log-in"></span> Login</a>
+        <li *ngIf="!loggedIn"><a [routerLink]="['/login']"><span class="glyphicon glyphicon-log-in"></span> {{"Login" | translate}}</a>
         </li>
-        <li *ngIf="loggedIn"><a (click)="logOut()"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
+        <li *ngIf="loggedIn"><a (click)="logOut()"><span class="glyphicon glyphicon-log-out"></span> {{"Logout" | translate}}</a>
         </li>
-        <li *ngIf="loggedIn"><a (click)="myProfile()"><span class="glyphicon glyphicon-user"></span> My Profile</a>
+        <li *ngIf="loggedIn"><a (click)="myProfile()"><span class="glyphicon glyphicon-user"></span> {{"My Profile" | translate}}</a>
         </li>
       </ul>
     </div>

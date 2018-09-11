@@ -3,9 +3,9 @@
 <div id="sidenav-history" *ngIf="!isChangeBackgroundButtonClicked">
   <a href="javascript:void(0)" class="closebtn" (click)="closeNav()">&times;</a>
   <div class="change-background">
-    <a (click)="changeIsChangeBackgroundButtonClicked()" class="change-background-a">Change background</a>
+    <a (click)="changeIsChangeBackgroundButtonClicked()" class="change-background-a">{{"ChangeBackground" | translate}}</a>
   </div>
-  <p align="center">History</p>
+  <p align="center">{{"History" | translate}}</p>
   <hr>
   <div *ngIf="currentBoard" class="logs-wrapper">
     <div *ngFor="let log of currentBoard.logs" class="log">
@@ -14,7 +14,7 @@
       <hr>
     </div>
     <div class="show-more-logs">
-      <a (click)="addNewLogs()">Show more logs</a>
+      <a (click)="addNewLogs()">{{"Show more logs" | translate}}</a>
     </div>
   </div>
 </div>
@@ -23,11 +23,11 @@
   <a href="javascript:void(0)" class="closebtn" (click)="closeBackgroundNav()">&times;</a>
   <div align="center">
     <div class="clear-background">
-      <div (click)="clearBoardBackground(currentBoard.id)">Clear background</div>
+      <div (click)="clearBoardBackground(currentBoard.id)">{{"Clear background" | translate}}</div>
     </div>
   </div>
   <div align="center">
-    <div (click)="getExistingImagesUrls(currentBoard.id)" class="existingImages">Existing images</div>
+    <div (click)="getExistingImagesUrls(currentBoard.id)" class="existingImages">{{"Existing images" | translate}}</div>
     <div *ngIf="existingImagesUrls" class="existingImages-images">
       <div *ngFor="let url of existingImagesUrls" class="url-image">
         <a (click)="setExistingImageOnBackground(url)">
@@ -38,11 +38,11 @@
   </div>
   <hr>
   <div class="add-local-image" align="center">
-    <div align="center">Add local image</div>
+    <div align="center">{{"Add local image" | translate}}</div>
     <br>
     <input #imageLocalFile type="file" accept="image/*" (change)="getImageByLocalImage($event)"><br>
     <img src="{{image}}" alt="" width="350" height="200"><br>
-    <button (click)="changeBackgroundImage()">Enter</button>
+    <button (click)="changeBackgroundImage()">{{"Enter" | translate}}</button>
     <div id="error-message-local-image"></div>
     <hr>
   </div>
@@ -57,15 +57,15 @@
         <p align="center"><span class="boardName">{{currentBoard.name}}</span>
           <a (click)="editBoardClick()" class="editBoardButton glyphicon glyphicon-pencil"></a>
           <span style="font-size:30px;cursor:pointer" class="open-history-button"
-                (click)="openHistorySidenav()">&#9776; open history</span></p>
+                (click)="openHistorySidenav()">&#9776; {{"open history" | translate}}</span></p>
       </div>
       <div class="upper-board" *ngIf="isEditBoardClicked">
         <p align="center">
           <input #nameField type="text" value="{{currentBoard.name}}">
-          <button (click)="editBoard(nameField.value)" class="editButton">Set</button>
-          <button (click)="editBoardClick()" class="back">Back</button>
+          <button (click)="editBoard(nameField.value)" class="editButton">{{"Set" | translate}}</button>
+          <button (click)="editBoardClick()" class="back">{{"Back" | translate}}</button>
           <span style="font-size:30px;cursor:pointer" class="open-history-button"
-                (click)="openHistorySidenav()">&#9776; open history</span>
+                (click)="openHistorySidenav()">&#9776; {{"open history" | translate}}</span>
         </p>
       </div>
       <div class="board" [ngStyle]="{ 'background-image': 'url(' + confirmedImage + ')'}" dragula="LISTS"
@@ -83,8 +83,8 @@
               <div *ngIf="list.isEditListNameInProgress">
                 <p>
                   <input #editValue type="text" value="{{list.name}}" class="editField"><br>
-                  <button (click)="editList(list, editValue.value)" class="editButton">Set</button>
-                  <button (click)="setEditableListName(list)" class="back">Back</button>
+                  <button (click)="editList(list, editValue.value)" class="editButton">{{"Set" | translate}}</button>
+                  <button (click)="setEditableListName(list)" class="back">{{"Back" | translate}}</button>
                 </p>
               </div>
             </div>
@@ -100,14 +100,14 @@
             <div class="list-footer">
               <div *ngIf="!list.isAddNewTicketClicked">
                 <p align="center">
-                  <a (click)="clickAddNewTicket(list)" class="add-new-ticket">Add new ticket</a>
+                  <a (click)="clickAddNewTicket(list)" class="add-new-ticket">{{"Add new ticket" | translate}}</a>
                 </p>
               </div>
               <div *ngIf="list.isAddNewTicketClicked">
                 <p align="center">
                   <input type="text" #createTicketField class="createTicketField" required>
-                  <button (click)="addNewTicket(createTicketField.value, list)">Add</button>
-                  <button (click)="clickAddNewTicket(list)">Back</button>
+                  <button (click)="addNewTicket(createTicketField.value, list)">{{"Add" | translate}}</button>
+                  <button (click)="clickAddNewTicket(list)">{{"Back" | translate}}</button>
                 </p>
               </div>
             </div>
@@ -115,15 +115,15 @@
         </div>
         <div *ngIf="!isAddListButtonClicked" class="list-wrapper">
           <a (click)="changeButtonClick()" class="add-list-a">
-            <div class="addList addListButton"><p align="center">Add List</p></div>
+            <div class="addList addListButton"><p align="center">{{"Add List" | translate}}</p></div>
           </a>
         </div>
         <div *ngIf="isAddListButtonClicked" class="list-wrapper">
           <div class="createList addListButton">
             <input type="text" #enteredName class="newListTextfield">
             <div class="buttons">
-              <button (click)="addList(enteredName.value)" class="addListButtons">Add</button>
-              <button class="back addListButtons" (click)="changeButtonClick()">Back</button>
+              <button (click)="addList(enteredName.value)" class="addListButtons">{{"Add" | translate}}</button>
+              <button class="back addListButtons" (click)="changeButtonClick()">{{"Back" | translate}}</button>
             </div>
           </div>
         </div>
