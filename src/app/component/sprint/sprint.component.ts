@@ -3,7 +3,6 @@ import {Board} from '../../models/Board';
 import {Sprint} from '../../models/Sprint';
 import {BoardService} from '../../service/board/board.service';
 import {TicketDto} from '../../models/TicketDto';
-import {List} from '../../models/List';
 import {Ticket} from '../../models/Ticket';
 import {TicketService} from '../../service/ticket/ticket.service';
 import {DragulaService} from 'ng2-dragula';
@@ -11,6 +10,7 @@ import {Subscription} from 'rxjs';
 import {ActivatedRoute} from '@angular/router';
 import {SprintService} from '../../service/sprint/sprint.service';
 import {OrderSprint} from '../../models/OrderSprint';
+import {OrderTicket} from '../../models/OrderTicket';
 
 @Component({
   selector: 'app-sprint',
@@ -37,33 +37,38 @@ export class SprintComponent implements OnInit {
 
   subs = new Subscription();
 
+  orderTicket: OrderTicket;
+
   constructor(private sprintService: SprintService,
               private boardService: BoardService,
               private ticketService: TicketService,
               private route: ActivatedRoute,
               private dragulaService: DragulaService) {
-    dragulaService.createGroup('SPRINTS', {
+    this.dragulaService.createGroup('SPRINTS', {
+      direction: 'vertical',
       revertOnSpill: true,
-      direction: 'vertical'
+      moves: (el, source, handle) => handle.className === 'handle'
     });
     this.subs.add(dragulaService.drop('SPRINTS')
-      .subscribe(({el}) => {
-        const sprintId = el.getAttribute('id');
+      .subscribe(({el, target, source}) => {
+        const sprintId = Number(el.getAttribute('id').split('sprint')[1]);
         const sequenceNumber = [].slice.call(el.parentElement.children).indexOf(el);
         const boardId = this.currentBoard.id;
         this.updateSprintOrder(boardId, sprintId, sequenceNumber);
+        console.log(sprintId, sequenceNumber, boardId);
       })
     );
-    dragulaService.createGroup('TICKETSINSPRINT', {
+    dragulaService.createGroup('ITEMS', {
       revertOnSpill: true,
-      direction: 'vertical'
     });
-    this.subs.add(dragulaService.drop('TICKETSINSPRINT')
+    this.subs.add(dragulaService.drop('ITEMS')
       .subscribe(({el, source, target}) => {
-        const ticketId = el.getAttribute('id');
-        const sprintId = target.parentElement.getAttribute('id');
+        const ticketId = Number(el.getAttribute('id').split('list')[0]);
+        const sprintId = Number(target.parentElement.getAttribute('id').split('sprint')[1]);
+        const listId = Number(el.getAttribute('id').split('list')[1]);
         const sequenceNumber = [].slice.call(el.parentElement.children).indexOf(el);
-        this.getTicketForSprint(ticketId, sprintId, sequenceNumber);
+        this.updateTicketForSprint(ticketId, listId, sequenceNumber, sprintId);
+        console.log(ticketId, sprintId, sequenceNumber, listId);
       })
     );
   }
@@ -155,7 +160,7 @@ export class SprintComponent implements OnInit {
     this.sprintService.finishSprint(sprint).subscribe();
   }
 
-  updateSprintOrder(boardId: number, sprintId: string, sequenceNumber: number) {
+  updateSprintOrder(boardId: number, sprintId: number, sequenceNumber: number) {
     this.configureOrderSprint(boardId, sprintId, sequenceNumber);
     this.sprintService.updateSprintOrder(this.orderSprint);
   }
@@ -196,13 +201,15 @@ export class SprintComponent implements OnInit {
   }
 
   addNewTicket(ticketName: string, sprint: Sprint) {
-    this.configureTicket(ticketName, this.currentBoard.tableLists[0]);
+    const newTicketSequenceNumber = document.getElementById('sprint' + this.currentBoard.backlog.id).children.length;
+    this.configureTicket(ticketName, newTicketSequenceNumber);
     this.sprintService.addTicket(this.addedTicket)
       .subscribe(ticket => sprint.ticketsForBoardResponse.push(ticket));
     this.clickAddNewTicket();
+    console.log(this.addedTicket);
   }
 
-  configureTicket(ticketName: string, list: List) {
+  configureTicket(ticketName: string, newTicketSequenceNumber: number) {
     this.addedTicket = {
       id: null,
       createTime: null,
@@ -212,11 +219,11 @@ export class SprintComponent implements OnInit {
       ticketIssueType: null,
       assignedTo: null,
       expirationDate: null,
-      tableListId: list.id,
+      tableListId: null,
       boardId: this.currentBoard.id,
       createdById: null,
       sprintId: this.currentBoard.backlog.id,
-      sequenceNumber: null
+      sequenceNumber: newTicketSequenceNumber,
     };
   }
 
@@ -235,8 +242,8 @@ export class SprintComponent implements OnInit {
     });
   }
 
-  getTicketForSprint(ticketId: string, sprintId: string, sequenceNumber: number) {
-      this.sprintService.updateOrder(ticketId, sprintId, sequenceNumber);
+  updateTicketForSprint(ticketId: number, listId: number, sequenceNumber: number, sprintId: number) {
+      this.sprintService.updateOrder(ticketId, listId, sequenceNumber, sprintId);
   }
 
   openForm() {

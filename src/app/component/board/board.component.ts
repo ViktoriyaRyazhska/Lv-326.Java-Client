@@ -62,8 +62,8 @@ export class BoardComponent implements OnInit {
     this.subs.add(dragulaService.drop('TICKETS')
       .subscribe(({el, source, target}) => {
         const listId = target.parentElement.parentElement.getAttribute('id');
-        this.configureOrderTicket(Number(el.getAttribute('id')), Number(listId.substring(4, listId.length)),
-          [].slice.call(el.parentElement.children).indexOf(el));
+        this.configureOrderTicket(Number(el.getAttribute('id').split('sprint')[0]), Number(listId.substring(4, listId.length)),
+          [].slice.call(el.parentElement.children).indexOf(el), Number(el.getAttribute('id').split('sprint')[1]));
         this.boardService.updateTicketOrdering(this.orderTicket);
         const targetTicket = el.children[0].children[0].innerHTML;
         const sourceList = source.parentElement.children[0].children[0].children[0].innerHTML;
@@ -84,11 +84,12 @@ export class BoardComponent implements OnInit {
     );
   }
 
-  configureOrderTicket(ticketId: number, listId: number, sequenceNumber: number) {
+  configureOrderTicket(ticketId: number, listId: number, sequenceNumber: number, sprintId: number) {
     this.orderTicket = {
       sequenceNumber: sequenceNumber,
       tableListId: listId,
-      ticketId: ticketId
+      ticketId: ticketId,
+      sprintid: sprintId
     };
   }
 

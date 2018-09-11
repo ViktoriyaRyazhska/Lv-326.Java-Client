@@ -3,8 +3,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Sprint } from '../../models/Sprint';
 import {OrderSprint} from '../../models/OrderSprint';
-import {TicketDto} from '../../models/TicketDto';
 import {Ticket} from '../../models/Ticket';
+import {OrderTicket} from '../../models/OrderTicket';
 
 @Injectable({
   providedIn: 'root'
@@ -70,11 +70,6 @@ export class SprintService {
     return this.http.put<Sprint>(url, sprint, this.createHttpOptions());
   }
 
-  updateTicketForSprint(ticket: TicketDto) {
-    const url = `api/tickets/`;
-    this.http.put(url, ticket, this.createHttpOptions()).subscribe();
-  }
-
   updateSprintOrder(orderSprint: OrderSprint) {
     const url = `${this.simpleUrl}order`;
     this.http.put(url, orderSprint, this.createHttpOptions()).subscribe();
@@ -86,11 +81,13 @@ export class SprintService {
     const name = ticket.name;
     const tableListId = ticket.tableListId;
     const sprintId = ticket.sprintId;
-    return this.http.post<Ticket>(url, {boardId, name, tableListId, sprintId});
+    const sequenceNumber = ticket.sequenceNumber;
+    console.log(ticket);
+    return this.http.post<Ticket>(url, {boardId, name, tableListId, sprintId, sequenceNumber});
   }
 
-  updateOrder(id: string, sprintId: string, sequenceNumber: number) {
-    const url = `api/tickets`;
-    this.http.patch(url, {id, sprintId, sequenceNumber}).subscribe();
+  updateOrder(ticketId: number, listId: number, sequenceNumber: number, sprintId: number) {
+    const url = `api/tickets/order`;
+    this.http.put(url, {ticketId, listId, sequenceNumber, sprintId}).subscribe();
   }
 }

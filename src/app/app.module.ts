@@ -59,7 +59,7 @@ const routes: Routes = [
     HomeComponent,
     LoginComponent,
     TeamComponent,
-    SignupComponent
+    SignupComponent,
   ],
   imports: [
     BrowserModule,

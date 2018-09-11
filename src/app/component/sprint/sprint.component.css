@@ -1,7 +1,3 @@
-.row-eq-height {
-  display: -webkit-box;
-}
-
 .text{
   overflow-x: auto;
 
@@ -117,6 +113,11 @@
   min-height: 0;
 }
 
+.ticket-sprint-wrapper{
+  z-index: 1;
+  min-height: 5px;
+}
+
 .list-tickets {
   background-color: #fff;
   border-radius: 3px;
@@ -147,13 +148,22 @@
 }
 
 .ticket {
+   border-radius: 3px;
+   background-color: white;
+   margin: 10px;
+   padding: 10px;
+ }
+
+.sprint {
   border-radius: 3px;
-  background-color: white;
+  background-color: whitesmoke;
   margin: 10px;
   padding: 10px;
 }
 
 .ticket-sprint {
+  z-index: 1;
+  min-height: 0;
   border-radius: 3px;
   background-color: white;
   margin: 10px;

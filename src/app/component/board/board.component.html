@@ -89,7 +89,7 @@
               </div>
             </div>
             <div class="ticket-list-wrapper" dragula="TICKETS" [(dragulaModel)]="list.ticketsForBoardResponse">
-              <div class="list-tickets" *ngFor="let ticket of list.ticketsForBoardResponse" id="{{ticket.id}}"
+              <div class="list-tickets" *ngFor="let ticket of list.ticketsForBoardResponse" id="{{ticket.id + 'sprint' + ticket.sprintId }}"
                    (click)="getTicket(ticket.id)">
                 <div class="ticket">
                   <span class="ticket-name">{{ticket.name}}</span>

@@ -1,5 +1,5 @@
 <div id="closeForms" (click)="closeForm()"></div>
-<!--<app-ticket [ticketDto]="ticket"></app-ticket>-->
+<app-ticket [ticketDto]="ticket"></app-ticket>
 
   <!--BOARD NANE-->
 <div align="center" class="boardName">{{currentBoard.name}}</div>
@@ -8,14 +8,15 @@
     <!--BACKLOG-->
     <div align="center" class="backlog-name"> <b>{{ currentBoard.backlog.label }}</b></div>
     <!--BACKLOG TICKETS-->
-    <div align="center" dragula="TICKETSINSPRINT" [(dragulaModel)]="currentBoard.backlog.ticketsForBoardResponse" style="background: #e2e4e6; padding: 5px">
-      <div class="ticket text" *ngFor="let ticketBacklog of currentBoard.backlog.ticketsForBoardResponse" id="{{ticketBacklog.id}}"
+    <div class="ticket-sprint-wrapper" align="center" dragula="ITEMS" style="background: #e2e4e6; padding: 5px" id="sprint{{ currentBoard.backlog.id }}">
+      <div class="ticket text" *ngFor="let ticketBacklog of currentBoard.backlog.ticketsForBoardResponse"
+            id="{{ ticketBacklog.id + 'list' + ticketBacklog.tableListId }}"
            (click)="getTicket(ticketBacklog.id)">
-        <span class="ticket-name">{{ticketBacklog.name}}</span>
+        <span class="ticket-name" >{{ ticketBacklog.name }}</span>
       </div>
     </div>
     <div align="center" *ngIf="!isAddNewTicketClicked" style="background: #e2e4e6; padding: 5px">
-      <button type="button" class="btn btn-primary main-button" (click)="clickAddNewTicket(currentBoard.backlog)">Add new issue</button>
+      <span class="glyphicon glyphicon-plus" aria-hidden="true" (click)="clickAddNewTicket(currentBoard.backlog)"> Add new issue</span>
     </div>
     <div *ngIf="isAddNewTicketClicked">
       <input type="text" class="forsm-control form-control" #createTicketField>
@@ -25,72 +26,64 @@
   </div>
 </div>
 
+
 <div class="col-sm-8">
-  <!--ADD BUTTON-->
-  <div style="margin: 10px">
-    <div *ngIf="!isAddSprintButtonClicked">
-      <button type="button" class="btn btn-primary main-button" (click)= "addSprintButtonClick()"> Add Sprint </button>
+  <div class="col-sm-12">
+    <!--TITLE-->
+    <div align="center" class="backlog-name"> <b>Sprints </b>
       <!--SORTING-->
       <label class="radio-inline"><input type="radio" name="optradio" (click)= "noSort()" checked>No Sort</label>
       <label class="radio-inline"><input type="radio" name="optradio" (click)= "sortFuncByName()">By Name</label>
       <label class="radio-inline"><input type="radio" name="optradio" (click)= "sortFuncByStartDate()">By Start Date</label>
-      <!--SORTING-->
+    </div>
+
+    <div class="" align="center" dragula="SPRINTS" [(dragulaModel)]="currentBoard.sprints" style="background: #e2e4e6; padding: 5px">
+      <div class="sprint text" *ngFor="let sprintS of currentBoard.sprints" id="sprint{{ sprintS.id }}"
+           (click)="getSprint(sprintS.id)">
+        <div align="left" class="handle">
+          <button type="button" class="close" aria-label="Close" (click)="moveToArchiveSprint(sprintS)"><span aria-hidden="true">&times;</span></button>
+          <span *ngIf="sprintS.sprintStatus === 'ACTIVE'" style="color: green"> Active</span>
+          <span *ngIf="sprintS.sprintStatus === 'CREATED'" style="color: orange"> Created </span>
+          <span *ngIf="sprintS.sprintStatus === 'COMPLETED'" style="color: darkgrey">Completed</span>
+        </div>
+        <div class="handle">
+          <span *ngIf="!sprintS.isEditSprintClicked">
+            <div class="glyphicon glyphicon-pencil" (click)="editSprintClick(sprintS)"><b>{{sprintS.label}}</b></div>
+          </span>
+          <span *ngIf="sprintS.isEditSprintClicked">
+            <b>{{sprintS.label}}</b>
+            <input #nameField type="text" value="{{sprintS.label}}">
+            <button type="button" class="btn btn-success h2" (click)="editSprint(nameField.value, sprintS)">Set</button>
+            <button type="button" class="btn btn-default h2" (click)="editSprintClick(sprintS)">Back</button>
+          </span>
+        </div>
+        <div class="handle" align="right">
+          <!--BUTTOMS-->
+          <span *ngIf="sprintS.sprintStatus === 'ACTIVE'">
+          <button type="button" class="btn btn-success h2" (click)="openForm()" disabled> Start Sprint </button>
+          <button type="button" class="btn btn-danger h2" (click)="finishSprint(sprintS)">Finish</button>
+          </span>
+          <span *ngIf="sprintS.sprintStatus != 'ACTIVE'">
+          <button type="button" class="btn btn-success h2" (click)="openForm()"> Start Sprint </button>
+          <button type="button" class="btn btn-danger h2" (click)="finishSprint(sprintS)" disabled>Finish</button>
+          </span>
+        </div>
+        <div class="ticket-sprint-wrapper" align="center" dragula="ITEMS">
+          <div class="ticket-sprint text" *ngFor="let ticketS of sprintS.ticketsForBoardResponse" [innerHTML]="ticketS.name"
+               id="{{ ticketS.id  + 'list' + ticketS.tableListId }}"
+               (click)="getTicket(ticketS.id)">
+            <span class="ticket-name">{{ ticketS.name }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div align="center" *ngIf="!isAddSprintButtonClicked" style="background: #e2e4e6; padding: 5px">
+      <span class="glyphicon glyphicon-plus" aria-hidden="true" (click)= "addSprintButtonClick()"> Add new sprint</span>
     </div>
     <div *ngIf="isAddSprintButtonClicked">
       <input type="text" class="forsm-control form-control" #sprintName placeholder="Sprint name">
       <button type="button" class="btn btn-success h2" (click)="addSprint(sprintName.value, currentBoard.id)">Add</button>
       <button type="button" class="btn btn-default h2" (click)="changeButtonClick()">Back</button>
-    </div>
-  </div>
-  <!--SPINTS-->
-  <div dragula="SPRINTS" [(dragulaModel)]="currentBoard.sprints">
-    <!--FOR EACH SPRINT-->
-    <div class="col-sm-12" *ngFor="let sprint of currentBoard.sprints" id="{{sprint.id}}"
-         (click)="getSprint(sprint.id)" style="background: #e2e4e6; margin: 5px; padding: 10px">
-      <!--SPRINT CONTAINER-->
-      <div class="col-sm-8">
-        <div class="col-sm-12">
-          <!--SPRINT STATUS-->
-          <span *ngIf="sprint.sprintStatus === 'ACTIVE'" style="color: green"> Active</span>
-          <span *ngIf="sprint.sprintStatus === 'CREATED'" style="color: orange"> Created </span>
-          <span *ngIf="sprint.sprintStatus === 'COMPLETED'" style="color: darkgrey">Completed</span>
-        </div>
-        <!--EDIT NAME-->
-        <div class="backlog-name">
-          <span *ngIf="!sprint.isEditSprintClicked">
-            <div class="glyphicon glyphicon-pencil" (click)="editSprintClick(sprint)"><b>{{ sprint.label }}</b></div>
-          </span>
-          <span *ngIf="sprint.isEditSprintClicked">
-            <b>{{ sprint.label }}</b>
-            <input #nameField type="text" value="{{sprint.label}}">
-            <button type="button" class="btn btn-success h2" (click)="editSprint(nameField.value, sprint)">Set</button>
-            <button type="button" class="btn btn-default h2" (click)="editSprintClick(sprint)">Back</button>
-          </span>
-        </div>
-      </div>
-      <div class="col-sm-3">
-        <!--BUTTOMS-->
-        <span class="bottom-right" *ngIf="sprint.sprintStatus === 'ACTIVE'">
-          <button type="button" class="btn btn-success main-button" (click)="openForm()" disabled> Start Sprint </button>
-          <button type="button" class="btn btn-danger main-button" (click)="finishSprint(sprint)">Finish</button>
-        </span>
-        <span class="bottom-right" *ngIf="sprint.sprintStatus != 'ACTIVE'">
-          <button type="button" class="btn btn-success main-button" (click)="openForm()"> Start Sprint </button>
-          <button type="button" class="btn btn-danger main-button" (click)="finishSprint(sprint)" disabled>Finish</button>
-        </span>
-      </div>
-      <div class="col-sm-1">
-        <!--TRASH-->
-        <button type="button" class="close" aria-label="Close" (click)="moveToArchiveSprint(sprint)"><span aria-hidden="true">&times;</span></button>
-      </div>
-      <br>
-      <div class="col-sm-12" dragula="TICKETSINSPRINT" [(dragulaModel)]="sprint.ticketsForBoardResponse">
-        <div class="ticket-sprint text" *ngFor="let ticketSprint of sprint.ticketsForBoardResponse" id="{{ticketSprint.id}}"
-             (click)="getTicket(ticketSprint.id)">
-          <div class="ticket-name">{{ticketSprint.name}}</div>
-        </div>
-        <br>
-      </div>
     </div>
   </div>
 </div>
@@ -132,3 +125,5 @@
     </div>
   </div>
 </div>
+
+
