@@ -7,11 +7,10 @@ import {HttpHeaders} from '@angular/common/http';
   templateUrl: './enter-token.component.html',
   styleUrls: ['./enter-token.component.css']
 })
-export class EnterTokenComponent extends BoardService implements OnInit {
+export class EnterTokenComponent implements OnInit {
 
 
   constructor() {
-    super(null);
   }
 
   ngOnInit() {

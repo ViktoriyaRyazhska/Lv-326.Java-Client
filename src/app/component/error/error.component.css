@@ -1,0 +1,11 @@
+.error {
+  padding-top: 15%;
+}
+
+.errorStatus {
+  font-size: 100px;
+}
+
+.errorText {
+  font-size: 70px;
+}

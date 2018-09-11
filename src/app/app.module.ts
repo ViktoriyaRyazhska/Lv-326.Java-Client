@@ -3,7 +3,7 @@ import {NgModule} from '@angular/core';
 
 import {AppComponent} from './app.component';
 import {BoardComponent} from './component/board/board.component';
-import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule, HttpClient} from '@angular/common/http';
 import {AppRoutingModule} from './module/routing/app-routing.module';
 import {RouterModule, Routes} from '@angular/router';
 import {EnterTokenComponent} from './component/enter-token/enter-token.component';
@@ -24,9 +24,10 @@ import {
 } from 'angular-6-social-login';
 import {TeamComponent} from './component/team/team.component';
 import {SignupComponent} from './component/signup/signup.component';
-
-// import { CloudinaryModule } from '@cloudinary/angular-5.x';
-// import * as  Cloudinary from 'cloudinary-core';
+import { UserProfileComponent } from './component/user-profile/user-profile.component';
+import { ErrorComponent } from './component/error/error.component';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 export function getAuthServiceConfigs() {
   const config = new AuthServiceConfig([{
@@ -37,6 +38,14 @@ export function getAuthServiceConfigs() {
   return config;
 }
 
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
+
+export function createTranslateLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
+
 const routes: Routes = [
   {path: 'board/:id', component: BoardComponent},
   {path: 'cabinet', component: UserCabinetComponent},
@@ -44,7 +53,9 @@ const routes: Routes = [
   {path: 'enterToken', component: EnterTokenComponent},
   {path: 'login', component: LoginComponent},
   {path: '', component: HomeComponent},
-  {path: 'signup', component: SignupComponent}
+  {path: 'signup', component: SignupComponent},
+  {path: 'profile', component: UserProfileComponent},
+  {path: 'error', component: ErrorComponent}
 ];
 
 @NgModule({
@@ -59,7 +70,9 @@ const routes: Routes = [
     HomeComponent,
     LoginComponent,
     TeamComponent,
-    SignupComponent
+    SignupComponent,
+    UserProfileComponent,
+    ErrorComponent
   ],
   imports: [
     BrowserModule,
@@ -68,7 +81,14 @@ const routes: Routes = [
     DragulaModule,
     FormsModule,
     SocialLoginModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: (createTranslateLoader),
+        deps: [HttpClient]
+      }
+    })
   ],
   providers: [DragulaService,
     AuthenticationService,

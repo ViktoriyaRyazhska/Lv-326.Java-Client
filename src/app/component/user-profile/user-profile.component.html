@@ -1,0 +1,8 @@
+<p>{{username}}</p>
+<select #selectLanguage name="language" id="language">
+  <option value="en" selected>ENGLISH</option>
+  <option value="uk">УКРАЇНСЬКА</option>
+  <option value="de">DEUTSCH</option>
+  <option value="fr">FRANÇAIS</option>
+</select>
+<button (click)="switchLanguage(selectLanguage.value)">{{"ChangeLanguage" | translate}}</button>

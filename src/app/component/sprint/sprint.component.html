@@ -15,12 +15,12 @@
       </div>
     </div>
     <div align="center" *ngIf="!isAddNewTicketClicked" style="background: #e2e4e6; padding: 5px">
-      <button type="button" class="btn btn-primary main-button" (click)="clickAddNewTicket(currentBoard.backlog)">Add new issue</button>
+      <button type="button" class="btn btn-primary main-button" (click)="clickAddNewTicket(currentBoard.backlog)">{{"Add new issue" | translate}}</button>
     </div>
     <div *ngIf="isAddNewTicketClicked">
       <input type="text" class="forsm-control form-control" #createTicketField>
-      <button type="button" class="btn btn-success h2" (click)="addNewTicket(createTicketField.value, currentBoard.backlog)">Add</button>
-      <button type="button" class="btn btn-default h2" (click)="clickAddNewTicket(currentBoard.backlog)">Back</button>
+      <button type="button" class="btn btn-success h2" (click)="addNewTicket(createTicketField.value, currentBoard.backlog)">{{"Add" | translate}}</button>
+      <button type="button" class="btn btn-default h2" (click)="clickAddNewTicket(currentBoard.backlog)">{{"Back" | translate}}</button>
     </div>
   </div>
 </div>
@@ -29,17 +29,17 @@
   <!--ADD BUTTON-->
   <div style="margin: 10px">
     <div *ngIf="!isAddSprintButtonClicked">
-      <button type="button" class="btn btn-primary main-button" (click)= "addSprintButtonClick()"> Add Sprint </button>
+      <button type="button" class="btn btn-primary main-button" (click)= "addSprintButtonClick()"> {{"Add Sprint" | translate}} </button>
       <!--SORTING-->
-      <label class="radio-inline"><input type="radio" name="optradio" (click)= "noSort()" checked>No Sort</label>
-      <label class="radio-inline"><input type="radio" name="optradio" (click)= "sortFuncByName()">By Name</label>
-      <label class="radio-inline"><input type="radio" name="optradio" (click)= "sortFuncByStartDate()">By Start Date</label>
+      <label class="radio-inline"><input type="radio" name="optradio" (click)= "noSort()" checked>{{"No Sort" | translate}}</label>
+      <label class="radio-inline"><input type="radio" name="optradio" (click)= "sortFuncByName()">{{"By Name" | translate}}</label>
+      <label class="radio-inline"><input type="radio" name="optradio" (click)= "sortFuncByStartDate()">{{"By Start Date" | translate}}</label>
       <!--SORTING-->
     </div>
     <div *ngIf="isAddSprintButtonClicked">
-      <input type="text" class="forsm-control form-control" #sprintName placeholder="Sprint name">
-      <button type="button" class="btn btn-success h2" (click)="addSprint(sprintName.value, currentBoard.id)">Add</button>
-      <button type="button" class="btn btn-default h2" (click)="changeButtonClick()">Back</button>
+      <input type="text" class="forsm-control form-control" #sprintName placeholder="{{'Sprint name' | translate}}">
+      <button type="button" class="btn btn-success h2" (click)="addSprint(sprintName.value, currentBoard.id)">{{"Add" | translate}}</button>
+      <button type="button" class="btn btn-default h2" (click)="changeButtonClick()">{{"Back" | translate}}</button>
     </div>
   </div>
   <!--SPINTS-->
@@ -51,9 +51,9 @@
       <div class="col-sm-8">
         <div class="col-sm-12">
           <!--SPRINT STATUS-->
-          <span *ngIf="sprint.sprintStatus === 'ACTIVE'" style="color: green"> Active</span>
-          <span *ngIf="sprint.sprintStatus === 'CREATED'" style="color: orange"> Created </span>
-          <span *ngIf="sprint.sprintStatus === 'COMPLETED'" style="color: darkgrey">Completed</span>
+          <span *ngIf="sprint.sprintStatus === 'ACTIVE'" style="color: green"> {{"Active" | translate}}</span>
+          <span *ngIf="sprint.sprintStatus === 'CREATED'" style="color: orange"> {{"Created" | translate}} </span>
+          <span *ngIf="sprint.sprintStatus === 'COMPLETED'" style="color: darkgrey">{{"Completed" | translate}}</span>
         </div>
         <!--EDIT NAME-->
         <div class="backlog-name">
@@ -63,20 +63,20 @@
           <span *ngIf="sprint.isEditSprintClicked">
             <b>{{ sprint.label }}</b>
             <input #nameField type="text" value="{{sprint.label}}">
-            <button type="button" class="btn btn-success h2" (click)="editSprint(nameField.value, sprint)">Set</button>
-            <button type="button" class="btn btn-default h2" (click)="editSprintClick(sprint)">Back</button>
+            <button type="button" class="btn btn-success h2" (click)="editSprint(nameField.value, sprint)">{{"Set" | translate}}</button>
+            <button type="button" class="btn btn-default h2" (click)="editSprintClick(sprint)">{{"Back" | translate}}</button>
           </span>
         </div>
       </div>
       <div class="col-sm-3">
         <!--BUTTOMS-->
         <span class="bottom-right" *ngIf="sprint.sprintStatus === 'ACTIVE'">
-          <button type="button" class="btn btn-success main-button" (click)="openForm()" disabled> Start Sprint </button>
-          <button type="button" class="btn btn-danger main-button" (click)="finishSprint(sprint)">Finish</button>
+          <button type="button" class="btn btn-success main-button" (click)="openForm()" disabled> {{"Start Sprint" | translate}} </button>
+          <button type="button" class="btn btn-danger main-button" (click)="finishSprint(sprint)">{{"Finish" | translate}}</button>
         </span>
         <span class="bottom-right" *ngIf="sprint.sprintStatus != 'ACTIVE'">
-          <button type="button" class="btn btn-success main-button" (click)="openForm()"> Start Sprint </button>
-          <button type="button" class="btn btn-danger main-button" (click)="finishSprint(sprint)" disabled>Finish</button>
+          <button type="button" class="btn btn-success main-button" (click)="openForm()"> {{"Start Sprint" | translate}} </button>
+          <button type="button" class="btn btn-danger main-button" (click)="finishSprint(sprint)" disabled>{{"Finish" | translate}}</button>
         </span>
       </div>
       <div class="col-sm-1">
@@ -102,19 +102,19 @@
       </div>
       <div class="col-sm-12">
         <div class="col-sm-12">
-          <div class="col-sm-4 "> <h4>Start Date:</h4> </div>
+          <div class="col-sm-4 "> <h4>{{"Start Date" | translate}}:</h4> </div>
           <div class="col-sm-8">
             <input #startDateField class="form-control" type="date" value="2018-08-28" required="required">
           </div>
         </div>
         <div class="col-sm-12">
-          <div class="col-sm-4 "> <h4>End Date:</h4> </div>
+          <div class="col-sm-4 "> <h4>{{"End Date" | translate}}:</h4> </div>
           <div class="col-sm-8">
             <input #endDateField class="form-control" type="date" value="2018-08-28" required="required">
           </div>
         </div>
         <div class="col-sm-12">
-          <div class="col-sm-4 "><h4 >Goal:</h4></div>
+          <div class="col-sm-4 "><h4 >{{"Goal" | translate}}:</h4></div>
           <div class="col-sm-8">
             <div class="form-group green-border-focus">
               <textarea #goalField type="text" class="form-control" rows="3"></textarea>
@@ -123,9 +123,9 @@
         </div>
         <div>
           <div align="center" class="col-sm-8 col-sm-offset-4">
-            <button class="btn btn-default h2" (click)="closeForm()">Cancel</button>
-            <button class="btn btn-primary h2" (click)="saveSprint(startDateField.value, endDateField.value, goalField.value, currentSprint)">Save</button>
-            <button class="btn btn-success h2" (click)="startSprint(startDateField.value, endDateField.value, goalField.value, currentSprint)">Start</button>
+            <button class="btn btn-default h2" (click)="closeForm()">{{"Back" | translate}}</button>
+            <button class="btn btn-primary h2" (click)="saveSprint(startDateField.value, endDateField.value, goalField.value, currentSprint)">{{"Save" | translate}}</button>
+            <button class="btn btn-success h2" (click)="startSprint(startDateField.value, endDateField.value, goalField.value, currentSprint)">{{"Start" | translate}}</button>
           </div>
         </div>
       </div>
