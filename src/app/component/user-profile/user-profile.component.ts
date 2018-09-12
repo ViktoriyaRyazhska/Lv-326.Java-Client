@@ -33,7 +33,7 @@ export class UserProfileComponent {
 
   switchLanguage(language: string) {
     this.translate.use(language);
+    this.userService.changeChosenLanguage(language);
     localStorage.setItem('language', language);
   }
-
 }

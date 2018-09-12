@@ -6,13 +6,15 @@ import {AuthService} from 'angular-6-social-login';
 import {Router} from '@angular/router';
 import {catchError} from 'rxjs/operators';
 import {ErrorService} from '../error/error.service';
+import {TranslateService} from '@ngx-translate/core';
 
 @Injectable()
 export class AuthenticationService {
   constructor(private http: HttpClient,
               private socialAuthService: AuthService,
               private router: Router,
-              private errorService: ErrorService) {
+              private errorService: ErrorService,
+              private translate: TranslateService) {
   }
 
   login(usernameOrEmail: string, password: string) {
@@ -26,6 +28,7 @@ export class AuthenticationService {
       .pipe(catchError(err => this.errorService.errorHandler(err))).subscribe(token => {
         localStorage.setItem('jwtToken', token.accessToken);
         localStorage.setItem('language', token.chosenLanguage);
+        this.translate.use(token.chosenLanguage);
         this.router.navigate(['/cabinet']);
         return token;
       });
