@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {BoardService} from '../../service/board/board.service';
 import {Board} from '../../models/Board';
 import {List} from '../../models/List';
@@ -10,7 +10,7 @@ import {TicketService} from '../../service/ticket/ticket.service';
 import {TicketDto} from '../../models/TicketDto';
 import {HistoryLog} from '../../models/HistoryLog';
 import {OrderTicket} from '../../models/OrderTicket';
-
+import {Sprint} from '../../models/Sprint';
 
 @Component({
   selector: 'app-board',
@@ -50,6 +50,8 @@ export class BoardComponent implements OnInit {
   existingImagesUrls: string[];
 
   orderTicket: OrderTicket;
+
+  @Input() currentSprint: Sprint;
 
   constructor(private boardService: BoardService,
               private route: ActivatedRoute,
@@ -108,14 +110,24 @@ export class BoardComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (+this.route.snapshot.paramMap.get('id')) {
-      this.getRouteBoard();
+    if (+this.route.snapshot.paramMap.get('boardId')) {
+        this.getRouteBoardForSprint();
+    } else {
+      if (+this.route.snapshot.paramMap.get('id')) {
+        this.getRouteBoard();
+      }
     }
   }
 
   getRouteBoard() {
     const id = +this.route.snapshot.paramMap.get('id');
     this.getBoard(id);
+  }
+
+  getRouteBoardForSprint() {
+    const boardId = +this.route.snapshot.paramMap.get('boardId');
+    const sprintId = +this.route.snapshot.paramMap.get('sprintId');
+    this.getBoardForSprint(boardId, sprintId);
   }
 
   closeForm() {
@@ -132,6 +144,13 @@ export class BoardComponent implements OnInit {
 
   getBoard(id: number) {
     this.boardService.getBoard(id).subscribe(board => {
+      this.currentBoard = board;
+      this.confirmedImage = (board.image) ? board.image : '';
+    });
+  }
+
+  getBoardForSprint(boardId: number, sprntId: number) {
+    this.boardService.getBoardForSprint(boardId, sprntId).subscribe(board => {
       this.currentBoard = board;
       this.confirmedImage = (board.image) ? board.image : '';
     });

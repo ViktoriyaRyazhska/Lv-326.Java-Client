@@ -114,7 +114,20 @@
 
 .ticket-sprint-wrapper{
   z-index: 1;
-  min-height: 10px;
+  min-height: 20px;
+}
+
+.ticket-list-wrapper {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 0 4px;
+  z-index: 1;
+  min-height: 0;
+}
+
+.ticket-name {
+  text-align: center;
 }
 
 .add-new-ticket {
@@ -137,26 +150,6 @@
   margin: 10px;
 }
 
-.ticket-list-wrapper {
-  flex: 1 1 auto;
-  overflow-y: auto;
-  overflow-x: hidden;
-  padding: 0 4px;
-  z-index: 1;
-  min-height: 0;
-}
-
-.ticket-name {
-  text-align: center;
-}
-
-.ticket {
-   border-radius: 3px;
-   background-color: white;
-   margin: 10px;
-   padding: 10px;
- }
-
 .sprint {
   border-radius: 3px;
   background-color: whitesmoke;
@@ -167,6 +160,13 @@
 .ticket-sprint {
   z-index: 1;
   min-height: 0;
+  border-radius: 3px;
+  background-color: white;
+  margin: 10px;
+  padding: 10px;
+}
+
+.ticket {
   border-radius: 3px;
   background-color: white;
   margin: 10px;

@@ -80,7 +80,7 @@ export class SprintComponent implements OnInit {
 
   getRouteSprint() {
     const id = +this.route.snapshot.paramMap.get('id');
-    this.getSprint(id);
+    this.getBoard(id);
   }
 
   getSprint(sprintId: number) {
@@ -153,6 +153,7 @@ export class SprintComponent implements OnInit {
   startSprint(startDate: string, endDate: string, goal: string, sprint: Sprint) {
     this.sprintService.startSprint(startDate, endDate, goal, sprint).subscribe();
     this.getBoard(sprint.boardId);
+    this.moveToBoard(this.currentBoard.id, sprint.id);
   }
 
   finishSprint(sprint: Sprint) {
@@ -222,7 +223,7 @@ export class SprintComponent implements OnInit {
       ticketIssueType: null,
       assignedTo: null,
       expirationDate: null,
-      tableListId: null,
+      tableListId: this.currentBoard.tableLists[0].id,
       boardId: this.currentBoard.id,
       createdById: null,
       sprintId: this.currentBoard.backlog.id,
@@ -247,6 +248,10 @@ export class SprintComponent implements OnInit {
 
   updateTicketForSprint(ticketId: number, listId: string, sequenceNumber: number, sprintId: number) {
       this.sprintService.updateOrder(ticketId, listId, sequenceNumber, sprintId);
+  }
+
+  moveToBoard(boardId: number, sprintId: number) {
+    window.location.href = 'http://localhost:4200/board/'.concat(boardId.toLocaleString()).concat('/sprint/').concat(sprintId.toLocaleString());
   }
 
   openForm() {

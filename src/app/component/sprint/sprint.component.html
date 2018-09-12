@@ -40,12 +40,13 @@
 
     <div class="" align="center" dragula="SPRINTS" [(dragulaModel)]="currentBoard.sprints" style="background: #e2e4e6; padding: 5px">
       <div class="sprint text" *ngFor="let sprintS of currentBoard.sprints" id="{{ sprintS.id }}"
-           (click)="getSprint(sprintS.id)">
+           (click)="getSprint(sprintS.id)" (dblclick)="moveToBoard(currentBoard.id, sprintS.id)">
         <div align="left" class="handle">
           <button type="button" class="close" aria-label="Close" (click)="moveToArchiveSprint(sprintS)"><span aria-hidden="true">&times;</span></button>
-          <span *ngIf="sprintS.sprintStatus === 'ACTIVE'" style="color: green"> Active</span>
-          <span *ngIf="sprintS.sprintStatus === 'CREATED'" style="color: orange"> Created </span>
-          <span *ngIf="sprintS.sprintStatus === 'COMPLETED'" style="color: darkgrey">Completed</span>
+          <a href="http://localhost:4200/board/{{currentBoard.id}}/sprint/{{sprintS.id}}" class="glyphicon glyphicon-check">Show on Board</a>
+          <p *ngIf="sprintS.sprintStatus === 'ACTIVE'" style="color: green"> Active</p>
+          <p *ngIf="sprintS.sprintStatus === 'CREATED'" style="color: orange"> Created </p>
+          <p *ngIf="sprintS.sprintStatus === 'COMPLETED'" style="color: darkgrey">Completed</p>
         </div>
         <div class="handle">
           <span *ngIf="!sprintS.isEditSprintClicked">
@@ -61,12 +62,12 @@
         <div class="handle" align="right">
           <!--BUTTOMS-->
           <span *ngIf="sprintS.sprintStatus === 'ACTIVE'">
-          <button type="button" class="btn btn-success h2" (click)="openForm()" disabled> Start Sprint </button>
-          <button type="button" class="btn btn-danger h2" (click)="finishSprint(sprintS)">Finish</button>
+            <button type="button" class="btn btn-success h2" (click)="openForm()" disabled> Start Sprint </button>
+            <button type="button" class="btn btn-danger h2" (click)="finishSprint(sprintS)">Finish</button>
           </span>
           <span *ngIf="sprintS.sprintStatus != 'ACTIVE'">
-          <button type="button" class="btn btn-success h2" (click)="openForm()"> Start Sprint </button>
-          <button type="button" class="btn btn-danger h2" (click)="finishSprint(sprintS)" disabled>Finish</button>
+            <button type="button" class="btn btn-success h2" (click)="openForm()"> Start Sprint </button>
+            <button type="button" class="btn btn-danger h2" (click)="finishSprint(sprintS)" disabled>Finish</button>
           </span>
         </div>
         <div class="ticket-sprint-wrapper" align="center" dragula="ITEMS">
@@ -119,7 +120,9 @@
           <div align="center" class="col-sm-8 col-sm-offset-4">
             <button class="btn btn-default h2" (click)="closeForm()">Cancel</button>
             <button class="btn btn-primary h2" (click)="saveSprint(startDateField.value, endDateField.value, goalField.value, currentSprint)">Save</button>
-            <button class="btn btn-success h2" (click)="startSprint(startDateField.value, endDateField.value, goalField.value, currentSprint)">Start</button>
+            <a class="btn btn-success h2" (click)="startSprint(startDateField.value, endDateField.value, goalField.value, currentSprint)">
+              Start
+            </a>
           </div>
         </div>
       </div>

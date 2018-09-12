@@ -26,6 +26,11 @@ export class BoardService {
     return this.http.get<Board>(url);
   }
 
+  getBoardForSprint(boardId: number, sprintId: number): Observable<Board> {
+    const url = `${this.simpleUrl}${boardId}/sprint/${sprintId}`;
+    return this.http.get<Board>(url);
+  }
+
   createBoard(board: Board): Observable<Board> {
     const url = `${this.simpleUrl}`;
     return this.http.post<Board>(url, board);
