@@ -10,6 +10,8 @@ import {Subscription} from 'rxjs';
 import {ActivatedRoute} from '@angular/router';
 import {SprintService} from '../../service/sprint/sprint.service';
 import {OrderSprint} from '../../models/OrderSprint';
+import {formatDate} from '@angular/common';
+import {log} from 'util';
 
 @Component({
   selector: 'app-sprint',
@@ -37,6 +39,10 @@ export class SprintComponent implements OnInit {
   subs = new Subscription();
 
   newTicketSequenceNumber: number;
+
+  today = new Date();
+
+  jstoday = '';
 
   constructor(private sprintService: SprintService,
               private boardService: BoardService,
@@ -70,6 +76,7 @@ export class SprintComponent implements OnInit {
         console.log(ticketId, sprintId, sequenceNumber, listId);
       })
     );
+    this.jstoday = formatDate(this.today, 'yyyy-MM-dd', 'en-US', '+0530');
   }
 
   ngOnInit() {
@@ -112,6 +119,8 @@ export class SprintComponent implements OnInit {
       ticketsForBoardResponse: [],
       isEditSprintClicked: false,
       isSaveSprintClicked: false,
+      diffInDays: null,
+      dateOfEnd: null
     };
   }
 
@@ -153,10 +162,10 @@ export class SprintComponent implements OnInit {
   startSprint(startDate: string, endDate: string, goal: string, sprint: Sprint) {
     this.sprintService.startSprint(startDate, endDate, goal, sprint).subscribe();
     this.getBoard(sprint.boardId);
-    this.moveToBoard(this.currentBoard.id, sprint.id);
   }
 
   finishSprint(sprint: Sprint) {
+    sprint.dateOfEnd = this.jstoday;
     this.sprintService.finishSprint(sprint).subscribe();
   }
 
@@ -250,10 +259,6 @@ export class SprintComponent implements OnInit {
       this.sprintService.updateOrder(ticketId, listId, sequenceNumber, sprintId);
   }
 
-  moveToBoard(boardId: number, sprintId: number) {
-    window.location.href = 'http://localhost:4200/board/'.concat(boardId.toLocaleString()).concat('/sprint/').concat(sprintId.toLocaleString());
-  }
-
   openForm() {
     document.getElementById('myForms').style.display = 'flex';
     document.getElementById('closeForms').style.display = 'flex';
@@ -268,6 +273,11 @@ export class SprintComponent implements OnInit {
     this.boardService.getBoard(boardId).subscribe(board => {
       this.currentBoard = board;
     });
+  }
+
+  getDays(sprint: Sprint) {
+    sprint.diffInDays = Math.round((new Date(sprint.endDate.split('Z')[0]).getTime()
+        - new Date(this.jstoday.toLowerCase().concat('T00:00:00')).getTime()) / (1000 * 3600 * 24));
   }
 }
 

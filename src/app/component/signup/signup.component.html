@@ -1,13 +1,13 @@
 <div class="wrapper">
   <form #f="ngForm" class="form-signup">
-    <h2 class="form-signup-heading">Please sign up</h2>
+    <h2 class="form-signup-heading">{{"Please sign up" | translate}}</h2>
     <input type="text" class="form-control" id="username" ngModel name="username"
-           placeholder="Username" required="" autofocus=""/>
+           placeholder="{{'Username' | translate}}" required="" autofocus=""/>
     <input type="text" class="form-control" id="email" ngModel name="email"
-           placeholder="Email" required="" autofocus=""/>
-    <input type="password" class="form-control" id="password" ngModel name="password" placeholder="Password"
+           placeholder="{{'Email' | translate}}" required="" autofocus=""/>
+    <input type="password" class="form-control" id="password" ngModel name="password" placeholder="{{'Password' | translate}}"
            required=""/>
-    <button class="btn btn-lg btn-primary btn-block" type="submit" (click)="signupGeneral(f)">Sign up</button>
+    <button class="btn btn-lg btn-primary btn-block" type="submit" (click)="signupGeneral(f)">{{"Sign Up" | translate}}</button>
   </form>
 </div>
 

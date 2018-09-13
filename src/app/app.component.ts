@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
@@ -7,6 +8,14 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
 
+  constructor(private translate: TranslateService) {
+    const language = localStorage.getItem('language');
+    if (language) {
+      translate.setDefaultLang(language);
+    } else {
+      translate.setDefaultLang('en');
+    }
+  }
 
   closeForm() {
     document.getElementById('myForm').style.display = 'none';

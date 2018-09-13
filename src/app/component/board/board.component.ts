@@ -10,7 +10,7 @@ import {TicketService} from '../../service/ticket/ticket.service';
 import {TicketDto} from '../../models/TicketDto';
 import {HistoryLog} from '../../models/HistoryLog';
 import {OrderTicket} from '../../models/OrderTicket';
-import {Sprint} from '../../models/Sprint';
+import {log} from 'util';
 
 @Component({
   selector: 'app-board',
@@ -51,8 +51,6 @@ export class BoardComponent implements OnInit {
 
   orderTicket: OrderTicket;
 
-  @Input() currentSprint: Sprint;
-
   constructor(private boardService: BoardService,
               private route: ActivatedRoute,
               private dragulaService: DragulaService,
@@ -91,7 +89,7 @@ export class BoardComponent implements OnInit {
       sequenceNumber: sequenceNumber,
       tableListId: listId,
       ticketId: ticketId,
-      sprintid: sprintId
+      sprintId: sprintId
     };
   }
 

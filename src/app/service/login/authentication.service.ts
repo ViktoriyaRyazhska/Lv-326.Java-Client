@@ -4,12 +4,17 @@ import {HttpHeaders} from '@angular/common/http';
 import {TokenModel} from './token/token-model';
 import {AuthService} from 'angular-6-social-login';
 import {Router} from '@angular/router';
+import {catchError} from 'rxjs/operators';
+import {ErrorService} from '../error/error.service';
+import {TranslateService} from '@ngx-translate/core';
 
 @Injectable()
 export class AuthenticationService {
   constructor(private http: HttpClient,
               private socialAuthService: AuthService,
-              private router: Router) {
+              private router: Router,
+              private errorService: ErrorService,
+              private translate: TranslateService) {
   }
 
   login(usernameOrEmail: string, password: string) {
@@ -20,8 +25,10 @@ export class AuthenticationService {
       usernameOrEmail: usernameOrEmail,
       password: password
     }, headers)
-      .subscribe(token => {
+      .pipe(catchError(err => this.errorService.errorHandler(err))).subscribe(token => {
         localStorage.setItem('jwtToken', token.accessToken);
+        localStorage.setItem('language', token.chosenLanguage);
+        this.translate.use(token.chosenLanguage);
         this.router.navigate(['/cabinet']);
         return token;
       });
@@ -29,7 +36,7 @@ export class AuthenticationService {
 
   loginWithGoogle(token: string): void {
     this.http.get<TokenModel>('http://localhost:8080/api/auth/oauth/google?access_token=' + token)
-      .subscribe(jwtToken => {
+      .pipe(catchError(err => this.errorService.errorHandler(err))).subscribe(jwtToken => {
         console.log('Social login with Google was successful');
         localStorage.setItem('jwtToken', jwtToken.accessToken);
         this.router.navigate(['/cabinet']);
@@ -48,8 +55,9 @@ export class AuthenticationService {
     this.http.post<any>(`http://localhost:8080/api/auth/signup`, {
       username: username,
       email: email,
-      password: password
-    }).subscribe();
+      password: password,
+      chosenLanguage: 'en'
+    }).pipe(catchError(err => this.errorService.errorHandler(err))).subscribe();
     this.router.navigate(['/login']);
   }
 }

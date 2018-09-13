@@ -16,4 +16,8 @@ export class Sprint {
   isEditSprintClicked = false;
   isAddSprintClicked: false;
   isSaveSprintClicked: boolean;
+
+  diffInDays: number;
+
+  dateOfEnd: string;
 }
