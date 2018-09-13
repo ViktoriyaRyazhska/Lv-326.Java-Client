@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {BoardService} from '../../service/board/board.service';
 import {Board} from '../../models/Board';
 import {List} from '../../models/List';
@@ -10,7 +10,7 @@ import {TicketService} from '../../service/ticket/ticket.service';
 import {TicketDto} from '../../models/TicketDto';
 import {HistoryLog} from '../../models/HistoryLog';
 import {OrderTicket} from '../../models/OrderTicket';
-
+import {log} from 'util';
 
 @Component({
   selector: 'app-board',
@@ -62,8 +62,8 @@ export class BoardComponent implements OnInit {
     this.subs.add(dragulaService.drop('TICKETS')
       .subscribe(({el, source, target}) => {
         const listId = target.parentElement.parentElement.getAttribute('id');
-        this.configureOrderTicket(Number(el.getAttribute('id')), Number(listId.substring(4, listId.length)),
-          [].slice.call(el.parentElement.children).indexOf(el));
+        this.configureOrderTicket(Number(el.getAttribute('id').split('sprint')[0]), Number(listId.substring(4, listId.length)),
+          [].slice.call(el.parentElement.children).indexOf(el), Number(el.getAttribute('id').split('sprint')[1]));
         this.boardService.updateTicketOrdering(this.orderTicket);
         const targetTicket = el.children[0].children[0].innerHTML;
         const sourceList = source.parentElement.children[0].children[0].children[0].innerHTML;
@@ -84,11 +84,12 @@ export class BoardComponent implements OnInit {
     );
   }
 
-  configureOrderTicket(ticketId: number, listId: number, sequenceNumber: number) {
+  configureOrderTicket(ticketId: number, listId: number, sequenceNumber: number, sprintId: number) {
     this.orderTicket = {
       sequenceNumber: sequenceNumber,
       tableListId: listId,
-      ticketId: ticketId
+      ticketId: ticketId,
+      sprintId: sprintId
     };
   }
 
@@ -107,14 +108,24 @@ export class BoardComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (+this.route.snapshot.paramMap.get('id')) {
-      this.getRouteBoard();
+    if (+this.route.snapshot.paramMap.get('boardId')) {
+        this.getRouteBoardForSprint();
+    } else {
+      if (+this.route.snapshot.paramMap.get('id')) {
+        this.getRouteBoard();
+      }
     }
   }
 
   getRouteBoard() {
     const id = +this.route.snapshot.paramMap.get('id');
     this.getBoard(id);
+  }
+
+  getRouteBoardForSprint() {
+    const boardId = +this.route.snapshot.paramMap.get('boardId');
+    const sprintId = +this.route.snapshot.paramMap.get('sprintId');
+    this.getBoardForSprint(boardId, sprintId);
   }
 
   closeForm() {
@@ -131,6 +142,13 @@ export class BoardComponent implements OnInit {
 
   getBoard(id: number) {
     this.boardService.getBoard(id).subscribe(board => {
+      this.currentBoard = board;
+      this.confirmedImage = (board.image) ? board.image : '';
+    });
+  }
+
+  getBoardForSprint(boardId: number, sprntId: number) {
+    this.boardService.getBoardForSprint(boardId, sprntId).subscribe(board => {
       this.currentBoard = board;
       this.confirmedImage = (board.image) ? board.image : '';
     });

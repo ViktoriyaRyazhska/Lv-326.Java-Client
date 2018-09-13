@@ -34,6 +34,11 @@ export class BoardService {
     return this.http.get<Board>(url).pipe(catchError(err => this.errorService.errorHandler(err)));
   }
 
+  getBoardForSprint(boardId: number, sprintId: number): Observable<Board> {
+    const url = `${this.simpleUrlBoard}${boardId}/sprint/${sprintId}`;
+    return this.http.get<Board>(url).pipe(catchError(err => this.errorService.errorHandler(err)));
+  }
+
   createBoard(board: Board): Observable<Board> {
     const url = `${this.simpleUrlBoard}`;
     return this.http.post<Board>(url, board).pipe(catchError(err => this.errorService.errorHandler(err)));

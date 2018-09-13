@@ -1,10 +1,5 @@
-.row-eq-height {
-  display: -webkit-box;
-}
-
 .text{
   overflow-x: auto;
-
 }
 
 .backlog-name{
@@ -76,7 +71,7 @@
   left: calc(50% - 210px);
 }
 
-.sprint{
+.sprintS{
   margin: 40px;
 }
 
@@ -117,6 +112,28 @@
   min-height: 0;
 }
 
+.ticket-sprint-wrapper{
+  z-index: 1;
+  min-height: 20px;
+}
+
+.ticket-list-wrapper {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 0 4px;
+  z-index: 1;
+  min-height: 0;
+}
+
+.ticket-name {
+  text-align: center;
+}
+
+.add-new-ticket {
+  color: cadetblue;
+}
+
 .list-tickets {
   background-color: #fff;
   border-radius: 3px;
@@ -133,27 +150,23 @@
   margin: 10px;
 }
 
-.ticket-list-wrapper {
-  flex: 1 1 auto;
-  overflow-y: auto;
-  overflow-x: hidden;
-  padding: 0 4px;
+.sprint {
+  border-radius: 3px;
+  background-color: whitesmoke;
+  margin: 10px;
+  padding: 10px;
+}
+
+.ticket-sprint {
   z-index: 1;
   min-height: 0;
-}
-
-.ticket-name {
-  text-align: center;
-}
-
-.ticket {
   border-radius: 3px;
   background-color: white;
   margin: 10px;
   padding: 10px;
 }
 
-.ticket-sprint {
+.ticket {
   border-radius: 3px;
   background-color: white;
   margin: 10px;

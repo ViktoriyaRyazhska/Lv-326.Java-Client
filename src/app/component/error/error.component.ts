@@ -16,7 +16,7 @@ export class ErrorComponent implements OnInit {
 
   ngOnInit() {
     this.errorStatus = localStorage.getItem('errorStatus');
-    if(this.errorStatus === '401') {
+    if (this.errorStatus === '401') {
       this.errorText = 'You can\'t see this page';
     } else {
       this.errorText = 'Something goes wrong';

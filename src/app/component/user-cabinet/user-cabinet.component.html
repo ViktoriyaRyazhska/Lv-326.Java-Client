@@ -53,7 +53,12 @@
 
       <div *ngIf="boards" class="wraper">
         <div *ngFor="let board of boards">
-          <a routerLink='../board/{{board.id}}'>
+          <a *ngIf="board.boardType === 'CUSTOM'" routerLink='../board/{{board.id}}'>
+            <div class="box">
+              {{board.name}}
+            </div>
+          </a>
+          <a *ngIf="board.boardType === 'SCRUM'" routerLink='../sprints/{{board.id}}'>
             <div class="box">
               {{board.name}}
             </div>

@@ -10,7 +10,6 @@ import {EnterTokenComponent} from './component/enter-token/enter-token.component
 import {DragulaModule, DragulaService} from 'ng2-dragula';
 import {UserCabinetComponent} from './component/user-cabinet/user-cabinet.component';
 import {TicketComponent} from './component/ticket/ticket.component';
-import {SprintComponent} from './component/sprint/sprint.component';
 import {HeaderComponent} from './component/header/header.component';
 import {HomeComponent} from './component/home/home.component';
 import {LoginComponent} from './component/login/login.component';
@@ -24,6 +23,11 @@ import {
 } from 'angular-6-social-login';
 import {TeamComponent} from './component/team/team.component';
 import {SignupComponent} from './component/signup/signup.component';
+import {SprintComponent} from './component/sprint/sprint.component';
+
+// import { CloudinaryModule } from '@cloudinary/angular-5.x';
+// import * as  Cloudinary from 'cloudinary-core';
+
 import { UserProfileComponent } from './component/user-profile/user-profile.component';
 import { ErrorComponent } from './component/error/error.component';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
@@ -48,12 +52,14 @@ export function createTranslateLoader(http: HttpClient) {
 
 const routes: Routes = [
   {path: 'board/:id', component: BoardComponent},
+  {path: 'board/:boardId/sprint/:sprintId', component: BoardComponent},
   {path: 'cabinet', component: UserCabinetComponent},
   {path: 'teams/:id', component: TeamComponent},
   {path: 'enterToken', component: EnterTokenComponent},
   {path: 'login', component: LoginComponent},
   {path: '', component: HomeComponent},
   {path: 'signup', component: SignupComponent},
+  {path: 'sprints/:id', component: SprintComponent},
   {path: 'profile', component: UserProfileComponent},
   {path: 'error', component: ErrorComponent}
 ];
