@@ -71,5 +71,10 @@
   "Description": "Опис",
   "Save name": "Зберегти ім'я",
   "Created by": "Створений",
-  "Assigned to": "Присвоєно"
+  "Assigned to": "Присвоєно",
+  "Firstname": "Ім'я",
+  "Change": "Змінити",
+  "Lastname": "Прізвище",
+  "Change firstname or lastname": "Змінити ім'я або прізвище",
+  "Change password": "Змінити пароль"
 }

@@ -9,6 +9,8 @@ export class ErrorComponent implements OnInit {
 
   errorText: string;
 
+  editedText: string;
+
   errorStatus: string;
 
   constructor() {
@@ -16,10 +18,11 @@ export class ErrorComponent implements OnInit {
 
   ngOnInit() {
     this.errorStatus = localStorage.getItem('errorStatus');
+    this.errorText = localStorage.getItem('errorText');
     if (this.errorStatus === '401') {
-      this.errorText = 'You can\'t see this page';
+      this.editedText = 'You can\'t see this page';
     } else {
-      this.errorText = 'Something goes wrong';
+      this.editedText = 'Something went wrong';
     }
   }
 

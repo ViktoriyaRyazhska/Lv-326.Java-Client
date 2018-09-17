@@ -217,7 +217,6 @@ export class BoardComponent implements OnInit {
   }
 
   addNewTicket(ticketName: string, list: List) {
-    console.log(document.getElementById('list' + list.id).children[0].children[1].children.length);
     const newTicketSequenceNumber = document.getElementById('list' + list.id).children[0].children[1].children.length;
     this.configureTicket(ticketName, list, newTicketSequenceNumber);
     if (ticketName !== '') {

@@ -1,8 +1,27 @@
-<p>{{username}}</p>
-<select #selectLanguage name="language" id="language">
-  <option value="en" selected>ENGLISH</option>
-  <option value="uk">УКРАЇНСЬКА</option>
-  <option value="de">DEUTSCH</option>
-  <option value="fr">FRANÇAIS</option>
-</select>
-<button (click)="switchLanguage(selectLanguage.value)">{{"ChangeLanguage" | translate}}</button>
+<div class="profile-wrapper">
+  <div class="change-firstname-lastname">
+    <h2>{{"Change firstname or lastname" | translate}}</h2>
+    <div *ngIf="!isFirstAndLastNameEditable">
+      {{"Firstname" | translate}}: {{firstName}}<br>
+      {{"Lastname" | translate}}: {{lastName}}<br>
+      <button (click)="changeIsFirstAndLastNameEditable()">{{"Edit" | translate}}</button>
+    </div>
+    <div *ngIf="isFirstAndLastNameEditable">
+      {{"Firstname" | translate}}: <input type="text" #first value="{{firstName}}"><br>
+      {{"Lastname" | translate}}: <input type="text" #last value="{{lastName}}"><br>
+      <button (click)="changeFirstAndLastName(first.value, last.value)">{{"Change" | translate}}</button>
+      <button (click)="changeIsFirstAndLastNameEditable()">{{"Back" | translate}}</button>
+    </div>
+  </div>
+  <br>
+  <div class="change-language">
+    <h2>{{"ChangeLanguage" | translate}}</h2>
+    <select #selectLanguage name="language" id="language">
+      <option value="en" selected>ENGLISH</option>
+      <option value="uk">УКРАЇНСЬКА</option>
+      <option value="de">DEUTSCH</option>
+      <option value="fr">FRANÇAIS</option>
+    </select>
+    <button (click)="switchLanguage(selectLanguage.value)">OK</button>
+  </div>
+</div>

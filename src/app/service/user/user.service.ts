@@ -23,4 +23,12 @@ export class UserService {
   changeChosenLanguage(language: string) {
     this.http.patch(this.url + '/language', language).subscribe();
   }
+
+  changeFirstAndLastName(newFirstName: string, newLastName: string) {
+    this.http.patch(this.url + '/name', {firstName: newFirstName, lastName: newLastName}).subscribe();
+  }
+
+  changePassword(currentPass: string, newPass: string) {
+
+  }
 }

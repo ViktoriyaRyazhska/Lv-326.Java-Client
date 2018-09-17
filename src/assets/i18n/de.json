@@ -71,5 +71,10 @@
   "Description": "Beschreibung",
   "Save name": "Name speichern",
   "Created by": "Erstellt von",
-  "Assigned to": "Zugewiesen an"
+  "Assigned to": "Zugewiesen an",
+  "Firstname": "Vorname",
+  "Change": "Veränderung",
+  "Lastname": "Familienname",
+  "Change firstname or lastname": "Ändere Vorname oder Nachname",
+  "Change password": "Passwort ändern"
 }

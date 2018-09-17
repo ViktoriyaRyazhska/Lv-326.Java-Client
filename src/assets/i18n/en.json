@@ -71,5 +71,10 @@
   "Description": "Description",
   "Save name": "Save name",
   "Created by": "Created by",
-  "Assigned to": "Assigned to"
+  "Assigned to": "Assigned to",
+  "Firstname": "Firstname",
+  "Change": "Change",
+  "Lastname": "Lastname",
+  "Change firstname or lastname": "Change firstname or lastname",
+  "Change password": "Change password"
 }

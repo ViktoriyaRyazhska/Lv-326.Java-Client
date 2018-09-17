@@ -83,7 +83,6 @@ export class SprintService {
     const tableListId = ticket.tableListId;
     const sprintId = ticket.sprintId;
     const sequenceNumber = ticket.sequenceNumber;
-    console.log(ticket);
     return this.http.post<Ticket>(url, {boardId, name, tableListId, sprintId, sequenceNumber})
       .pipe(catchError(err => this.errorService.errorHandler(err)));
   }
