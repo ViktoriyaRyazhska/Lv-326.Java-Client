@@ -21,8 +21,8 @@ export class LoginComponent implements OnInit {
 
   passwordControl: FormControl = new FormControl('', [
     Validators.required,
-    Validators.minLength(6),
-    Validators.maxLength(16),
+    Validators.minLength(8),
+    Validators.maxLength(32),
   ]);
 
   constructor(private authService: AuthenticationService,
