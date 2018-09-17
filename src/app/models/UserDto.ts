@@ -1,8 +1,8 @@
 export class UserDto {
   id: number;
   username: string;
-  firstname: string;
-  lastname: string;
+  firstName: string;
+  lastName: string;
   email: string;
 
   constructor() {

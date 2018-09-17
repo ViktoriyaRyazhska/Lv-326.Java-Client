@@ -60,7 +60,6 @@ export class SprintComponent implements OnInit {
         const sequenceNumber = [].slice.call(el.parentElement.children).indexOf(el);
         const boardId = this.currentBoard.id;
         this.updateSprintOrder(boardId, sprintId, sequenceNumber);
-        console.log(sprintId, sequenceNumber, boardId);
       })
     );
     dragulaService.createGroup('ITEMS', {
@@ -73,7 +72,6 @@ export class SprintComponent implements OnInit {
         const listId = el.getAttribute('id').split('list')[1];
         const sequenceNumber = [].slice.call(el.parentElement.children).indexOf(el);
         this.updateTicketForSprint(ticketId, listId, sequenceNumber, sprintId);
-        console.log(ticketId, sprintId, sequenceNumber, listId);
       })
     );
     this.jstoday = formatDate(this.today, 'yyyy-MM-dd', 'en-US', '+0530');
@@ -101,7 +99,6 @@ export class SprintComponent implements OnInit {
     this.sprintService.addSprint(this.currentBoard.id, this.addedSprint)
       .subscribe(sprint => this.currentBoard.sprints.push(sprint));
     this.isAddSprintButtonClicked = false;
-    console.log(this.addedSprint);
   }
 
   configureSprint(sprintName: string) {
@@ -190,12 +187,6 @@ export class SprintComponent implements OnInit {
     }
   }
 
-  deleteSprint(sprint: Sprint) {
-    if (confirm(`Delete sprint ${sprint.label}`)) {
-      this.sprintService.deleteSprint(sprint.id).subscribe();
-    }
-  }
-
   addSprintButtonClick() {
     this.isAddSprintButtonClicked = !this.isAddSprintButtonClicked;
   }
@@ -219,7 +210,6 @@ export class SprintComponent implements OnInit {
     this.sprintService.addTicket(this.addedTicket)
       .subscribe(ticket => sprint.ticketsForBoardResponse.push(ticket));
     this.clickAddNewTicket();
-    console.log(this.addedTicket);
   }
 
   configureTicket(ticketName: string, newTicketSequenceNumber: number) {
